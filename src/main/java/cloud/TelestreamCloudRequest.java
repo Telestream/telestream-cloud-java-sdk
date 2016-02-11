@@ -43,27 +43,44 @@ public class TelestreamCloudRequest {
         this.timestamp = builder.timestamp;
     }
 
-    public String send() throws IOException {
-        String result;
-        String pathWithParams = apiVersion() + path + "?" + canonicalQueryString(getSignedParams());
-
-        URL url = new URL(apiProtocol().name(), credentials.getApiHost(), apiPort(), pathWithParams);
-
-        boolean isUploadingFile = httpMethod.equals(HttpMethod.POST) && data.containsKey(KEY_FILE);
-
-        if(isUploadingFile) {
-            MultipartUploader multipart = new MultipartUploader(url.toString(), Utils.UTF_8);
-            multipart.addFilePart(KEY_FILE, (File) data.get(KEY_FILE));
-            result = multipart.finish().get(0);
-        } else {
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod(httpMethod.name());
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            result = Utils.readInput(is);
+    public String send() {
+        try {
+           return sendRequestForResult();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
+    }
 
-        return result;
+    private String sendRequestForResult() throws IOException {
+        URL url = buildRequestUrl();
+        return isUploadingFile() ? getMultipartResponse(url) : getResponse(url);
+    }
+
+    private URL buildRequestUrl() throws IOException {
+        return new URL(apiProtocol().name(), credentials.getApiHost(), apiPort(), pathWithParams());
+    }
+
+    private boolean isUploadingFile() {
+        return httpMethod.equals(HttpMethod.POST) && data.containsKey(KEY_FILE);
+    }
+
+    private String getMultipartResponse(URL url) throws IOException {
+        MultipartUploader multipart = new MultipartUploader(url.toString(), Utils.UTF_8);
+        multipart.addFilePart(KEY_FILE, (File) data.get(KEY_FILE));
+        return multipart.finish().get(0);
+    }
+
+    private String getResponse(URL url) throws IOException {
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod(httpMethod.name());
+        conn.connect();
+        InputStream is = conn.getInputStream();
+        return Utils.readInput(is);
+    }
+
+    private String pathWithParams() {
+        return apiVersion() + path + "?" + canonicalQueryString(getSignedParams());
     }
 
     private static String canonicalQueryString(Map<String,Object> params) {

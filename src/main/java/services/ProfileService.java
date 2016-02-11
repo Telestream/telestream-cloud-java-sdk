@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import objects.Profile;
 import utils.GsonHelper;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class ProfileService extends ApiService<Profile> {
         }
     }
 
-    public Profile save(Profile profile) throws IOException {
+    public Profile save(Profile profile) {
         TelestreamCloudRequest request = new TelestreamCloudRequest.Builder(credentials)
                 .put()
                 .apiPath(pathWithId(profile.getId()))

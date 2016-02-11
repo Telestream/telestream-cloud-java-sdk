@@ -50,7 +50,7 @@ public class UploadSession {
     }
 
     public static UploadSession init(TelestreamCloudCredentials credentials, String factoryId,
-                                     File file, Map<String, Object> params) throws IOException {
+                                     File file, Map<String, Object> params) {
         UploadSession uploadSession = new UploadSession(file);
 
         Map<String, Object> uploadParams = new HashMap<>();

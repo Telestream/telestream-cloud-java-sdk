@@ -5,7 +5,6 @@ import cloud.TelestreamCloudRequest;
 import com.google.gson.reflect.TypeToken;
 import objects.Encoding;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -63,7 +62,7 @@ public class EncodingService extends ApiService<Encoding> {
         }
     }
 
-    public String retry(String encodingId) throws IOException {
+    public String retry(String encodingId) {
         if(factoryId == null || encodingId == null)
             throw new IllegalStateException("Factory Id or Encoding Id are null.");
 
@@ -75,7 +74,7 @@ public class EncodingService extends ApiService<Encoding> {
         return builder.build().send();
     }
 
-    public String cancel(String encodingId) throws IOException {
+    public String cancel(String encodingId) {
         if(factoryId == null || encodingId == null)
             throw new IllegalStateException("Factory Id or Encoding Id are null.");
 

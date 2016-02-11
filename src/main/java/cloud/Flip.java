@@ -1,7 +1,7 @@
 package cloud;
 
-import services.FactoryService;
 import objects.Factory;
+import services.FactoryService;
 
 /**
  * Created by maciejwitowski on 1/18/16.

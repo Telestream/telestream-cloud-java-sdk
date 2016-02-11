@@ -24,7 +24,7 @@ public class MultipartUploader {
      * @throws IOException
      */
     public MultipartUploader(String requestURL, String charset)
-            throws IOException {
+        throws IOException {
         this.charset = charset;
 
         // creates a unique boundary based on time stamp

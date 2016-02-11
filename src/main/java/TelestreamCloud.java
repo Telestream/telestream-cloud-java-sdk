@@ -2,14 +2,13 @@ import cloud.Flip;
 import cloud.Resource;
 import cloud.TelestreamCloudCredentials;
 import cloud.TelestreamCloudRequest;
-import services.EncodingService;
-import services.ProfileService;
-import services.VideoService;
 import objects.Encoding;
 import objects.Profile;
 import objects.Video;
+import services.EncodingService;
+import services.ProfileService;
+import services.VideoService;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -36,11 +35,11 @@ public class TelestreamCloud {
         this.credentials.setApiVersion(apiVersion);
     }
 
-    public String signedParams(String httpMethod, String path) throws IOException {
+    public String signedParams(String httpMethod, String path) {
         return signedParams(httpMethod, path, null);
     }
 
-    public String signedParams(String httpMethod, String path, Map<String, Object> params) throws IOException {
+    public String signedParams(String httpMethod, String path, Map<String, Object> params) {
         return new TelestreamCloudRequest.Builder(credentials)
                 .httpMethod(httpMethod)
                 .apiPath(path)
@@ -62,51 +61,51 @@ public class TelestreamCloud {
         return null;
     }
 
-    public List<Video> getVideos(String factoryId) throws IOException {
+    public List<Video> getVideos(String factoryId) {
         return VideoService.forFactory(credentials, factoryId).all();
     }
 
-    public Video getVideo(String factoryId, String videoId) throws IOException {
+    public Video getVideo(String factoryId, String videoId) {
         return VideoService.forFactory(credentials, factoryId).find(videoId);
     }
 
-    public List<Profile> getProfiles(String factoryId) throws IOException {
+    public List<Profile> getProfiles(String factoryId) {
         return ProfileService.forFactory(credentials, factoryId).all();
     }
 
-    public Profile getProfile(String factoryId, String profileId) throws IOException {
+    public Profile getProfile(String factoryId, String profileId) {
         return ProfileService.forFactory(credentials, factoryId).find(profileId);
     }
 
-    public List<Encoding> getEncodings(String factoryId) throws IOException {
+    public List<Encoding> getEncodings(String factoryId) {
         return EncodingService.forFactory(credentials, factoryId).all();
     }
 
-    public Encoding getEncoding(String factoryId, String encodingId) throws IOException {
+    public Encoding getEncoding(String factoryId, String encodingId) {
         return EncodingService.forFactory(credentials, factoryId).find(encodingId);
     }
 
-    public Encoding createEncoding(String factoryId, Map<String, Object> params) throws IOException {
+    public Encoding createEncoding(String factoryId, Map<String, Object> params) {
         return EncodingService.forFactory(credentials, factoryId).create(params);
     }
 
-    public Profile createProfile(String factoryId, Map<String, Object> params) throws IOException {
+    public Profile createProfile(String factoryId, Map<String, Object> params) {
         return ProfileService.forFactory(credentials, factoryId).create(params);
     }
 
-    public Video createVideo(String factoryId, Map<String, Object> params) throws IOException {
+    public Video createVideo(String factoryId, Map<String, Object> params) {
         return VideoService.forFactory(credentials, factoryId).create(params);
     }
 
-    public String deleteProfile(String factoryId, String profileId) throws IOException {
+    public String deleteProfile(String factoryId, String profileId) {
         return ProfileService.forFactory(credentials, factoryId).delete(profileId);
     }
 
-    public String deleteVideo(String factoryId, String videoId) throws IOException {
+    public String deleteVideo(String factoryId, String videoId) {
         return VideoService.forFactory(credentials, factoryId).delete(videoId);
     }
 
-    public String deleteEncoding(String factoryId, String encodingId) throws IOException {
+    public String deleteEncoding(String factoryId, String encodingId) {
         return EncodingService.forFactory(credentials, factoryId).delete(encodingId);
     }
 }

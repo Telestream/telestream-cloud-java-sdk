@@ -9,7 +9,6 @@ import objects.Notifications;
 import utils.GsonHelper;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -60,19 +59,19 @@ public class FactoryService extends ApiService<Factory> {
         return ProfileService.forFactory(credentials, factoryId);
     }
 
-    public Notifications getNotifications(String factoryId) throws IOException {
+    public Notifications getNotifications(String factoryId) {
         return NotificationsService
                 .forFactory(credentials, factoryId)
                 .get();
     }
 
-    public Notifications updateNotifications(String factoryId, Notifications notifications) throws IOException {
+    public Notifications updateNotifications(String factoryId, Notifications notifications) {
         return NotificationsService
                 .forFactory(credentials, factoryId)
                 .save(notifications);
     }
 
-    public Factory save(Factory factory) throws IOException {
+    public Factory save(Factory factory) {
         TelestreamCloudRequest request = new TelestreamCloudRequest.Builder(credentials)
                 .put()
                 .apiPath(pathWithId(factory.getId()))
@@ -87,7 +86,7 @@ public class FactoryService extends ApiService<Factory> {
         throw new IllegalStateException("Factory cannot be deleted.");
     }
 
-    public UploadSession initUploadSession(String factoryId, File file, Map<String, Object> params) throws IOException {
+    public UploadSession initUploadSession(String factoryId, File file, Map<String, Object> params) {
         return UploadSession.init(credentials, factoryId, file, params);
     }
 }

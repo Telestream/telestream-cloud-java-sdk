@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import objects.Notifications;
 import utils.GsonHelper;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 
 /**
@@ -30,7 +29,7 @@ public class NotificationsService {
         return service;
     }
 
-    public Notifications get() throws IOException {
+    public Notifications get() {
         TelestreamCloudRequest request = new TelestreamCloudRequest.Builder(credentials)
                 .get()
                 .apiPath(PATH)
@@ -42,7 +41,7 @@ public class NotificationsService {
         return GsonHelper.get().fromJson(response, TYPE_NOTIFICATION);
     }
 
-    public Notifications save(Notifications notifications) throws IOException {
+    public Notifications save(Notifications notifications) {
         TelestreamCloudRequest request = new TelestreamCloudRequest.Builder(credentials)
                 .put()
                 .apiPath(PATH)

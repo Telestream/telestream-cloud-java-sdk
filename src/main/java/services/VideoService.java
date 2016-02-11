@@ -5,7 +5,6 @@ import cloud.TelestreamCloudRequest;
 import com.google.gson.reflect.TypeToken;
 import objects.Video;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -60,7 +59,7 @@ public class VideoService extends ApiService<Video> {
         }
     }
 
-    public String metadata(String videoId) throws IOException {
+    public String metadata(String videoId) {
         if(factoryId == null || videoId == null)
             throw new IllegalStateException("Factory Id or Video Id are null.");
 
@@ -72,7 +71,7 @@ public class VideoService extends ApiService<Video> {
         return builder.build().send();
     }
 
-    public String deleteSourceFile(String videoId) throws IOException {
+    public String deleteSourceFile(String videoId) {
         if(factoryId == null || videoId == null)
             throw new IllegalStateException("Factory Id or Video Id are null.");
 

@@ -5,7 +5,6 @@ import cloud.TelestreamCloudRequest;
 import com.google.gson.Gson;
 import utils.GsonHelper;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public abstract class ApiService<T> {
 
     private Gson gson = GsonHelper.get();
 
-    public List<T> all() throws IOException {
+    public List<T> all() {
         TelestreamCloudRequest.Builder requestBuilder = new TelestreamCloudRequest.Builder(credentials)
                 .get()
                 .apiPath(path());
@@ -35,7 +34,7 @@ public abstract class ApiService<T> {
         return gson.fromJson(response, collectionType());
     }
 
-    public T find(String id) throws IOException {
+    public T find(String id) {
         TelestreamCloudRequest.Builder requestBuilder = new TelestreamCloudRequest.Builder(credentials)
                 .get()
                 .apiPath(pathWithId(id));
@@ -47,7 +46,7 @@ public abstract class ApiService<T> {
         return gson.fromJson(response, itemType());
     }
 
-    public T create(Map<String, Object> data) throws IOException {
+    public T create(Map<String, Object> data) {
         TelestreamCloudRequest.Builder requestBuilder = new TelestreamCloudRequest.Builder(credentials)
                 .post()
                 .apiPath(path())
@@ -59,7 +58,7 @@ public abstract class ApiService<T> {
         return gson.fromJson(response, itemType());
     }
 
-    public String delete(String id) throws IOException {
+    public String delete(String id) {
         TelestreamCloudRequest.Builder requestBuilder = new TelestreamCloudRequest.Builder(credentials)
                 .delete()
                 .apiPath(pathWithId(id));
