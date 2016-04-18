@@ -21,14 +21,14 @@ public class Video {
     private final Integer audioChannels;
     private final Integer videoBitrate;
     private final String originalFilename;
-    private final Integer fileSize;
+    private final Long fileSize;
     private final Integer duration;
     private final String videoCodec;
     private final String path;
     private final String mimeType;
     private final Integer audioBitrate;
 
-    public Video(String id, Status status, String extname, Integer audioSampleRate, String audioCodec, Float fps, Date createdAt, Date updatedAt, String sourceUrl, Integer width, Integer height, Integer audioChannels, Integer videoBitrate, String originalFilename, Integer fileSize, Integer duration, String videoCodec, String path, String mimeType, Integer audioBitrate) {
+    public Video(String id, Status status, String extname, Integer audioSampleRate, String audioCodec, Float fps, Date createdAt, Date updatedAt, String sourceUrl, Integer width, Integer height, Integer audioChannels, Integer videoBitrate, String originalFilename, Long fileSize, Integer duration, String videoCodec, String path, String mimeType, Integer audioBitrate) {
         this.id = id;
         this.status = status;
         this.extname = extname;
@@ -107,7 +107,7 @@ public class Video {
         return originalFilename;
     }
 
-    public Integer getFileSize() {
+    public Long getFileSize() {
         return fileSize;
     }
 

@@ -16,7 +16,7 @@ public class Encoding {
     private final Date createdAt;
     private final Date updatedAt;
     private final String audioCodec;
-    private final Integer fileSize;
+    private final Long fileSize;
     private final Integer duration;
     private final Integer encodingTime;
     private final Integer encodingProgress;
@@ -33,7 +33,7 @@ public class Encoding {
     private final Integer videoBitrate;
     private final String videoCodec;
 
-    public Encoding(String id, Status status, List<String> files, String profileId, String profileName, Date createdAt, Date updatedAt, String audioCodec, Integer fileSize, Integer duration, Integer encodingTime, Integer encodingProgress, String fps, String mimeType, Integer audioChannels, String logfileUrl, Integer audioBitrate, String path, Integer audioSampleRate, Date startedEncodingAt, String videoId, String extname, Integer videoBitrate, String videoCodec) {
+    public Encoding(String id, Status status, List<String> files, String profileId, String profileName, Date createdAt, Date updatedAt, String audioCodec, Long fileSize, Integer duration, Integer encodingTime, Integer encodingProgress, String fps, String mimeType, Integer audioChannels, String logfileUrl, Integer audioBitrate, String path, Integer audioSampleRate, Date startedEncodingAt, String videoId, String extname, Integer videoBitrate, String videoCodec) {
         this.id = id;
         this.status = status;
         this.files = files;
@@ -92,7 +92,7 @@ public class Encoding {
         return audioCodec;
     }
 
-    public Integer getFileSize() {
+    public Long getFileSize() {
         return fileSize;
     }
 
