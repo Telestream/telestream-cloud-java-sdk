@@ -83,24 +83,23 @@ public class UploadSession {
         startFromPosition(0);
     }
 
-    private void startFromPosition(int position) throws IOException {
+    private void startFromPosition(long position) throws IOException {
         if(uploadStatus != UploadStatus.INITIALIZED)
             throw new IllegalStateException("Already started");
 
         uploadStatus = UploadStatus.UPLOADING;
 
         byte[] buffer = new byte[CHUNK_SIZE];
-        int counter = 0;
-        int index;
+        long counter = 0;
+        long index;
         int bytesRead;
 
         try {
             FileInputStream inputStream = new FileInputStream(file);
+            inputStream.getChannel().position(position);
 
-            while ((bytesRead = inputStream.read(buffer, position, CHUNK_SIZE)) != -1) {
-                index = counter * CHUNK_SIZE;
-
-                if(counter == 2) break;
+            while ((bytesRead = inputStream.read(buffer, 0, CHUNK_SIZE)) != -1) {
+                index = counter * (long)CHUNK_SIZE;
 
                 ChunkUploader.HttpResponse response = new ChunkUploader(location, position + index,
                         position + index + CHUNK_SIZE-1, fileSize, bytesRead).uploadChunk(buffer);
@@ -141,7 +140,7 @@ public class UploadSession {
         if(rangeHeader != null) {
             String rangeEnd = rangeHeader.split("-")[1];
             uploadStatus = UploadStatus.INITIALIZED;
-            startFromPosition(Integer.valueOf(rangeEnd));
+            startFromPosition(Long.valueOf(rangeEnd));
         }
     }
 

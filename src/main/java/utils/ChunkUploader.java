@@ -16,7 +16,7 @@ public class ChunkUploader {
     private PrintWriter writer;
     private final int contentLength;
 
-    public ChunkUploader(String requestURL, int rangeStart, int rangeEnd, long fileSize, int contentLength)
+    public ChunkUploader(String requestURL, long rangeStart, long rangeEnd, long fileSize, int contentLength)
             throws IOException{
         this.charset = "UTF-8";
         this.contentLength = contentLength;
