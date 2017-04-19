@@ -2,7 +2,6 @@ package cloud;
 
 import com.google.gson.Gson;
 import objects.Video;
-import services.VideoService;
 import utils.ChunkUploader;
 import utils.GsonHelper;
 
@@ -15,6 +14,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by maciejwitowski on 1/27/16.
@@ -23,8 +27,6 @@ public class UploadSession {
     public enum UploadStatus {
         INITIALIZED, UPLOADING, ERROR, UPLOADED, ABORTED, INTERRUPTED
     }
-
-    private static final int CHUNK_SIZE = 5 * 1024 * 1024;
 
     private static final String KEY_FILE_SIZE = "file_size";
     private static final String KEY_FILE_NAME = "file_name";
@@ -45,10 +47,10 @@ public class UploadSession {
     private int missing_parts[];
 
     public UploadStatus uploadStatus;
-    private Video video;
-    private String errorMessage;
+    private Video video; // TODO - assign after successful upload
+    private List<String> errorMessages;
 
-    private Gson gson = GsonHelper.get();
+    final private Gson gson = GsonHelper.get();
 
     public UploadSession(File file) {
         if(file == null)
@@ -86,56 +88,78 @@ public class UploadSession {
             uploadSession.part_size = GsonHelper.get().fromJson(response, VideoUploadResponse.class).part_size;
             uploadSession.max_connections = GsonHelper.get().fromJson(response, VideoUploadResponse.class).max_connections;
         }
+        
+        uploadSession.missing_parts = new int[uploadSession.parts];
+        for(int i=0; i<uploadSession.parts; ++i) {
+            uploadSession.missing_parts[i] = i;
+        }
 
         uploadSession.uploadStatus = UploadStatus.INITIALIZED;
         return uploadSession;
     }
 
-    public void start() throws IOException {
+    public void start() throws Exception {
         if(uploadStatus != UploadStatus.INITIALIZED)
             throw new IllegalStateException("Already started");
 
         uploadStatus = UploadStatus.UPLOADING;
 
-        for(int i = 0; i<parts; ++i) {
-            sendPart(i);
+        spawnUploadThreads();
+
+        checkAndUpdateStatus();
+    }
+
+    class PartSender implements Runnable
+    {
+        private final int part_id;
+
+        PartSender(int partId) {
+            part_id = partId;
         }
 
-        while(isRemoteStatusOk()==false)
-        {
-            retry();
+        @Override
+        public void run() {
+            try {
+                byte[] buffer = new byte[part_size];
+                long position = (long)part_size * (long)part_id;
+
+                FileInputStream inputStream = new FileInputStream(file);
+                inputStream.getChannel().position(position);
+                int bytesRead = inputStream.read(buffer, 0, part_size);
+
+                if(bytesRead <= 0) {
+                    // EOF actually shouldn't happen - part_id must be wrong
+                    return;
+                }
+
+                new ChunkUploader(location, part_id, fileSize, bytesRead).uploadChunk(buffer);
+
+            } catch (IOException e) {
+                appendErrorMessage(e.getMessage());
+            }
         }
     }
 
-    private void sendPart(int part_id) throws IOException {
-        try {
-            byte[] buffer = new byte[part_size];
-            long position = (long)part_size * (long)part_id;
+    private void spawnUploadThreads() throws Exception {
+        ThreadPoolExecutor executorService = (ThreadPoolExecutor)Executors.newFixedThreadPool(max_connections);
 
-            FileInputStream inputStream = new FileInputStream(file);
-            inputStream.getChannel().position(position);
-            int bytesRead = inputStream.read(buffer, 0, part_size);
+        for(int i=0; i<missing_parts.length; ++i) {
+            executorService.execute(new PartSender(missing_parts[i]));
+        }
 
-            if(bytesRead == -1) {
-                // EOF actually shouldn't happen - part_id must be wrong
-                uploadStatus = UploadStatus.ERROR;
-                return;
-            }
-
-            ChunkUploader.HttpResponse response = new ChunkUploader(location, part_id,
-                    fileSize, bytesRead).uploadChunk(buffer);
-
-            if(response.getStatus()!=HttpURLConnection.HTTP_OK) {
-                uploadStatus = UploadStatus.ERROR;
-            }
-        } catch (IOException e) {
-            this.uploadStatus = UploadStatus.ERROR;
-            this.errorMessage = e.getMessage();
-            throw e;
+        executorService.shutdown();
+        
+        long completed = 0;
+        while (!executorService.awaitTermination(10, TimeUnit.MINUTES)) {
+            // check if there is any progress
+            if(executorService.getCompletedTaskCount()>completed)
+                completed = executorService.getCompletedTaskCount();
+            else
+                throw new RuntimeException("Upload process stuck");
         }
     }
-    
-    private boolean isRemoteStatusOk() throws IOException {
+
+    private void checkAndUpdateStatus() throws IOException {
         URL url = new URL(location);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -146,31 +170,18 @@ public class UploadSession {
         while ((output = br.readLine()) != null) {
             respBody.append(output);
         }
-        missing_parts = GsonHelper.get().fromJson(respBody.toString(), MissingChunksResponse.class).missing_parts;
+        missing_parts = gson.fromJson(respBody.toString(), MissingChunksResponse.class).missing_parts;
 
-        if(missing_parts.length==0) {
-            uploadStatus = UploadStatus.UPLOADED;
-            return true;
-        }
-
-        return false;
+        uploadStatus = (missing_parts.length==0) ? UploadStatus.UPLOADED : UploadStatus.ERROR;
     }
 
-    private void retry() throws IOException {
-        for(int i=0; i<missing_parts.length; ++i)
-        {
-            sendPart(missing_parts[i]);
-        }
-    }
-
-    public void resume() throws IOException {
+    public void resume() throws Exception {
         if(uploadStatus == UploadStatus.UPLOADED)
             throw new IllegalStateException("Already uploaded");
-        
-        if(isRemoteStatusOk()==false)
-        {
-            retry();
-        }
+
+        spawnUploadThreads();
+
+        checkAndUpdateStatus();
     }
 
     public boolean abort() throws IOException {
@@ -190,9 +201,13 @@ public class UploadSession {
     public Video getVideo() {
         return video;
     }
+    
+    synchronized private void appendErrorMessage(String err) {
+        errorMessages.add(err);
+    }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public List<String> getErrorMessages() {
+        return errorMessages;
     }
 
     public UploadStatus getUploadStatus() {
@@ -205,7 +220,6 @@ public class UploadSession {
         private int parts;
         private int part_size;
         private int max_connections;
-        private String extra_files;
     }
     
     private static class MissingChunksResponse {
