@@ -63,22 +63,25 @@ public class UploadSession {
                                      File file, Map<String, Object> params) {
         UploadSession uploadSession = new UploadSession(file);
 
-        Map<String, Object> uploadParams = new HashMap<>();
-
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put(KEY_MULTI_CHUNK, true);
+        
+        Map<String, Object> bodyParams = new HashMap<>();
         long fileSize = file.length();
         uploadSession.fileSize = fileSize;
-        uploadParams.put(KEY_FILE_SIZE, fileSize);
-        uploadParams.put(KEY_FILE_NAME, file.getName());
-        uploadParams.put(KEY_PROFILES, DEFAULT_PROFILE);
-        uploadParams.put(KEY_MULTI_CHUNK, true);
+        bodyParams.put(KEY_FILE_SIZE, fileSize);
+        bodyParams.put(KEY_FILE_NAME, file.getName());
+        bodyParams.put(KEY_PROFILES, DEFAULT_PROFILE);
 
-        if(params != null) uploadParams.putAll(params);
+        if(params != null) bodyParams.putAll(params);
 
         String response = new TelestreamCloudRequest.Builder(credentials)
                 .post()
                 .apiPath(PATH_VIDEOS_UPLOAD)
                 .factoryId(factoryId)
-                .data(uploadParams)
+                .data(queryParams)
+                .body(bodyParams)
+                .signatureVer2(true)
                 .build()
                 .send();
 
