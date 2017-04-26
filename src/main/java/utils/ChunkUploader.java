@@ -16,7 +16,7 @@ public class ChunkUploader {
     private PrintWriter writer;
     private final int contentLength;
 
-    public ChunkUploader(String requestURL, long part_id, long fileSize, int contentLength)
+    public ChunkUploader(String requestURL, long part_id, String tag, int contentLength)
             throws IOException{
         this.charset = "UTF-8";
         this.contentLength = contentLength;
@@ -27,6 +27,8 @@ public class ChunkUploader {
         httpConn.setDoOutput(true); // indicates POST method
         httpConn.setDoInput(true);
         httpConn.setRequestProperty("Content-Type", "application/octet-stream");
+        if(!tag.equals("")) // extra files have a tag (the main file doesn't)
+            httpConn.setRequestProperty("X-Extra-File-Tag", tag);
         httpConn.setRequestProperty("X-Part", String.valueOf(part_id));
         httpConn.setRequestProperty("Content-Length", String.valueOf(contentLength));
         httpConn.setRequestProperty("Content-Transfer-Encoding", "binary");
