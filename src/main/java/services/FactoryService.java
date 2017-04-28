@@ -87,7 +87,7 @@ public class FactoryService extends ApiService<Factory> {
     }
 
     public UploadSession initUploadSession(String factoryId, File file, Map<String, Object> params,
-                                           Map<String, Object> extra_files) {
-        return UploadSession.init(credentials, factoryId, file, params, extra_files);
+                                           Map<String, Object> extra_files, int connections) {
+        return UploadSession.init(credentials, factoryId, file, params, extra_files, connections);
     }
 }

@@ -40,7 +40,7 @@ public class UploadSession {
     private static final String PATH_VIDEOS_UPLOAD = "/videos/upload";
 
     private String location;
-    private int max_connections;
+    private int connections;
 
     private static class FileToUpload {
 
@@ -83,7 +83,7 @@ public class UploadSession {
 
     public static UploadSession init(TelestreamCloudCredentials credentials, String factoryId,
                                      File file, Map<String, Object> params,
-                                     Map<String, Object> extra_files) {
+                                     Map<String, Object> extra_files, int connections) {
 
         FileToUpload main_file = new FileToUpload(file);
 
@@ -114,7 +114,10 @@ public class UploadSession {
             VideoUploadResponse r = GsonHelper.get().fromJson(response, VideoUploadResponse.class);
 
             uploadSession.location = r.location;
-            uploadSession.max_connections = r.max_connections;
+            if(connections > 0 && connections < r.max_connections)
+                uploadSession.connections = connections;
+            else
+                uploadSession.connections = r.max_connections;
 
             if(r.extra_files.size() != uploadSession.files_to_upload.size())
                 throw new RuntimeException("Invalid response from server - extra file count doesn't match");
@@ -194,7 +197,7 @@ public class UploadSession {
     }
 
     private void spawnUploadThreads(FileToUpload f) throws InterruptedException {
-        ThreadPoolExecutor executorService = (ThreadPoolExecutor)Executors.newFixedThreadPool(max_connections);
+        ThreadPoolExecutor executorService = (ThreadPoolExecutor)Executors.newFixedThreadPool(connections);
 
         for(int i=0; i<f.missing_parts.length; ++i) {
             executorService.execute(new PartSender(f, f.missing_parts[i]));
