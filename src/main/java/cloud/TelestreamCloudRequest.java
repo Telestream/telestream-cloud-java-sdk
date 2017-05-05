@@ -2,16 +2,20 @@ package cloud;
 
 import utils.MultipartUploader;
 import utils.Utils;
+import utils.GsonHelper;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.security.MessageDigest;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  * Created by maciejwitowski on 1/19/16.
@@ -32,7 +36,10 @@ public class TelestreamCloudRequest {
     final TelestreamCloudCredentials credentials;
     final String factoryId;
     final Map<String, Object> data;
+    final Map<String, Object> data_body;
+    private String json_body; // JSON-encoded parameters contained in data_body above
     final String timestamp;
+    final boolean useSignatureVer2;
 
     public TelestreamCloudRequest(Builder builder) {
         this.httpMethod = builder.httpMethod;
@@ -40,7 +47,9 @@ public class TelestreamCloudRequest {
         this.credentials = builder.credentials;
         this.factoryId = builder.factoryId;
         this.data = builder.data;
+        this.data_body = builder.data_body;
         this.timestamp = builder.timestamp;
+        this.useSignatureVer2 = builder.useSignatureVer2;
     }
 
     public String send() {
@@ -74,6 +83,16 @@ public class TelestreamCloudRequest {
     private String getResponse(URL url) throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod(httpMethod.name());
+        if(useSignatureVer2) {
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Content-length", String.valueOf(json_body.length()));
+
+            //send the json as body of the request
+            conn.setDoOutput(true);
+            OutputStream outputStream = conn.getOutputStream();
+            outputStream.write(json_body.getBytes());
+            outputStream.close();
+        }
         conn.connect();
         InputStream is = conn.getInputStream();
         return Utils.readInput(is);
@@ -106,8 +125,23 @@ public class TelestreamCloudRequest {
     }
 
     private Map<String, Object> getSignedParams() {
-        Map<String, Object> signedParams = (data != null) ?
-                new HashMap<>(data) : new HashMap<String, Object>();
+        Map<String, Object> signedParams = new HashMap<>();
+
+        if(useSignatureVer2) {
+            signedParams.put("signature_version", 2);
+            json_body = GsonHelper.get().toJson(data_body);
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                String checksum = DatatypeConverter.printHexBinary(md.digest(json_body.getBytes()));
+                signedParams.put("checksum", checksum.toLowerCase());
+            }
+            catch (Exception e) {
+                System.out.println("Error generating SHA-256 checksum");
+            }
+            signedParams.putAll(data);
+        } else if(data != null) {
+            signedParams.putAll(data);
+        }
 
         if(factoryId != null)
             signedParams.put("factory_id", factoryId);
@@ -150,13 +184,16 @@ public class TelestreamCloudRequest {
         private HttpMethod httpMethod;
         private String apiPath;
         private Map<String, Object> data;
+        private Map<String, Object> data_body;
         private String timestamp;
+        private boolean useSignatureVer2;
 
         public Builder(TelestreamCloudCredentials credentials) {
             if(credentials == null) throw new IllegalArgumentException("Credentials cannot be null.");
 
             this.httpMethod = HttpMethod.GET;
             this.credentials = credentials;
+            this.useSignatureVer2 = false;
         }
 
         public Builder get() {
@@ -185,6 +222,11 @@ public class TelestreamCloudRequest {
             return this;
         }
 
+        public Builder body(Map<String, Object> body) {
+            this.data_body = body;
+            return this;
+        }
+
         public Builder timestamp(String timestamp) {
             this.timestamp = timestamp;
             return this;
@@ -197,6 +239,11 @@ public class TelestreamCloudRequest {
 
         public Builder httpMethod(String httpMethod) {
             this.httpMethod = HttpMethod.valueOf(httpMethod);
+            return this;
+        }
+
+        public Builder signatureVer2(boolean signVer2Flag) {
+            this.useSignatureVer2 = signVer2Flag;
             return this;
         }
 

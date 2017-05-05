@@ -164,17 +164,23 @@ Encoding newEncoding = tc.createEncoding("factory-id", dataMap);
 tc.deleteVideo("factory-id", "video-id");
 ```
 
-Resumable uploads
+Multi-chunk uploads
 ---------------------
 
-You can upload a local video using `videoService.create()`. It will attempt to upload the entire file using a single POST request. This is not the best solution for big files, because if the connections brakes right when you reach 95% mark, the entire upload process fails.
-This is where reasumable uploads come in handy. First you need create a session object using `factoryService.initUploadSession()`. You can start uploading using `start()` method. If the connection brakes, an exception will be raised. You can decide what to do with your session object using `abort()` or `resume()` methods. Current status of the process will be stored in `status` attribute and can have one of following values:
+You can upload a local video using `videoService.create()`. It will attempt to upload the entire file using a single POST request. This is not the best solution for big files, because if the connections breaks right when you reach 95% mark, the entire upload process fails.
+This is where multi-chunk uploads come in handy. First you need create a session object using `factoryService.initUploadSession()`. You can start uploading using `start()` method. If any problem occurs, an exception will be raised. You can decide what to do with your session object using `abort()` or `resume()` methods. Current status of the process will be stored in `status` attribute and can have one of the following values:
 * `initialized` - session ready to start
 * `uploading` - upload started
-* `error` - something went wrong. You can see the details using `error_message` attribute
+* `error` - something went wrong. You can see the list of errors by calling the getErrorMessages() method
 * `uploaded` - upload completed
 * `aborted` - upload canceled
 * `interrupted` - stopped by user during an interactive session
+
+The advantage of multi-chunk uploads is that when the connection breaks, only the affected chunks need to be re-uploaded. Another advantage is that multiple chunks can be uploaded in parallel, which may reduce the overall upload duration in some cases (e.g. when there are bandwidth limits imposed on a single TCP connection). You can configure the number of parallel upload threads when calling `factoryService.initUploadSession()` using the `connections` parameter (if you want the maximum allowed number, just set it to zero).
+
+Also, if your encoding needs any extra files (e.g. captions, alternative audio tracks etc.), you can upload all of them in the same single session using the extra_files argument, which is a hash defined as Map<String, Object> and can be formed in the following way:
+* `{ tag1=File1, tag2=File2, tag3=File3, ... }` - i.e. there's a single Java File object per tag
+* `{ tag1=[File1a File1b File1c ...], tag2=[File2a File2b File2c ...], ...}` - when you need multiple extra files per tag (you can also mix the two formats, of course)
 
 Usage example:
 
@@ -182,7 +188,7 @@ Usage example:
 int retryCount = 0;
 try {
     uploadSession.start();
-} catch (IOException ioException) {
+} catch (Exception e) {
     while (retryCount < 5 && uploadSession.getUploadStatus() != UploadSession.UploadStatus.UPLOADED) {
         try {
             Thread.sleep(5000);
