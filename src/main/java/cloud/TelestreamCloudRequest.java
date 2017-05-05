@@ -62,7 +62,7 @@ public class TelestreamCloudRequest {
     }
 
     private boolean isUploadingFile() {
-        return httpMethod.equals(HttpMethod.POST) && data.containsKey(KEY_FILE);
+        return httpMethod.equals(HttpMethod.POST) && data!=null && data.containsKey(KEY_FILE);
     }
 
     private String getMultipartResponse(URL url) throws IOException {
