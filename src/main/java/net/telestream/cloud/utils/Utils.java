@@ -6,6 +6,8 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -52,6 +54,16 @@ public class Utils {
         return sb.toString();
     }
 
+    private static String urlEncode(String s) {
+        try {
+            return URLEncoder.encode(s, "UTF-8").replace("+", "%2B");
+        } catch (UnsupportedEncodingException e) {
+            // Shouldn't happen
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static List<String> mapToStringList(Map<String, Object> params, String base) {
         List<String> flat = new ArrayList<>();
 
@@ -62,8 +74,8 @@ public class Utils {
             if(value instanceof Map) {
                 flat.addAll(mapToStringList((Map<String, Object>) value, key));
             } else {
-                String basedKey = (base!=null) ? base + "[" + key + "]" : key;
-                flat.add(basedKey + "=" + String.valueOf(value));
+                String basedKey = (base!=null) ? urlEncode(base) + "[" + urlEncode(key) + "]" : urlEncode(key);
+                flat.add(basedKey + "=" + urlEncode(String.valueOf(value)));
             }
         }
 
