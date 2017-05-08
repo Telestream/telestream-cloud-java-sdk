@@ -99,10 +99,7 @@ public class TelestreamCloudRequest {
         }
         queryString.append(queryParams.get(lastQueryParamsIndex));
 
-        return queryString.toString()
-                .replace("%7E", "~")
-                .replace(":", "%3A").replace("+", "%2B")
-                .replace(" ", "%20").replace("/", "%2F");
+        return queryString.toString();
     }
 
     private Map<String, Object> getSignedParams() {
