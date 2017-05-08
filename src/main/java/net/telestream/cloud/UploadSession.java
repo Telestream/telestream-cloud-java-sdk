@@ -1,10 +1,10 @@
-package cloud;
+package net.telestream.cloud;
 
 import com.google.gson.Gson;
-import objects.Video;
-import services.VideoService;
-import utils.ChunkUploader;
-import utils.GsonHelper;
+import net.telestream.cloud.objects.Video;
+import net.telestream.cloud.services.VideoService;
+import net.telestream.cloud.utils.ChunkUploader;
+import net.telestream.cloud.utils.GsonHelper;
 
 import java.io.File;
 import java.io.FileInputStream;

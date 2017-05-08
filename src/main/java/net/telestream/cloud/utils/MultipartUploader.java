@@ -1,4 +1,4 @@
-package utils;
+package net.telestream.cloud.utils;
 
 import java.io.*;
 import java.net.HttpURLConnection;

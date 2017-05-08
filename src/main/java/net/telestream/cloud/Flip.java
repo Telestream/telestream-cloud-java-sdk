@@ -1,7 +1,7 @@
-package cloud;
+package net.telestream.cloud;
 
-import objects.Factory;
-import services.FactoryService;
+import net.telestream.cloud.objects.Factory;
+import net.telestream.cloud.services.FactoryService;
 
 /**
  * Created by maciejwitowski on 1/18/16.

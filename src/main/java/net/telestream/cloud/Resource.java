@@ -1,6 +1,6 @@
-package cloud;
+package net.telestream.cloud;
 
-import services.ApiService;
+import net.telestream.cloud.services.ApiService;
 
 /**
  * Created by maciejwitowski on 1/23/16.

@@ -1,7 +1,7 @@
-package cloud;
+package net.telestream.cloud;
 
-import utils.MultipartUploader;
-import utils.Utils;
+import net.telestream.cloud.utils.MultipartUploader;
+import net.telestream.cloud.utils.Utils;
 
 import java.io.File;
 import java.io.IOException;

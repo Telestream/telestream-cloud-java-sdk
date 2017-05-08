@@ -1,4 +1,4 @@
-package utils;
+package net.telestream.cloud.utils;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
