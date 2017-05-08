@@ -1,12 +1,12 @@
-package services;
+package net.telestream.cloud.services;
 
-import cloud.TelestreamCloudCredentials;
-import cloud.TelestreamCloudRequest;
-import cloud.UploadSession;
+import net.telestream.cloud.TelestreamCloudCredentials;
+import net.telestream.cloud.TelestreamCloudRequest;
+import net.telestream.cloud.UploadSession;
 import com.google.gson.reflect.TypeToken;
-import objects.Factory;
-import objects.Notifications;
-import utils.GsonHelper;
+import net.telestream.cloud.objects.Factory;
+import net.telestream.cloud.objects.Notifications;
+import net.telestream.cloud.utils.GsonHelper;
 
 import java.io.File;
 import java.lang.reflect.Type;

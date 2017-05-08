@@ -1,4 +1,4 @@
-package cloud;
+package net.telestream.cloud;
 
 public final class TelestreamCloudCredentials {
 

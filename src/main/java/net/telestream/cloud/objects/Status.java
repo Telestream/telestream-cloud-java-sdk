@@ -1,4 +1,4 @@
-package objects;
+package net.telestream.cloud.objects;
 
 /**
  * Created by maciejwitowski on 1/26/16.

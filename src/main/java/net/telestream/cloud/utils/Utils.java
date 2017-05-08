@@ -1,4 +1,4 @@
-package utils;
+package net.telestream.cloud.utils;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 

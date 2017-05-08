@@ -1,9 +1,9 @@
-package services;
+package net.telestream.cloud.services;
 
-import cloud.TelestreamCloudCredentials;
-import cloud.TelestreamCloudRequest;
+import net.telestream.cloud.TelestreamCloudCredentials;
+import net.telestream.cloud.TelestreamCloudRequest;
 import com.google.gson.reflect.TypeToken;
-import objects.Encoding;
+import net.telestream.cloud.objects.Encoding;
 
 import java.lang.reflect.Type;
 import java.util.List;
