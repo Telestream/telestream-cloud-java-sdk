@@ -23,7 +23,7 @@ public class Utils {
     private static final DateFormat UTC_IN_ISO_FORMAT;
 
     static {
-        UTC_IN_ISO_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+        UTC_IN_ISO_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         UTC_IN_ISO_FORMAT.setTimeZone(UTC_TIME_ZONE);
     }
     public static String isoTimestamp() {
