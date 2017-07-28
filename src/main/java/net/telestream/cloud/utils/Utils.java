@@ -56,7 +56,9 @@ public class Utils {
 
     private static String urlEncode(String s) {
         try {
-            return URLEncoder.encode(s, "UTF-8").replace("+", "%2B");
+            return URLEncoder.encode(s, "UTF-8")
+                    .replace("+", "%2B")
+                    .replace("%7E", "~");
         } catch (UnsupportedEncodingException e) {
             // Shouldn't happen
             e.printStackTrace();
