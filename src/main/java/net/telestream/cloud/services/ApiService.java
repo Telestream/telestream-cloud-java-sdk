@@ -50,6 +50,7 @@ public abstract class ApiService<T> {
         TelestreamCloudRequest.Builder requestBuilder = new TelestreamCloudRequest.Builder(credentials)
                 .post()
                 .apiPath(path())
+                .json()
                 .data(data);
 
         setAdditionalAllRequestParams(requestBuilder);

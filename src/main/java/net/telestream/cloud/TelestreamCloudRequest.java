@@ -1,13 +1,17 @@
 package net.telestream.cloud;
 
+import com.google.gson.reflect.TypeToken;
+import net.telestream.cloud.utils.GsonHelper;
 import net.telestream.cloud.utils.MultipartUploader;
 import net.telestream.cloud.utils.Utils;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +37,7 @@ public class TelestreamCloudRequest {
     final String factoryId;
     final Map<String, Object> data;
     final String timestamp;
+    final Boolean json;
 
     public TelestreamCloudRequest(Builder builder) {
         this.httpMethod = builder.httpMethod;
@@ -41,6 +46,7 @@ public class TelestreamCloudRequest {
         this.factoryId = builder.factoryId;
         this.data = builder.data;
         this.timestamp = builder.timestamp;
+        this.json = builder.json;
     }
 
     public String send() {
@@ -54,7 +60,12 @@ public class TelestreamCloudRequest {
 
     private String sendRequestForResult() throws IOException {
         URL url = buildRequestUrl();
-        return isUploadingFile() ? getMultipartResponse(url) : getResponse(url);
+
+        if (json) {
+            return getJsonResponse(url);
+        } else {
+            return isUploadingFile() ? getMultipartResponse(url) : getResponse(url);
+        }
     }
 
     private URL buildRequestUrl() throws IOException {
@@ -77,6 +88,41 @@ public class TelestreamCloudRequest {
         conn.connect();
         InputStream is = conn.getInputStream();
         return Utils.readInput(is);
+    }
+
+    private String getJsonResponse(URL url) throws IOException {
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod(httpMethod.name());
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setDoOutput(true);
+
+        try (OutputStream os = conn.getOutputStream()) {
+            os.write(getJsonBody().getBytes(StandardCharsets.UTF_8));
+        }
+
+        conn.connect();
+        InputStream is = conn.getInputStream();
+        return Utils.readInput(is);
+    }
+
+    private String getJsonBody() {
+            return GsonHelper.get().toJson(this.data);
+    }
+
+    private String getChecksum() {
+        try {
+            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+            byte[] digest = sha256.digest(getJsonBody().getBytes(StandardCharsets.UTF_8));
+            return bytesToHex(digest);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalArgumentException("SHA-256 is not supported");
+        }
+    }
+
+    private String bytesToHex(byte[] bytes) {
+        StringBuffer result = new StringBuffer();
+        for (byte byt : bytes) result.append(Integer.toString((byt & 0xff) + 0x100, 16).substring(1));
+        return result.toString();
     }
 
     private String pathWithParams() {
@@ -103,7 +149,7 @@ public class TelestreamCloudRequest {
     }
 
     private Map<String, Object> getSignedParams() {
-        Map<String, Object> signedParams = (data != null) ?
+        Map<String, Object> signedParams = (data != null && !json) ?
                 new HashMap<>(data) : new HashMap<String, Object>();
 
         if(factoryId != null)
@@ -111,6 +157,11 @@ public class TelestreamCloudRequest {
 
         signedParams.put("access_key", credentials.getAccessKey());
         signedParams.put("timestamp", timestamp != null ? timestamp : Utils.isoTimestamp());
+
+        if (json) {
+            signedParams.put("signature_version", "2");
+            signedParams.put("checksum", getChecksum());
+        }
 
         Map<String, Object> additionalParams = new HashMap<>(signedParams);
         additionalParams.remove("file");
@@ -148,12 +199,14 @@ public class TelestreamCloudRequest {
         private String apiPath;
         private Map<String, Object> data;
         private String timestamp;
+        private Boolean json;
 
         public Builder(TelestreamCloudCredentials credentials) {
             if(credentials == null) throw new IllegalArgumentException("Credentials cannot be null.");
 
             this.httpMethod = HttpMethod.GET;
             this.credentials = credentials;
+            this.json = false;
         }
 
         public Builder get() {
@@ -194,6 +247,11 @@ public class TelestreamCloudRequest {
 
         public Builder httpMethod(String httpMethod) {
             this.httpMethod = HttpMethod.valueOf(httpMethod);
+            return this;
+        }
+
+        public Builder json() {
+            this.json = true;
             return this;
         }
 
