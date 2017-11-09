@@ -106,7 +106,7 @@ public class TelestreamCloudRequest {
     }
 
     private String getJsonBody() {
-            return GsonHelper.get().toJson(this.data);
+        return GsonHelper.get().toJson(this.data == null ? new HashMap<String, Object>() : this.data);
     }
 
     private String getChecksum() {

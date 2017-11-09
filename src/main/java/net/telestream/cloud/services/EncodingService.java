@@ -68,7 +68,8 @@ public class EncodingService extends ApiService<Encoding> {
 
         TelestreamCloudRequest.Builder builder = new TelestreamCloudRequest.Builder(credentials)
                 .post()
-                .apiPath(pathWithId(encodingId) + "/retry")
+                .json()
+                .apiPath(PATH + "/" + encodingId + "/retry")
                 .factoryId(factoryId);
 
         return builder.build().send();
@@ -80,7 +81,8 @@ public class EncodingService extends ApiService<Encoding> {
 
         TelestreamCloudRequest.Builder builder = new TelestreamCloudRequest.Builder(credentials)
                 .post()
-                .apiPath(pathWithId(encodingId) + "/cancel")
+                .json()
+                .apiPath(PATH + "/" + encodingId + "/cancel")
                 .factoryId(factoryId);
 
         return builder.build().send();
