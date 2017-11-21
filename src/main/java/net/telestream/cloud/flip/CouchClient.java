@@ -28,11 +28,12 @@ public class CouchClient {
 
     }
 
-    public HttpResponse uploadChunk(int part, int contentLength, byte[] chunk) throws IOException {
+    public HttpResponse uploadChunk(int part, int contentLength, byte[] chunk, String tag) throws IOException {
         httpConn.setDoOutput(true); // indicates POST method
         httpConn.setRequestProperty("X-Part", Integer.toString(part));
         httpConn.setRequestProperty("Content-Type", "application/octet-stream");
         httpConn.setRequestProperty("Content-Length", String.valueOf(contentLength));
+        if (tag != null) httpConn.setRequestProperty("X-Extra-File-Tag", tag);
         outputStream = httpConn.getOutputStream();
         writer = new PrintWriter(new OutputStreamWriter(outputStream, charset), true);
         InputStream inputStream = new BufferedInputStream(new ByteArrayInputStream(chunk));
@@ -52,8 +53,9 @@ public class CouchClient {
         return getResponse();
     }
 
-    public HttpResponse getMissingParts() throws IOException {
+    public HttpResponse getMissingParts(String tag) throws IOException {
         httpConn.setRequestProperty("Content-Type", "application/json");
+        if (tag != null) httpConn.setRequestProperty("X-Extra-File-Tag", tag);
         return getResponse();
     }
 

@@ -8,17 +8,19 @@ public class UploadWorker implements Runnable {
     private String upstream;
     private Broker broker;
     private String id;
+    private String tag;
     private boolean verbose;
 
-    public UploadWorker(String upstream, Broker broker, boolean verbose) {
+    public UploadWorker(String upstream, Broker broker, String tag, boolean verbose) {
         this.upstream = upstream;
         this.broker = broker;
         this.id = UUID.randomUUID().toString();
+        this.tag = tag;
         this.verbose = verbose;
     }
 
-    public UploadWorker(String upstream, Broker broker) {
-        this(upstream, broker, false);
+    public UploadWorker(String upstream, Broker broker, String tag) {
+        this(upstream, broker, tag,false);
     }
 
     public void run() {
@@ -42,15 +44,15 @@ public class UploadWorker implements Runnable {
             logMessage(String.format("Worker fetched %d bytes.", chunk.getContentLength()));
             try {
                 CouchClient.HttpResponse response = new CouchClient(upstream)
-                        .uploadChunk(chunk.getId(), chunk.getContentLength(), chunk.getContent());
+                        .uploadChunk(chunk.getId(), chunk.getContentLength(), chunk.getContent(), tag);
                 int responseStatus = response.getStatus();
                 if (responseStatus == HttpURLConnection.HTTP_OK) {
-                    logMessage(String.format("Uploaded chunk %d", chunk.getId()));
+                    logMessage(String.format("Uploaded chunk %d.", chunk.getId()));
                 } else {
-                    logError(String.format("Failed to upload chunk %d", chunk.getId()));
+                    logError(String.format("Failed to upload chunk %d.", chunk.getId()));
                 }
             } catch (IOException e) {
-                logError(String.format("Failed to upload chunk %d", chunk.getId()));
+                logError(String.format("Failed to upload chunk %d.", chunk.getId()));
             }
         }
     }

@@ -3,102 +3,133 @@ package net.telestream.cloud.flip;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.*;
 
 public class Uploader {
     private enum Status {
         Initialized, Uploading, Error, Uploaded
     }
-    private File file;
+    private File inputFile;
     private String location;
     private Integer partsCount;
     private Integer partSize;
     private int maxConnections;
-    private HashMap extraFiles;
+    private LinkedTreeMap<String, LinkedTreeMap<String, String>> extraFilesMetadata;
     private Broker broker;
     private Thread reader;
     private ExecutorService uploadWorkers;
     private boolean verbose;
     private int numberOfRetries;
     private Status status = Status.Initialized;
-    private  ArrayList<Integer> parts;
+    private HashMap<String, File> extraFiles;
+    private Gson gson;
 
-    public Uploader(File file, UploadSession session, int numberOfRetries, boolean verbose) {
-        this.file = file;
+    public Uploader(File file, HashMap<String, File> extraFiles, UploadSession session, int numberOfRetries, boolean verbose) {
+        this.inputFile = file;
         this.location = session.getLocation();
         this.partsCount = session.getParts();
         this.partSize = session.getPartSize();
         this.maxConnections = session.getMaxConnections();
-//        this.extraFiles = (HashMap<String, HashMap<String, String>>) session.getExtraFiles();
+        this.extraFilesMetadata = (LinkedTreeMap<String, LinkedTreeMap<String, String>>) session.getExtraFiles();
         this.verbose = verbose;
         this.numberOfRetries = numberOfRetries;
-        this.parts = new ArrayList<Integer>();
-        for (int i = 0; i < partsCount; i++) parts.add(i);
+        this.extraFiles = extraFiles;
+        this.gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
     }
 
-    public Uploader(File file, UploadSession session) {
-        this(file, session, 5, false);
+    public Uploader(File file, HashMap<String, File> extraFiles, UploadSession session) {
+        this(file, extraFiles, session, 5, false);
     }
 
-    public void init() {
-        calculateMaxNumberOfConnections();
-        broker = new Broker(maxConnections);
-        reader = new Thread(new FileReader(file, parts, partSize, broker, verbose));
-        uploadWorkers = Executors.newFixedThreadPool(maxConnections);
-    }
-
-    public void start() throws InterruptedException {
+    public Status upload() throws InterruptedException {
         status = Status.Uploading;
-        for (int i = 0; i < numberOfRetries; i++) {
-            uploadFile();
-            ArrayList<Integer> missingParts = getMissingParts();
-            if (missingParts == null) {
-                status = Status.Error;
-                logError("Failed to upload the input file");
-                break;
-            }
-            else if (missingParts.size() == 0) {
-                logMessage("Successfully uploaded the input file");
-                status = Status.Uploaded;
-                break;
-            } else {
-                if (i < numberOfRetries - 1) {
-                    logMessage(String.format("Retrying to upload parts: %s", missingParts.toString()));
-                    partsCount = missingParts.size();
-                    parts = missingParts;
-                    init();
-                } else {
-                    status = Status.Error;
-                    break;
-                }
-            }
-        }
+
+        ArrayList<Integer> parts = getListOfPartIds(partsCount);
+        int connections = calculateMaxNumberOfConnections(parts.size());
+
+        initWorkers(inputFile, parts, partSize, connections);
+        logMessage(String.format("Uploading %s.", inputFile.getName()));
+        processFile(inputFile, partSize, connections, null);
+
+        if (status == Status.Uploading) uploadExtraFiles();
+        if (status == Status.Uploading) status = Status.Uploaded;
+
+        return status;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    private int calculateMaxNumberOfConnections() {
-        Integer availableProcessors = Runtime.getRuntime().availableProcessors();
-        if (availableProcessors > 1) availableProcessors -= 1; // Reserve a core for a reader
-        maxConnections = Math.min(Math.min(maxConnections, availableProcessors), partsCount);
-        return maxConnections;
+    private void initWorkers(File file, ArrayList<Integer> parts, int partSize, int connections) {
+        broker = new Broker(connections);
+        reader = new Thread(new FileReader(file, parts, partSize, broker, verbose));
+        uploadWorkers = Executors.newFixedThreadPool(connections);
     }
 
-    private void uploadFile() {
+    private void uploadExtraFiles() {
+        if (extraFiles == null) return;
+        for (HashMap.Entry<String, File> entry : extraFiles.entrySet()) {
+            String tag = entry.getKey();
+            File file = entry.getValue();
+            LinkedTreeMap<String, String> metadata = extraFilesMetadata.get(tag);
+            int partSize = Integer.valueOf(metadata.get("part_size"));
+            int partsCount = Integer.valueOf(metadata.get("parts"));
+            ArrayList<Integer> parts = getListOfPartIds(partsCount);
+            int connections = calculateMaxNumberOfConnections(parts.size());
+
+            initWorkers(file, parts, partSize, connections);
+            logMessage(String.format("Uploading %s.", file.getName()));
+            processFile(file, partSize, connections, tag);
+
+            if (status == Status.Error) break;
+        }
+    }
+
+    private Status processFile(File file, int partSize, int connections, String tag) {
+        for (int i = 0; i < numberOfRetries; i++) {
+            perform(connections, tag);
+
+            ArrayList<Integer> missingParts = getMissingParts(tag);
+            if (missingParts == null) {
+                status = Status.Error;
+                logError("Failed to upload the input file.");
+                break;
+            }
+            else if (missingParts.size() == 0) {
+                logMessage("Successfully uploaded the input file.");
+                break;
+            } else {
+                if (i < numberOfRetries - 1) {
+                    logMessage(String.format("Retrying to upload parts: %s.", missingParts.toString()));
+                    initWorkers(file, missingParts, partSize, connections);
+                } else {
+                    status = Status.Error;
+                    break;
+                }
+            }
+        }
+        return status;
+    }
+
+    private int calculateMaxNumberOfConnections(int partsCount) {
+        Integer availableProcessors = Runtime.getRuntime().availableProcessors();
+        if (availableProcessors > 1) availableProcessors -= 1; // Reserve a core for a reader
+        return Math.min(Math.min(maxConnections, availableProcessors), partsCount);
+    }
+
+    private void perform(int connections, String tag) {
         reader.start();
 
-        for (int i = 0; i < maxConnections; i++) {
-            uploadWorkers.submit(new UploadWorker(location, broker, verbose));
+        for (int i = 0; i < connections; i++) {
+            uploadWorkers.submit(new UploadWorker(location, broker, tag, verbose));
         }
 
         try {
@@ -108,23 +139,22 @@ public class Uploader {
             }
             reader.join();
         } catch (InterruptedException e) {
-            logError("Failed to upload the file");
+            logError("Failed to upload the input file.");
             broker.shutdown();
         }
     }
 
-    private ArrayList<Integer> getMissingParts() {
+    private ArrayList<Integer> getMissingParts(String tag) {
         try {
-            CouchClient.HttpResponse response = new CouchClient(location).getMissingParts();
+            CouchClient.HttpResponse response = new CouchClient(location).getMissingParts(tag);
             if (response.getStatus() == HttpURLConnection.HTTP_OK) {
-                Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
                 CouchClient.MissingPartsResponse missingPartsResponse = gson.fromJson(
                         response.getBody(), CouchClient.MissingPartsResponse.class
                 );
                 return missingPartsResponse.getMissingParts();
             }
         } catch (IOException e) {
-            logError("Failed to fetch missing parts' ids");
+            logError("Failed to fetch missing parts' ids.");
         }
         return null;
     }
@@ -139,5 +169,11 @@ public class Uploader {
         if (verbose) {
             System.err.printf("[UPLOADER] %s\n", message);
         }
+    }
+
+    private ArrayList<Integer> getListOfPartIds(int partsCount) {
+        ArrayList<Integer> parts = new ArrayList<Integer>();
+        for (int i = 0; i < partsCount; i++) parts.add(i);
+        return parts;
     }
 }

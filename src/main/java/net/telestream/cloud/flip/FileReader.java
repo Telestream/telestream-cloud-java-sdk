@@ -70,9 +70,9 @@ public class FileReader implements Runnable {
                     if (succeeded) break;
                 }
                 if (succeeded) {
-                    logMessage(String.format("Put %d bytes to the queue", bytesRead));
+                    logMessage(String.format("Put %d bytes to the queue.", bytesRead));
                 } else {
-                    logError(String.format("Failed to put part %d to the queue", currentPart));
+                    logError(String.format("Failed to put part %d to the queue.", currentPart));
                     break;
                 }
             } catch (IOException e) {
@@ -86,7 +86,7 @@ public class FileReader implements Runnable {
         logMessage("Shutting down the Broker.");
         broker.shutdown();
 
-        logMessage(String.format("Total bytes read: %d", totalRead));
+        logMessage(String.format("Total bytes read: %d.", totalRead));
         logMessage("Closing the RandomAccessFile.");
 
         try {

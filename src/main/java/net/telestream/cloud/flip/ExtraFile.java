@@ -26,13 +26,13 @@ import java.io.IOException;
 /**
  * ExtraFile
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-15T18:18:06.971+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-21T16:07:58.269+01:00")
 public class ExtraFile {
   @SerializedName("tag")
   private String tag = null;
 
   @SerializedName("file_size")
-  private Integer fileSize = null;
+  private Long fileSize = null;
 
   @SerializedName("file_name")
   private String fileName = null;
@@ -55,7 +55,7 @@ public class ExtraFile {
     this.tag = tag;
   }
 
-  public ExtraFile fileSize(Integer fileSize) {
+  public ExtraFile fileSize(Long fileSize) {
     this.fileSize = fileSize;
     return this;
   }
@@ -65,11 +65,11 @@ public class ExtraFile {
    * @return fileSize
   **/
   @ApiModelProperty(value = "")
-  public Integer getFileSize() {
+  public Long getFileSize() {
     return fileSize;
   }
 
-  public void setFileSize(Integer fileSize) {
+  public void setFileSize(Long fileSize) {
     this.fileSize = fileSize;
   }
 
