@@ -6,35 +6,33 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class FileReader extends Thread {
-    private static final int QUEUE_OFFER_TIMEOUT = 15;
+public class FileReader implements Runnable {
     private File file;
     private List<Integer> parts;
     private Integer partSize;
-    private BlockingQueue<Chunk> queue;
+    private Broker broker;
     private Iterator<Integer> partsIterator;
-    private volatile boolean running = true;
     private boolean verbose;
 
-    public FileReader(File file, List<Integer> parts, Integer partSize, BlockingQueue<Chunk> queue, boolean verbose) {
+    public FileReader(File file, List<Integer> parts, Integer partSize, Broker broker, boolean verbose) {
         this.file = file;
         this.parts = parts;
         this.partSize = partSize;
-        this.queue = queue;
+        this.broker = broker;
         this.partsIterator = this.parts.iterator();
         this.verbose = verbose;
     }
 
-    public FileReader(File file, List<Integer> parts, Integer partSize, BlockingQueue<Chunk> queue) {
-        this(file, parts, partSize, queue, false);
+    public FileReader(File file, List<Integer> parts, Integer partSize, Broker broker) {
+        this(file, parts, partSize, broker, false);
     }
 
     public void run() {
-        logMessage("Starting file reader..");
-        byte[] buffer = new byte[partSize];
+        logMessage("Starting file reader.");
         int bytesRead;
+        long totalRead = 0;
         int currentPart;
-
+        long offset;
         RandomAccessFile raf;
 
         try {
@@ -44,46 +42,55 @@ public class FileReader extends Thread {
             return;
         }
 
-        while ((currentPart = getNextPart()) != -1 && running) {
-            logMessage(String.format("Reading chunk at offset = %d", getOffset(currentPart)));
+        while ((currentPart = getNextPart()) != -1 && broker.isOperating()) {
+            offset = getOffset(currentPart);
+            logMessage(String.format("Reading chunk at offset = %d", offset));
+
             try {
-                raf.seek(getOffset(currentPart));
+                raf.seek(offset);
             } catch (IOException e) {
-                logError(String.format("Failed to seek to offset = %d.", getOffset(currentPart)));
+                logError(String.format("Failed to seek to offset = %d.", offset));
                 continue;
             }
 
             try {
+                byte[] buffer = new byte[partSize];
                 bytesRead = raf.read(buffer, 0, partSize);
-                if (bytesRead != -1) {
-                    if (
-                        queue.offer(new Chunk(currentPart, bytesRead, buffer), QUEUE_OFFER_TIMEOUT, TimeUnit.SECONDS)
-                    ) {
-                        logMessage(String.format("Put %d bytes to the queue", bytesRead));
-                    } else {
-                        logError(String.format("Failed to put part %d to the queue", currentPart));
-                    }
-                }
-            } catch (IOException e) {
-                logError(String.format("Failed to read input file at offset = %d.", getOffset(currentPart)));
 
+                if (bytesRead == -1) {
+                    logError(String.format("Failed to read part %d", currentPart));
+                    continue;
+                }
+
+                totalRead += bytesRead;
+                if (
+                    broker.putChunk(new Chunk(currentPart, bytesRead, buffer))
+                ) {
+                    logMessage(String.format("Put %d bytes to the queue", bytesRead));
+                } else {
+                    logError(String.format("Failed to put part %d to the queue", currentPart));
+                }
+
+            } catch (IOException e) {
+                logError(String.format("Failed to read input file at offset = %d.", offset));
             } catch (InterruptedException e) {
-                logError(String.format("Failed to put buffer read at offset = %d to the queue.", getOffset(currentPart)));
+                logError(String.format("Failed to put buffer read at offset = %d to the queue.", offset));
             }
         }
 
-        logMessage(String.format("Closing the RandomAccessFile."));
+        logMessage("Shutting down the Broker.");
+        broker.shutdown();
+
+        logMessage(String.format("Total bytes read: %d", totalRead));
+        logMessage("Closing the RandomAccessFile.");
+
         try {
             raf.close();
         } catch (IOException e) {
-            logError(String.format("Failed to close the RandomAccessFile."));
+            logError("Failed to close the RandomAccessFile.");
         }
 
-        logMessage(String.format("File reader is going to sleep."));
-    }
-
-    public void shutdown() {
-        this.running = false;
+        logMessage("File reader is going to sleep.");
     }
 
     private int getNextPart() {

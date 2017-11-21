@@ -1,42 +1,64 @@
 package net.telestream.cloud.flip;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class UploadWorker implements Runnable {
-    private static final int ATTEMPTS_TO_REACH_QUEUE = 20;
-    private BlockingQueue<Chunk> queue;
+    private String upstream;
+    private Broker broker;
     private String id;
     private boolean verbose;
 
-    public UploadWorker(BlockingQueue<Chunk> queue, boolean verbose) {
-        this.queue = queue;
+    public UploadWorker(String upstream, Broker broker, boolean verbose) {
+        this.upstream = upstream;
+        this.broker = broker;
         this.id = UUID.randomUUID().toString();
         this.verbose = verbose;
     }
 
-    public UploadWorker(BlockingQueue<Chunk> queue) {
-        this(queue, false);
+    public UploadWorker(String upstream, Broker broker) {
+        this(upstream, broker, false);
     }
 
     public void run() {
         try {
             logMessage("Initialized worker.");
-            int attempts = 0;
-            while (queue.isEmpty() && attempts++ < ATTEMPTS_TO_REACH_QUEUE) Thread.sleep(1000);
-            logMessage("Starting processing.");
-            Chunk chunk;
-            while (!queue.isEmpty()) {
-                chunk = queue.poll(5, TimeUnit.SECONDS);
+            while (broker.isOperating() || broker.queueSize() > 0) {
+                Chunk chunk;
+                chunk = broker.getChunk();
                 if (chunk != null) {
-                    logMessage(String.format("Worker fetched %d bytes.", chunk.getContentLength()));
-                    Thread.sleep(1000);
+                    uploadChunk(chunk);
                 }
             }
             logMessage("Worker is going to sleep.");
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void uploadChunk(Chunk chunk) throws InterruptedException {
+        if (chunk != null) {
+            logMessage(String.format("Worker fetched %d bytes.", chunk.getContentLength()));
+            try {
+                ChunkUploader.HttpResponse response = new ChunkUploader(
+                        upstream, chunk.getId(), chunk.getContentLength()
+                ).uploadChunk(chunk.getContent());
+                int responseStatus = response.getStatus();
+                if (responseStatus == HttpURLConnection.HTTP_OK) {
+                    logMessage("OK");
+                } else if (responseStatus != HttpURLConnection.HTTP_NO_CONTENT) {
+                    logError("NO CONTENT");
+                } else {
+                    logError("ERROR");
+                    logError(response.getBody());
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -51,4 +73,5 @@ public class UploadWorker implements Runnable {
             System.err.printf("[WORKER][ID=%s] %s\n", id, message);
         }
     }
+
 }
