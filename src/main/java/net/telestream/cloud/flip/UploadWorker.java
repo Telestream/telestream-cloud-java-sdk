@@ -3,8 +3,6 @@ package net.telestream.cloud.flip;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.UUID;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 public class UploadWorker implements Runnable {
     private String upstream;
@@ -30,7 +28,7 @@ public class UploadWorker implements Runnable {
                 Chunk chunk;
                 chunk = broker.getChunk();
                 if (chunk != null) {
-                    uploadChunk(chunk);
+                    processChunk(chunk);
                 }
             }
             logMessage("Worker is going to sleep.");
@@ -39,25 +37,20 @@ public class UploadWorker implements Runnable {
         }
     }
 
-    private void uploadChunk(Chunk chunk) throws InterruptedException {
+    private void processChunk(Chunk chunk) throws InterruptedException {
         if (chunk != null) {
             logMessage(String.format("Worker fetched %d bytes.", chunk.getContentLength()));
             try {
-                ChunkUploader.HttpResponse response = new ChunkUploader(
-                        upstream, chunk.getId(), chunk.getContentLength()
-                ).uploadChunk(chunk.getContent());
+                CouchClient.HttpResponse response = new CouchClient(upstream)
+                        .uploadChunk(chunk.getId(), chunk.getContentLength(), chunk.getContent());
                 int responseStatus = response.getStatus();
                 if (responseStatus == HttpURLConnection.HTTP_OK) {
-                    logMessage("OK");
-                } else if (responseStatus != HttpURLConnection.HTTP_NO_CONTENT) {
-                    logError("NO CONTENT");
+                    logMessage(String.format("Uploaded chunk %d", chunk.getId()));
                 } else {
-                    logError("ERROR");
-                    logError(response.getBody());
+                    logError(String.format("Failed to upload chunk %d", chunk.getId()));
                 }
-
             } catch (IOException e) {
-                e.printStackTrace();
+                logError(String.format("Failed to upload chunk %d", chunk.getId()));
             }
         }
     }

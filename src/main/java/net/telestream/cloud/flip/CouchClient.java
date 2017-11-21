@@ -1,5 +1,9 @@
 package net.telestream.cloud.flip;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -9,33 +13,28 @@ import java.util.List;
 /**
  * Created by maciejwitowski on 1/28/16.
  */
-public class ChunkUploader {
+public class CouchClient {
     private HttpURLConnection httpConn;
     private String charset;
     private OutputStream outputStream;
     private PrintWriter writer;
-    private final int contentLength;
 
-    public ChunkUploader(String requestURL, int part, int contentLength)
-            throws IOException{
+    public CouchClient(String requestURL) throws IOException {
         this.charset = "UTF-8";
-        this.contentLength = contentLength;
-
         URL url = new URL(requestURL);
         httpConn = (HttpURLConnection) url.openConnection();
         httpConn.setUseCaches(false);
-        httpConn.setDoOutput(true); // indicates POST method
         httpConn.setDoInput(true);
+
+    }
+
+    public HttpResponse uploadChunk(int part, int contentLength, byte[] chunk) throws IOException {
+        httpConn.setDoOutput(true); // indicates POST method
         httpConn.setRequestProperty("X-Part", Integer.toString(part));
         httpConn.setRequestProperty("Content-Type", "application/octet-stream");
         httpConn.setRequestProperty("Content-Length", String.valueOf(contentLength));
-
         outputStream = httpConn.getOutputStream();
-        writer = new PrintWriter(new OutputStreamWriter(outputStream, charset),
-                true);
-    }
-
-    public HttpResponse uploadChunk(byte[] chunk) throws IOException {
+        writer = new PrintWriter(new OutputStreamWriter(outputStream, charset), true);
         InputStream inputStream = new BufferedInputStream(new ByteArrayInputStream(chunk));
 
         byte[] buffer = new byte[contentLength];
@@ -50,6 +49,11 @@ public class ChunkUploader {
         writer.flush();
         writer.close();
 
+        return getResponse();
+    }
+
+    public HttpResponse getMissingParts() throws IOException {
+        httpConn.setRequestProperty("Content-Type", "application/json");
         return getResponse();
     }
 
@@ -95,6 +99,14 @@ public class ChunkUploader {
 
         public void setBody(String body) {
             this.body = body;
+        }
+    }
+
+    public static class MissingPartsResponse {
+        public ArrayList<Integer> missingParts;
+
+        public ArrayList<Integer> getMissingParts() {
+            return missingParts;
         }
     }
 }
