@@ -14,7 +14,7 @@ import java.util.concurrent.*;
 
 public class Uploader {
     private enum Status {
-        Initialized, Uploading, Error, Uploaded
+        Initialized, Uploading, Error, Uploaded, Aborted
     }
     private File inputFile;
     private String location;
@@ -48,7 +48,10 @@ public class Uploader {
         this(file, extraFiles, session, 5, false);
     }
 
-    public Status upload() throws InterruptedException {
+    public Status start() throws IllegalStateException {
+        if (status != Status.Initialized) {
+            throw new IllegalStateException("Already started.");
+        }
         status = Status.Uploading;
 
         ArrayList<Integer> parts = getListOfPartIds(partsCount);
@@ -64,8 +67,19 @@ public class Uploader {
         return status;
     }
 
+    public void abort() throws IllegalStateException {
+        if (status != Status.Uploading) {
+            throw new IllegalStateException("Upload finished.");
+        }
+        status = Status.Aborted;
+        broker.shutdown();
+    }
+
     public Status getStatus() {
         return status;
+    }
+    public String getVideoId() {
+        return broker.getVideoId();
     }
 
     private void initWorkers(File file, ArrayList<Integer> parts, int partSize, int connections) {

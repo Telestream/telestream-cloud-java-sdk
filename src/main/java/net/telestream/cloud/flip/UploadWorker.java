@@ -1,5 +1,7 @@
 package net.telestream.cloud.flip;
 
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.UUID;
@@ -48,6 +50,9 @@ public class UploadWorker implements Runnable {
                 int responseStatus = response.getStatus();
                 if (responseStatus == HttpURLConnection.HTTP_OK) {
                     logMessage(String.format("Uploaded chunk %d.", chunk.getId()));
+                    if (response.getBody() != null) {
+                        storeVideoId(response.getBody());
+                    }
                 } else {
                     logError(String.format("Failed to upload chunk %d.", chunk.getId()));
                 }
@@ -69,4 +74,17 @@ public class UploadWorker implements Runnable {
         }
     }
 
+    private void storeVideoId(String responseBody) {
+        if (broker.getVideoId() != null) return;
+        String videoId = new GsonBuilder().create().fromJson(responseBody, VideoIdResponse.class).getId();
+        broker.setVideoId(videoId);
+    }
+
+    private static class VideoIdResponse {
+        public String id;
+
+        public String getId() {
+            return id;
+        }
+    }
 }

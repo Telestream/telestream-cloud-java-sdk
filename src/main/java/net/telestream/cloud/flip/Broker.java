@@ -5,9 +5,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Broker {
     private ArrayBlockingQueue<Chunk> queue;
-    private boolean operating = true;
+    private volatile boolean operating = true;
     private int pollTimeout = 1;
     private int offerTimeout = 5;
+    private String videoId;
 
     public Broker(int queueSize) {
         this.queue = new ArrayBlockingQueue<Chunk>(queueSize);
@@ -39,5 +40,13 @@ public class Broker {
 
     public int queueSize() {
         return queue.size();
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
+
+    public String getVideoId() {
+        return videoId;
     }
 }
