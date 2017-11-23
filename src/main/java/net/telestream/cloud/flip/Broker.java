@@ -8,17 +8,17 @@ public class Broker {
     private volatile boolean operating = true;
     private int pollTimeout = 1;
     private int offerTimeout = 5;
-    private String videoId;
+    private volatile String videoId;
 
-    public Broker(int queueSize) {
-        this.queue = new ArrayBlockingQueue<Chunk>(queueSize);
+    Broker(int queueSize) {
+        this.queue = new ArrayBlockingQueue<>(queueSize);
     }
 
-    public Chunk getChunk() throws InterruptedException {
+    Chunk getChunk() throws InterruptedException {
         return queue.poll(pollTimeout, TimeUnit.SECONDS);
     }
 
-    public boolean putChunk(Chunk chunk) throws InterruptedException {
+    boolean putChunk(Chunk chunk) throws InterruptedException {
         return queue.offer(chunk, offerTimeout, TimeUnit.SECONDS);
     }
 
@@ -30,15 +30,15 @@ public class Broker {
         this.offerTimeout = offerTimeout;
     }
 
-    public boolean isOperating() {
+    boolean isOperating() {
         return operating;
     }
 
-    public void shutdown() {
+    void shutdown() {
         this.operating = false;
     }
 
-    public int queueSize() {
+    int queueSize() {
         return queue.size();
     }
 

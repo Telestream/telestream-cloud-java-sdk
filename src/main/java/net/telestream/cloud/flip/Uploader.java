@@ -10,52 +10,72 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.*;
 
 public class Uploader {
     private enum Status {
-        Initialized, Uploading, Error, Uploaded, Aborted
+        Created, Initialized, Uploading, Error, Uploaded, Aborted
     }
-    private File inputFile;
+    private FlipApi apiClient;
+    private String factoryId;
+    private String filePath;
+    private String profiles;
     private String location;
     private Integer partsCount;
     private Integer partSize;
     private int maxConnections;
-    private LinkedTreeMap<String, LinkedTreeMap<String, String>> extraFilesMetadata;
+    private ArrayList<ExtraFileMetadata> extraFilesMetadata;
     private Broker broker;
     private Thread reader;
     private ExecutorService uploadWorkers;
     private boolean verbose;
     private int numberOfRetries;
-    private Status status = Status.Initialized;
-    private HashMap<String, File> extraFiles;
+    private Status status = Status.Created;
     private Gson gson;
 
-    public Uploader(File file, HashMap<String, File> extraFiles, UploadSession session, int numberOfRetries, boolean verbose) {
-        this.inputFile = file;
-        this.location = session.getLocation();
-        this.partsCount = session.getParts();
-        this.partSize = session.getPartSize();
-        this.maxConnections = session.getMaxConnections();
-        this.extraFilesMetadata = (LinkedTreeMap<String, LinkedTreeMap<String, String>>) session.getExtraFiles();
+    public Uploader(FlipApi apiClient, String factoryId, String filePath, String profiles, HashMap<String,
+            ArrayList<String>> extraFiles, int numberOfRetries, boolean verbose) {
+        this.apiClient = apiClient;
+        this.factoryId = factoryId;
+        this.filePath = filePath;
+        this.profiles = profiles;
+        this.extraFilesMetadata = parseExtraFiles(extraFiles);
         this.verbose = verbose;
         this.numberOfRetries = numberOfRetries;
-        this.extraFiles = extraFiles;
         this.gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
     }
 
-    public Uploader(File file, HashMap<String, File> extraFiles, UploadSession session) {
-        this(file, extraFiles, session, 5, false);
+    public Uploader(FlipApi apiClient, String factoryId, String filePath, String profiles, HashMap<String,
+            ArrayList<String>> extraFiles) {
+        this(apiClient, factoryId, filePath, profiles, extraFiles, 5, false);
+    }
+
+    public void setup() {
+        try {
+            VideoUploadBody videoUploadBody = initializeVideoUploadBody();
+            UploadSession us = apiClient.uploadVideo(factoryId, videoUploadBody);
+            parseUploadSession(us);
+            status = Status.Initialized;
+        } catch (ApiException e) {
+            logError("Failed to create an upload session");
+            status = Status.Error;
+        }
     }
 
     public Status start() throws IllegalStateException {
-        if (status != Status.Initialized) {
+        if (status == Status.Created) {
+            throw new IllegalStateException("Not initialized.");
+        } else if (status == Status.Uploading) {
             throw new IllegalStateException("Already started.");
+        } else if (status == Status.Error) {
+            throw new IllegalStateException("Error.");
         }
         status = Status.Uploading;
 
         ArrayList<Integer> parts = getListOfPartIds(partsCount);
         int connections = calculateMaxNumberOfConnections(parts.size());
+        File inputFile = new File(filePath);
 
         initWorkers(inputFile, parts, partSize, connections);
         logMessage(String.format("Uploading %s.", inputFile.getName()));
@@ -82,6 +102,21 @@ public class Uploader {
         return broker.getVideoId();
     }
 
+    private void parseUploadSession(UploadSession uploadSession) {
+        this.location = uploadSession.getLocation();
+        this.partsCount = uploadSession.getParts();
+        this.partSize = uploadSession.getPartSize();
+        this.maxConnections = uploadSession.getMaxConnections();
+        LinkedTreeMap<String, LinkedTreeMap<String, String>> extraFilesResponse = (LinkedTreeMap<String, LinkedTreeMap<String, String>>) uploadSession.getExtraFiles();
+        if (extraFilesMetadata != null) {
+            for (ExtraFileMetadata extraFileMetadata : extraFilesMetadata) {
+                LinkedTreeMap<String, String> data = extraFilesResponse.get(extraFileMetadata.getTag());
+                extraFileMetadata.setParts(Integer.valueOf(data.get("parts")));
+                extraFileMetadata.setPartSize(Integer.valueOf(data.get("part_size")));
+            }
+        }
+    }
+
     private void initWorkers(File file, ArrayList<Integer> parts, int partSize, int connections) {
         broker = new Broker(connections);
         reader = new Thread(new FileReader(file, parts, partSize, broker, verbose));
@@ -89,19 +124,17 @@ public class Uploader {
     }
 
     private void uploadExtraFiles() {
-        if (extraFiles == null) return;
-        for (HashMap.Entry<String, File> entry : extraFiles.entrySet()) {
-            String tag = entry.getKey();
-            File file = entry.getValue();
-            LinkedTreeMap<String, String> metadata = extraFilesMetadata.get(tag);
-            int partSize = Integer.valueOf(metadata.get("part_size"));
-            int partsCount = Integer.valueOf(metadata.get("parts"));
+        if (extraFilesMetadata == null) return;
+        for (ExtraFileMetadata metadata : extraFilesMetadata) {
+            int partSize = metadata.getPartSize();
+            int partsCount = metadata.getParts();
             ArrayList<Integer> parts = getListOfPartIds(partsCount);
             int connections = calculateMaxNumberOfConnections(parts.size());
+            File file = new File(metadata.getFilePath());
 
             initWorkers(file, parts, partSize, connections);
             logMessage(String.format("Uploading %s.", file.getName()));
-            processFile(file, partSize, connections, tag);
+            processFile(file, partSize, connections, metadata.getTag());
 
             if (status == Status.Error) break;
         }
@@ -186,8 +219,110 @@ public class Uploader {
     }
 
     private ArrayList<Integer> getListOfPartIds(int partsCount) {
-        ArrayList<Integer> parts = new ArrayList<Integer>();
+        ArrayList<Integer> parts = new ArrayList<>();
         for (int i = 0; i < partsCount; i++) parts.add(i);
         return parts;
+    }
+
+    private VideoUploadBody initializeVideoUploadBody() {
+        VideoUploadBody videoUploadBody = new VideoUploadBody();
+
+        setInputFileData(videoUploadBody);
+        setExtraFilesData(videoUploadBody);
+
+        return videoUploadBody;
+    }
+
+    private void setInputFileData(VideoUploadBody videoUploadBody) {
+        File inputFile = new File(filePath);
+        videoUploadBody.setFileSize(inputFile.length());
+        videoUploadBody.setFileName(inputFile.getName());
+        videoUploadBody.setProfiles(profiles);
+        videoUploadBody.setMultiChunk(true);
+    }
+
+    private void setExtraFilesData(VideoUploadBody videoUploadBody) {
+        if (extraFilesMetadata == null) {
+            return;
+        }
+        ArrayList<ExtraFile> extraFiles = new ArrayList<>();
+        for(ExtraFileMetadata extraFileMetadata : extraFilesMetadata) {
+            File inputFile = new File(extraFileMetadata.getFilePath());
+            ExtraFile extraFile = new ExtraFile();
+            extraFile.setFileName(inputFile.getName());
+            extraFile.setFileSize(inputFile.length());
+            extraFile.setTag(extraFileMetadata.getTag());
+            extraFiles.add(extraFile);
+        }
+        videoUploadBody.setExtraFiles(extraFiles);
+    }
+
+    private ArrayList<ExtraFileMetadata> parseExtraFiles(HashMap<String, ArrayList<String>> extraFiles) {
+        if (extraFiles == null) {
+            return null;
+        }
+        ArrayList<ExtraFileMetadata> extraFileMetadata = new ArrayList<>();
+        for (Map.Entry<String, ArrayList<String>> entry : extraFiles.entrySet()) {
+            String tag = entry.getKey();
+            ArrayList<String> extraFilePaths = entry.getValue();
+            if (extraFilePaths.size() == 1) {
+                extraFileMetadata.add(new ExtraFileMetadata(tag, extraFilePaths.get(0)));
+            } else {
+                for (int i = 0; i < extraFilePaths.size(); i++) {
+                    String indexedTag = String.format("%s.index-%d", tag, i);
+                    extraFileMetadata.add(new ExtraFileMetadata(indexedTag, extraFilePaths.get(i)));
+                }
+            }
+        }
+        return extraFileMetadata;
+    }
+
+    private static class ExtraFileMetadata {
+        String tag;
+        String fileName;
+        Long fileSize;
+        Integer parts;
+        Integer partSize;
+        String filePath;
+
+        ExtraFileMetadata(String tag, String filePath) {
+            this.tag = tag;
+            File file = new File(filePath);
+            this.fileName = file.getName();
+            this.fileSize = file.length();
+            this.filePath = filePath;
+        }
+
+        String getTag() {
+            return tag;
+        }
+
+        public String getFileName() {
+            return fileName;
+        }
+
+        public Long getFileSize() {
+            return fileSize;
+        }
+
+        Integer getParts() {
+            return parts;
+        }
+
+        Integer getPartSize() {
+            return partSize;
+        }
+
+        String getFilePath() {
+            return filePath;
+        }
+
+        void setParts(Integer parts) {
+            this.parts = parts;
+        }
+
+        void setPartSize(Integer partSize) {
+            this.partSize = partSize;
+        }
     }
 }

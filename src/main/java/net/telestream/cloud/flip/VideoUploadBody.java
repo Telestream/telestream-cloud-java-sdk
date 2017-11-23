@@ -34,7 +34,7 @@ import net.telestream.cloud.flip.ExtraFile;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-15T18:18:06.971+01:00")
 public class VideoUploadBody {
   @SerializedName("file_size")
-  private Integer fileSize = null;
+  private Long fileSize = null;
 
   @SerializedName("file_name")
   private String fileName = null;
@@ -84,7 +84,7 @@ public class VideoUploadBody {
   @SerializedName("multi_chunk")
   private Boolean multiChunk = true;
 
-  public VideoUploadBody fileSize(Integer fileSize) {
+  public VideoUploadBody fileSize(Long fileSize) {
     this.fileSize = fileSize;
     return this;
   }
@@ -94,11 +94,11 @@ public class VideoUploadBody {
    * @return fileSize
   **/
   @ApiModelProperty(required = true, value = "Size of the file that will be uploaded in `bytes`.")
-  public Integer getFileSize() {
+  public Long getFileSize() {
     return fileSize;
   }
 
-  public void setFileSize(Integer fileSize) {
+  public void setFileSize(Long fileSize) {
     this.fileSize = fileSize;
   }
 
