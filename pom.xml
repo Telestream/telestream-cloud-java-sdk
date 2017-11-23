@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.telestream.cloud</groupId>
-  <artifactId>telestream-cloud-java-sdk</artifactId>
+  <artifactId>telestream-cloud-flip-sdk</artifactId>
   <packaging>jar</packaging>
-  <name>telestream-cloud-java-sdk</name>
+  <name>telestream-cloud-flip-sdk</name>
   <version>3.1.0</version>
   <url>https://github.com/swagger-api/swagger-codegen</url>
   <description>Telestream Cloud Java SDK</description>
