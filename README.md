@@ -1,212 +1,192 @@
-Telestream Cloud Java SDK
-====================
+# swagger-java-client
 
-This library provides a low-level interface to the REST API of [**Telestream Cloud**](http://cloud.telestream.net), the online video encoding service.
+## Requirements
 
-Usage
------
-You need to initialize TelestreamCloud client instance with your credentials (you can obtain them from your account in [**Telestream Cloud console**](https://cloud.telestream.net/console/login)).
+Building the API client library requires [Maven](https://maven.apache.org/) to be installed.
 
-```java
-TelestreamCloud tc = new TelestreamCloud("your-access-key", "your-secret-key");
+## Installation
+
+To install the API client library to your local Maven repository, simply execute:
+
+```shell
+mvn install
 ```
 
-Now you need to specify which resource you would like to use. Currently supported resources are:
-* `Flip`
-* additional resources will be available soon, stay tuned ;)
+To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
 
-```java
-Flip flip = (Flip) tc.getResource(TelestreamCloud.ResourceType.FLIP);
+```shell
+mvn deploy
 ```
 
-Services
--------
+Refer to the [official documentation](https://maven.apache.org/plugins/maven-deploy-plugin/usage.html) for more information.
 
-In order to access Telestream data, objects called "services" are being used.
+### Maven users
 
-The main services are:
-* `FactoryService`
-* `VideoService`
-* `EncodingService`
-* `ProfileService`
+Add this dependency to your project's POM:
 
-All Services can be used to:
-
-* get all coresponding objects
-```java
-List<Factory> factories = factoryService.all();
-Factory factory = factoryService.find("factory-id");
-
-List<Video> videos = videoService.all();
-Video video = videoService.find("video-id");
-
-List<Encoding> encodings = encodingService.all();
-Encoding encoding = encodingService.find("encoding-id");
-
-List<Profile> profiles = profileService.all();
-Profile profile = profileService.find("profile-id");
+```xml
+<dependency>
+    <groupId>io.swagger</groupId>
+    <artifactId>swagger-java-client</artifactId>
+    <version>1.0.0</version>
+    <scope>compile</scope>
+</dependency>
 ```
 
-* find an object by id
-```java
-Factory factory = factoryService.find("factory-id");
-Video video = videoService.find("video-id");
-Encoding encoding = encodingService.find("encoding-id");
-Profile profile = profileService.find("profile-id");
+### Gradle users
+
+Add this dependency to your project's build file:
+
+```groovy
+compile "io.swagger:swagger-java-client:1.0.0"
 ```
 
-* create object
-```java
-factoryService.create(mapWithData);
-videoService.create(mapWithData);
-encodingService.create(mapWithData);
-profileService.create(mapWithData);
-```
+### Others
 
-* delete object
-```java
-factoryService.delete("factory-id");
-videoService.delete("video-id");
-encodingService.delete("encoding-id");
-profileService.delete("profile-id");
-```
+At first generate the JAR by executing:
 
-FactoryService
--------
+    mvn package
 
-The easiest way to get `FactoryService` is to use `Flip` resource:
+Then manually install the following JARs:
+
+* target/swagger-java-client-1.0.0.jar
+* target/lib/*.jar
+
+## Getting Started
+
+Please follow the [installation](#installation) instruction and execute the following Java code:
 
 ```java
-Flip flip = (Flip) tc.getResource(TelestreamCloud.ResourceType.FLIP);
-FactoryService factoryService = flip.factoryService();
-```
 
-FactoryService can be used in many ways:
+import net.telestream.cloud.flip.*;
+import net.telestream.cloud.flip.auth.*;
+import net.telestream.cloud.flip.*;
+import net.telestream.cloud.flip.FlipApi;
 
-```java
-// Update Factory
-Factory factory = factoryService.all().get(0);
-factory.setName("New name");
-factory.setUploadOriginalVideo(true);
-factoryService.save(factory);
+import java.io.File;
+import java.util.*;
 
-// Get Notifications
-Notifications notifications = factoryService.getNotifications(factory.getId());
+public class FlipApiExample {
 
-// Update Notifications
-notifications.enableForVideoCreated(true);
-notifications.enableForVideoEncoded(true);
-notifications.enableForEncodingProgress(true);
-notifications.enableForEncodingCompleted(true);
-notifications.setDelay(delay);
-notifications.setUrl(url);
-factoryService.updateNotifications(factory.getId(), notifications);
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        
+        // Configure API key authorization: api_key
+        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+        api_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //api_key.setApiKeyPrefix("Token");
 
-// Get Factory's VideoService
-VideoService videoService = factoryService.videoService(factory.getId());
-
-// Get Factory's EncodingService
-EncodingService encodingService = factoryService.encodingService(factory.getId());
-
-// Get Factory's ProfileService
-ProfileService profileService = factoryService.profileService(factory.getId());
-```
-
-VideoService
--------
-
-`VideoService` can be used in many ways:
-
-```java
-// Delete source file
-videoService.deleteSourceFile("video-id");
-
-// Get metadata
-String metadata = videoService.getMetadata("video-id");
-
-// Get Video's encoding service
-EncodingService encodingService = videoService.encodingService("video-id");
-```
-
-ProfileService
--------
-
-```java
-// Update profile
-Profile profile = profileService.find("profile-id");
-profile.setName("aspect-mode-name");
-profile.setFps(29.97f);
-profile.setPresetName("h264");
-profileService.save(profile);
-```
-
-EncodingService
--------
-
-```java
-// Cancel encoding
-encodingService.cancel("encoding-id");
-
-// Retry encoding
-encodingService.retry("encoding-id");
-```
-
-REST API Examples
-----------------
-
-`TelestreamCloud` object can be used in a RESTful manner;
-
-```java
-TelestreamCloud tc = new TelestreamCloud(ACCESS_KEY, SECRET_KEY);
-List<Video> videos = tc.getVideos("factory-id");
-Profile profile = tc.getProfile("factory-id", "profile-id");
-Encoding newEncoding = tc.createEncoding("factory-id", dataMap);
-tc.deleteVideo("factory-id", "video-id");
-```
-
-Resumable uploads
----------------------
-
-You can upload a local video using `videoService.create()`. It will attempt to upload the entire file using a single POST request. This is not the best solution for big files, because if the connections brakes right when you reach 95% mark, the entire upload process fails.
-This is where reasumable uploads come in handy. First you need create a session object using `factoryService.initUploadSession()`. You can start uploading using `start()` method. If the connection brakes, an exception will be raised. You can decide what to do with your session object using `abort()` or `resume()` methods. Current status of the process will be stored in `status` attribute and can have one of following values:
-* `initialized` - session ready to start
-* `uploading` - upload started
-* `error` - something went wrong. You can see the details using `error_message` attribute
-* `uploaded` - upload completed
-* `aborted` - upload canceled
-* `interrupted` - stopped by user during an interactive session
-
-Usage example:
-
-```java
-int retryCount = 0;
-try {
-    uploadSession.start();
-} catch (IOException ioException) {
-    while (retryCount < 5 && uploadSession.getUploadStatus() != UploadSession.UploadStatus.UPLOADED) {
+        FlipApi apiInstance = new FlipApi();
+        String id = "id_example"; // String | Id of an Encoding.
+        String factoryId = "factoryId_example"; // String | Id of a Factory.
         try {
-            Thread.sleep(5000);
-            uploadSession.resume();
-        } catch (Exception exception) {
-            retryCount++;
+            CanceledResponse result = apiInstance.cancelEncoding(id, factoryId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling FlipApi#cancelEncoding");
+            e.printStackTrace();
         }
     }
 }
+
 ```
 
-Generating signatures
----------------------
+## Documentation for API Endpoints
 
-All requests to your Telestream Cloud are signed using HMAC-SHA256, based on a timestamp and your secret key. This is handled transparently. However, sometimes you will want to generate only this signature, in order to make a request by means other than this library. This is the case when using the [JavaScript panda_uploader](https://github.com/pandastream/panda_uploader).
+All URIs are relative to *https://api.cloud.telestream.net/api/flip/3.1*
 
-To do this, a method `signedParams()` is provided:
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*FlipApi* | [**cancelEncoding**](docs/FlipApi.md#cancelEncoding) | **POST** /encodings/{id}/cancel.json | Cancels an Encoding.
+*FlipApi* | [**copyProfile**](docs/FlipApi.md#copyProfile) | **POST** /profiles/{id}/copy.json | Copies a given Profile
+*FlipApi* | [**createEncoding**](docs/FlipApi.md#createEncoding) | **POST** /encodings.json | Creates an Encoding
+*FlipApi* | [**createFactory**](docs/FlipApi.md#createFactory) | **POST** /factories.json | Creates a new factory
+*FlipApi* | [**createProfile**](docs/FlipApi.md#createProfile) | **POST** /profiles.json | Creates a Profile
+*FlipApi* | [**createWorkorder**](docs/FlipApi.md#createWorkorder) | **POST** /workorders.json | Creates a Workorder.
+*FlipApi* | [**deleteEncoding**](docs/FlipApi.md#deleteEncoding) | **DELETE** /encodings/{id}.json | Deletes an Encoding from both Telestream Cloud and your storage. Returns an information whether the operation was successful.
+*FlipApi* | [**deleteProfile**](docs/FlipApi.md#deleteProfile) | **DELETE** /profiles/{id}.json | Deletes a given Profile
+*FlipApi* | [**deleteVideo**](docs/FlipApi.md#deleteVideo) | **DELETE** /videos/{id}.json | Deletes a Video object.
+*FlipApi* | [**deleteVideoSource**](docs/FlipApi.md#deleteVideoSource) | **DELETE** /videos/{id}/source.json | Delete a video&#39;s source file.
+*FlipApi* | [**encoding**](docs/FlipApi.md#encoding) | **GET** /encodings/{id}.json | Returns an Encoding object.
+*FlipApi* | [**encodings**](docs/FlipApi.md#encodings) | **GET** /encodings.json | Returns a list of Encoding objects
+*FlipApi* | [**encodingsCount**](docs/FlipApi.md#encodingsCount) | **GET** /encodings/count.json | Returns a number of Encoding objects created using a given factory.
+*FlipApi* | [**factories**](docs/FlipApi.md#factories) | **GET** /factories.json | Returns a collection of Factory objects.
+*FlipApi* | [**factory**](docs/FlipApi.md#factory) | **GET** /factories/{id}.json | Returns a Factory object.
+*FlipApi* | [**notifications**](docs/FlipApi.md#notifications) | **GET** /notifications.json | Returns a Factory&#39;s notification settings.
+*FlipApi* | [**profile**](docs/FlipApi.md#profile) | **GET** /profiles/{id_or_name}.json | Returns a Profile object.
+*FlipApi* | [**profileEncodings**](docs/FlipApi.md#profileEncodings) | **GET** /profiles/{id_or_name}/encodings.json | Returns a list of Encodings that belong to a Profile.
+*FlipApi* | [**profiles**](docs/FlipApi.md#profiles) | **GET** /profiles.json | Returns a collection of Profile objects.
+*FlipApi* | [**queuedVideos**](docs/FlipApi.md#queuedVideos) | **GET** /videos/queued.json | Returns a collection of Video objects queued for encoding.
+*FlipApi* | [**resubmitVideo**](docs/FlipApi.md#resubmitVideo) | **POST** /videos/resubmit.json | Resubmits a video to encode.
+*FlipApi* | [**retryEncoding**](docs/FlipApi.md#retryEncoding) | **POST** /encodings/{id}/retry.json | Retries a failed encoding.
+*FlipApi* | [**signedEncodingUrl**](docs/FlipApi.md#signedEncodingUrl) | **GET** /encodings/{id}/signed-url.json | Returns a signed url pointing to an Encoding.
+*FlipApi* | [**signedEncodingUrls**](docs/FlipApi.md#signedEncodingUrls) | **GET** /encodings/{id}/signed-urls.json | Returns a list of signed urls pointing to an Encoding&#39;s outputs.
+*FlipApi* | [**signedVideoUrl**](docs/FlipApi.md#signedVideoUrl) | **GET** /videos/{id}/signed-url.json | Returns a signed url pointing to a Video.
+*FlipApi* | [**toggleFactorySync**](docs/FlipApi.md#toggleFactorySync) | **POST** /factories/{id}/sync.json | Toggles synchronisation settings.
+*FlipApi* | [**updateEncoding**](docs/FlipApi.md#updateEncoding) | **PUT** /encodings/{id}.json | Updates an Encoding
+*FlipApi* | [**updateFactory**](docs/FlipApi.md#updateFactory) | **PATCH** /factories/{id}.json | Updates a Factory&#39;s settings. Returns a Factory object.
+*FlipApi* | [**updateNotifications**](docs/FlipApi.md#updateNotifications) | **PUT** /notifications.json | Updates a Factory&#39;s notification settings.
+*FlipApi* | [**updateProfile**](docs/FlipApi.md#updateProfile) | **PUT** /profiles/{id}.json | Updates a given Profile
+*FlipApi* | [**uploadVideo**](docs/FlipApi.md#uploadVideo) | **POST** /videos/upload.json | Creates an upload session.
+*FlipApi* | [**video**](docs/FlipApi.md#video) | **GET** /videos/{id}.json | Returns a Video object.
+*FlipApi* | [**videoEncodings**](docs/FlipApi.md#videoEncodings) | **GET** /videos/{id}/encodings.json | Returns a list of Encodings that belong to a Video.
+*FlipApi* | [**videoMetadata**](docs/FlipApi.md#videoMetadata) | **GET** /videos/{id}/metadata.json | Returns a Video&#39;s metadata
+*FlipApi* | [**videos**](docs/FlipApi.md#videos) | **GET** /videos.json | Returns a collection of Video objects.
+*FlipApi* | [**workflows**](docs/FlipApi.md#workflows) | **GET** /workflows.json | Returns a collection of Workflows that belong to a Factory.
 
-```java
-TelestreamCloud tc = new TelestreamCloud(ACCESS_KEY, SECRET_KEY);
-String signedParams = tc.signedParams("POST", "/videos.json");
 
-// => {'access_key': '8df50af4-074f-11df-b278-1231350015b1',
-// 'factory_id': 'your-factory-id',
-// 'signature': 'LejCdm0O83+jk6/Q5SfGmk14WTO1pB6Sh6Z5eA2w5C0=',
-// 'timestamp': '2010-02-26T15:01:46.221513'}
-```
+## Documentation for Models
+
+ - [CanceledResponse](docs/CanceledResponse.md)
+ - [CloudNotificationSettings](docs/CloudNotificationSettings.md)
+ - [CloudNotificationSettingsEvents](docs/CloudNotificationSettingsEvents.md)
+ - [CopyProfileBody](docs/CopyProfileBody.md)
+ - [CountResponse](docs/CountResponse.md)
+ - [CreateEncodingBody](docs/CreateEncodingBody.md)
+ - [DeletedResponse](docs/DeletedResponse.md)
+ - [Encoding](docs/Encoding.md)
+ - [EncodingSignedUrl](docs/EncodingSignedUrl.md)
+ - [EncodingSignedUrls](docs/EncodingSignedUrls.md)
+ - [Error](docs/Error.md)
+ - [ExtraFile](docs/ExtraFile.md)
+ - [Factory](docs/Factory.md)
+ - [FactoryBody](docs/FactoryBody.md)
+ - [FactoryBodyStorageCredentialAttributes](docs/FactoryBodyStorageCredentialAttributes.md)
+ - [FactorySync](docs/FactorySync.md)
+ - [FactorySyncBody](docs/FactorySyncBody.md)
+ - [PaginatedEncodingsCollection](docs/PaginatedEncodingsCollection.md)
+ - [PaginatedFactoryCollection](docs/PaginatedFactoryCollection.md)
+ - [PaginatedProfilesCollection](docs/PaginatedProfilesCollection.md)
+ - [PaginatedVideoCollection](docs/PaginatedVideoCollection.md)
+ - [PaginatedWorkflowsCollection](docs/PaginatedWorkflowsCollection.md)
+ - [Profile](docs/Profile.md)
+ - [ProfileBody](docs/ProfileBody.md)
+ - [ResubmitVideoBody](docs/ResubmitVideoBody.md)
+ - [RetriedResponse](docs/RetriedResponse.md)
+ - [SignedVideoUrl](docs/SignedVideoUrl.md)
+ - [UpdateEncodingBody](docs/UpdateEncodingBody.md)
+ - [UploadSession](docs/UploadSession.md)
+ - [Video](docs/Video.md)
+ - [VideoMetadata](docs/VideoMetadata.md)
+ - [VideoUploadBody](docs/VideoUploadBody.md)
+
+
+## Documentation for Authorization
+
+Authentication schemes defined for the API:
+### api_key
+
+- **Type**: API key
+- **API key parameter name**: X-Api-Key
+- **Location**: HTTP header
+
+
+## Recommendation
+
+It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issues.
+
+## Author
+
+cloudsupport@telestream.net
+
