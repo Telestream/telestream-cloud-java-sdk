@@ -51,6 +51,10 @@ public class Uploader {
         this(apiClient, factoryId, filePath, profiles, extraFiles, 5, false);
     }
 
+    public Uploader(FlipApi apiClient) {
+      this.apiClient = apiClient;
+    }
+
     public void setup() {
         try {
             VideoUploadBody videoUploadBody = initializeVideoUploadBody();
@@ -61,6 +65,12 @@ public class Uploader {
             logError("Failed to create an upload session");
             status = Status.Error;
         }
+    }
+
+    public void setup(String filePath, UploadSession uploadSession) {
+      this.filePath = filePath;
+      parseUploadSession(uploadSession);
+      status = Status.Initialized;
     }
 
     public Status start() throws IllegalStateException {

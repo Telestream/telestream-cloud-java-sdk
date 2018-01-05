@@ -26,7 +26,7 @@ import java.io.IOException;
 /**
  * ExtraFile
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-21T16:07:58.269+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-01-05T16:30:52.273+01:00")
 public class ExtraFile {
   @SerializedName("tag")
   private String tag = null;
@@ -46,7 +46,7 @@ public class ExtraFile {
    * Get tag
    * @return tag
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   public String getTag() {
     return tag;
   }
@@ -64,7 +64,7 @@ public class ExtraFile {
    * Get fileSize
    * @return fileSize
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   public Long getFileSize() {
     return fileSize;
   }
@@ -82,7 +82,7 @@ public class ExtraFile {
    * Get fileName
    * @return fileName
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   public String getFileName() {
     return fileName;
   }

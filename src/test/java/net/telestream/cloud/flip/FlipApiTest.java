@@ -19,6 +19,7 @@ import net.telestream.cloud.flip.CloudNotificationSettings;
 import net.telestream.cloud.flip.CopyProfileBody;
 import net.telestream.cloud.flip.CountResponse;
 import net.telestream.cloud.flip.CreateEncodingBody;
+import net.telestream.cloud.flip.CreateVideoBody;
 import net.telestream.cloud.flip.DeletedResponse;
 import net.telestream.cloud.flip.Encoding;
 import net.telestream.cloud.flip.EncodingSignedUrl;
@@ -148,6 +149,23 @@ public class FlipApiTest {
         Boolean excludeAdvancedServices = null;
         Boolean expand = null;
         Profile response = api.createProfile(factoryId, createProfileBody, excludeAdvancedServices, expand);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Creates a Video from a provided source_url.
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void createVideoTest() throws ApiException {
+        String factoryId = null;
+        CreateVideoBody createVideoBody = null;
+        Video response = api.createVideo(factoryId, createVideoBody);
 
         // TODO: test validations
     }

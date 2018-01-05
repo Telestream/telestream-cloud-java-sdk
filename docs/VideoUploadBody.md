@@ -4,12 +4,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**fileSize** | **Integer** | Size of the file that will be uploaded in &#x60;bytes&#x60;. | 
+**fileSize** | **Long** | Size of the file that will be uploaded in &#x60;bytes&#x60;. | 
 **fileName** | **String** | Name of the file that will be uploaded. | 
 **extraFiles** | [**List&lt;ExtraFile&gt;**](ExtraFile.md) | A list of names of additional files that will be uploaded. |  [optional]
 **profiles** | **String** | A comma-separated list of profile names or IDs to be used during encoding. Alternatively, specify none so no encodings will created right away. |  [optional]
 **pathFormat** | **String** |  |  [optional]
-**payload** | **Map&lt;String, String&gt;** |  |  [optional]
+**payload** | **String** | Payload is an arbitrary text of length 256 or shorter that you can store along the Video. It is typically used to retain an association with one of your own DB record ID. |  [optional]
 **extraVariables** | **Map&lt;String, String&gt;** |  |  [optional]
 **watermarkUrl** | **String** | URL pointing to an image that will be used asa watermark. |  [optional]
 **watermarkLeft** | **String** | Determines distance between the left edge of a video and the left edge of a watermark image. Can be specified in pixels or percents. This parameter can be set only if watermark_right is not. |  [optional]

@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**createEncoding**](FlipApi.md#createEncoding) | **POST** /encodings.json | Creates an Encoding
 [**createFactory**](FlipApi.md#createFactory) | **POST** /factories.json | Creates a new factory
 [**createProfile**](FlipApi.md#createProfile) | **POST** /profiles.json | Creates a Profile
+[**createVideo**](FlipApi.md#createVideo) | **POST** /videos.json | Creates a Video from a provided source_url.
 [**createWorkorder**](FlipApi.md#createWorkorder) | **POST** /workorders.json | Creates a Workorder.
 [**deleteEncoding**](FlipApi.md#deleteEncoding) | **DELETE** /encodings/{id}.json | Deletes an Encoding from both Telestream Cloud and your storage. Returns an information whether the operation was successful.
 [**deleteProfile**](FlipApi.md#deleteProfile) | **DELETE** /profiles/{id}.json | Deletes a given Profile
@@ -319,6 +320,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Profile**](Profile.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="createVideo"></a>
+# **createVideo**
+> Video createVideo(factoryId, createVideoBody)
+
+Creates a Video from a provided source_url.
+
+### Example
+```java
+// Import classes:
+//import net.telestream.cloud.flip.ApiClient;
+//import net.telestream.cloud.flip.ApiException;
+//import net.telestream.cloud.flip.Configuration;
+//import net.telestream.cloud.flip.auth.*;
+//import net.telestream.cloud.flip.FlipApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//api_key.setApiKeyPrefix("Token");
+
+FlipApi apiInstance = new FlipApi();
+String factoryId = "factoryId_example"; // String | Id of a Factory.
+CreateVideoBody createVideoBody = new CreateVideoBody(); // CreateVideoBody | 
+try {
+    Video result = apiInstance.createVideo(factoryId, createVideoBody);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FlipApi#createVideo");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **factoryId** | **String**| Id of a Factory. |
+ **createVideoBody** | [**CreateVideoBody**](CreateVideoBody.md)|  |
+
+### Return type
+
+[**Video**](Video.md)
 
 ### Authorization
 

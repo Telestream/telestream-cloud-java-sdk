@@ -26,7 +26,7 @@ import java.io.IOException;
 /**
  * Video
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-15T18:18:06.971+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-01-05T16:30:52.273+01:00")
 public class Video {
   @SerializedName("id")
   private String id = null;
@@ -430,10 +430,10 @@ public class Video {
   }
 
    /**
-   * Get payload
+   * Payload is an arbitrary text of length 256 or shorter that you can store along the Video. It is typically used to retain an association with one of your own DB record ID.
    * @return payload
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Payload is an arbitrary text of length 256 or shorter that you can store along the Video. It is typically used to retain an association with one of your own DB record ID.")
   public String getPayload() {
     return payload;
   }

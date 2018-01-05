@@ -31,7 +31,7 @@ import net.telestream.cloud.flip.ExtraFile;
 /**
  * VideoUploadBody
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-15T18:18:06.971+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-01-05T16:30:52.273+01:00")
 public class VideoUploadBody {
   @SerializedName("file_size")
   private Long fileSize = null;
@@ -49,7 +49,7 @@ public class VideoUploadBody {
   private String pathFormat = null;
 
   @SerializedName("payload")
-  private Map<String, String> payload = null;
+  private String payload = null;
 
   @SerializedName("extra_variables")
   private Map<String, String> extraVariables = null;
@@ -182,29 +182,21 @@ public class VideoUploadBody {
     this.pathFormat = pathFormat;
   }
 
-  public VideoUploadBody payload(Map<String, String> payload) {
+  public VideoUploadBody payload(String payload) {
     this.payload = payload;
     return this;
   }
 
-  public VideoUploadBody putPayloadItem(String key, String payloadItem) {
-    if (this.payload == null) {
-      this.payload = new HashMap<String, String>();
-    }
-    this.payload.put(key, payloadItem);
-    return this;
-  }
-
    /**
-   * Get payload
+   * Payload is an arbitrary text of length 256 or shorter that you can store along the Video. It is typically used to retain an association with one of your own DB record ID.
    * @return payload
   **/
-  @ApiModelProperty(value = "")
-  public Map<String, String> getPayload() {
+  @ApiModelProperty(value = "Payload is an arbitrary text of length 256 or shorter that you can store along the Video. It is typically used to retain an association with one of your own DB record ID.")
+  public String getPayload() {
     return payload;
   }
 
-  public void setPayload(Map<String, String> payload) {
+  public void setPayload(String payload) {
     this.payload = payload;
   }
 

@@ -29,7 +29,7 @@ import net.telestream.cloud.flip.Video;
 /**
  * PaginatedVideoCollection
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-11-15T18:18:06.971+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-01-05T16:30:52.273+01:00")
 public class PaginatedVideoCollection {
   @SerializedName("videos")
   private List<Video> videos = null;

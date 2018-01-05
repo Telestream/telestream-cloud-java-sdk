@@ -32,6 +32,7 @@ import net.telestream.cloud.flip.CloudNotificationSettings;
 import net.telestream.cloud.flip.CopyProfileBody;
 import net.telestream.cloud.flip.CountResponse;
 import net.telestream.cloud.flip.CreateEncodingBody;
+import net.telestream.cloud.flip.CreateVideoBody;
 import net.telestream.cloud.flip.DeletedResponse;
 import net.telestream.cloud.flip.Encoding;
 import net.telestream.cloud.flip.EncodingSignedUrl;
@@ -796,6 +797,142 @@ public class FlipApi {
 
         com.squareup.okhttp.Call call = createProfileValidateBeforeCall(factoryId, createProfileBody, excludeAdvancedServices, expand, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Profile>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for createVideo
+     * @param factoryId Id of a Factory. (required)
+     * @param createVideoBody  (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call createVideoCall(String factoryId, CreateVideoBody createVideoBody, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = createVideoBody;
+        
+        // create path and map variables
+        String localVarPath = "/videos.json";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        if (factoryId != null)
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "factory_id", factoryId));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "api_key" };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call createVideoValidateBeforeCall(String factoryId, CreateVideoBody createVideoBody, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'factoryId' is set
+        if (factoryId == null) {
+            throw new ApiException("Missing the required parameter 'factoryId' when calling createVideo(Async)");
+        }
+        
+        // verify the required parameter 'createVideoBody' is set
+        if (createVideoBody == null) {
+            throw new ApiException("Missing the required parameter 'createVideoBody' when calling createVideo(Async)");
+        }
+        
+        
+        com.squareup.okhttp.Call call = createVideoCall(factoryId, createVideoBody, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Creates a Video from a provided source_url.
+     * 
+     * @param factoryId Id of a Factory. (required)
+     * @param createVideoBody  (required)
+     * @return Video
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public Video createVideo(String factoryId, CreateVideoBody createVideoBody) throws ApiException {
+        ApiResponse<Video> resp = createVideoWithHttpInfo(factoryId, createVideoBody);
+        return resp.getData();
+    }
+
+    /**
+     * Creates a Video from a provided source_url.
+     * 
+     * @param factoryId Id of a Factory. (required)
+     * @param createVideoBody  (required)
+     * @return ApiResponse&lt;Video&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<Video> createVideoWithHttpInfo(String factoryId, CreateVideoBody createVideoBody) throws ApiException {
+        com.squareup.okhttp.Call call = createVideoValidateBeforeCall(factoryId, createVideoBody, null, null);
+        Type localVarReturnType = new TypeToken<Video>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Creates a Video from a provided source_url. (asynchronously)
+     * 
+     * @param factoryId Id of a Factory. (required)
+     * @param createVideoBody  (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call createVideoAsync(String factoryId, CreateVideoBody createVideoBody, final ApiCallback<Video> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = createVideoValidateBeforeCall(factoryId, createVideoBody, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<Video>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
