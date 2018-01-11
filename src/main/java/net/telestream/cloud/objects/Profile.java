@@ -1,17 +1,11 @@
 package net.telestream.cloud.objects;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by maciejwitowski on 1/23/16.
  */
-public class Profile {
-    private static final String KEY_NAME = "name";
-    private static final String KEY_PRESET_NAME = "preset_name";
-    private static final String KEY_FPS = "fps";
-
+public class Profile extends Model {
     private String id;
     private Float fps;
     private String name;
@@ -182,13 +176,5 @@ public class Profile {
 
     public void setFps(Float fps) {
         this.fps = fps;
-    }
-
-    public Map<String, Object> getAttributesMap() {
-        Map<String, Object> attributesMap = new HashMap<>();
-        attributesMap.put(KEY_NAME, name);
-        attributesMap.put(KEY_PRESET_NAME, presetName);
-        attributesMap.put(KEY_FPS, fps);
-        return attributesMap;
     }
 }

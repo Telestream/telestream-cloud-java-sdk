@@ -1,17 +1,11 @@
 package net.telestream.cloud.objects;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by maciejwitowski on 1/23/16.
  */
-public class Factory {
-
-    private static final String KEY_NAME = "name";
-    private static final String KEY_UPLOAD_ORIGINAL_VIDEO = "upload_original_video";
-
+public class Factory extends Model {
     private String id;
     private String name;
     private String url;
@@ -63,12 +57,5 @@ public class Factory {
 
     public Boolean getUploadOriginalVideo() {
         return uploadOriginalVideo;
-    }
-
-    public Map<String, Object> getAttributesMap() {
-        Map<String, Object> attributesMap = new HashMap<>();
-        attributesMap.put(KEY_NAME, name);
-        attributesMap.put(KEY_UPLOAD_ORIGINAL_VIDEO, uploadOriginalVideo);
-        return attributesMap;
     }
 }

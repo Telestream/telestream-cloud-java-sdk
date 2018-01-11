@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by maciejwitowski on 1/23/16.
  */
-public class Encoding {
+public class Encoding extends Model {
     private final String id;
     private final Status status;
     private final List<String> files;
@@ -154,9 +154,5 @@ public class Encoding {
 
     public String getVideoCodec() {
         return videoCodec;
-    }
-
-    public Map<String, Object> getAttributesMap() {
-        return null;
     }
 }

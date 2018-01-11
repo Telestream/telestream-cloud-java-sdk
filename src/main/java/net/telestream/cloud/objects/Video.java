@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by maciejwitowski on 1/18/16.
  */
-public class Video {
+public class Video extends Model {
     private final String id;
     private final Status status;
     private final String extname;
@@ -129,9 +129,5 @@ public class Video {
 
     public Integer getAudioBitrate() {
         return audioBitrate;
-    }
-
-    public Map<String, Object> getAttributesMap() {
-        return null;
     }
 }
