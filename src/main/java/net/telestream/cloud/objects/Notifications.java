@@ -6,12 +6,7 @@ import java.util.Map;
 /**
  * Created by maciejwitowski on 1/23/16.
  */
-public class Notifications {
-
-    private static final String KEY_URL = "url";
-    private static final String KEY_DELAY = "delay";
-    private static final String KEY_EVENTS = "events";
-
+public class Notifications extends Model {
     private String url;
     private Integer delay;
     private Events events;
@@ -62,14 +57,6 @@ public class Notifications {
 
     public void enableForEncodingCompleted(Boolean enabled) {
         events.encodingCompleted = enabled;
-    }
-
-    public Map<String, Object> getAttributesMap() {
-        Map<String, Object> attributesMap = new HashMap<>();
-        attributesMap.put(KEY_DELAY, delay);
-        attributesMap.put(KEY_URL, url);
-        attributesMap.put(KEY_EVENTS, events.getAttributesMap());
-        return attributesMap;
     }
 
     static class Events {
