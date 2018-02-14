@@ -1,94 +1,72 @@
-# swagger-java-client
+# Telestream Cloud Timed Text Speech Java SDK
+
+This library provides a low-level interface to the REST API of Telestream Cloud, the online video encoding service.
 
 ## Requirements
 
 Building the API client library requires [Maven](https://maven.apache.org/) to be installed.
 
-## Installation
-
-To install the API client library to your local Maven repository, simply execute:
-
-```shell
-mvn install
-```
-
-To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
-
-```shell
-mvn deploy
-```
-
-Refer to the [official documentation](https://maven.apache.org/plugins/maven-deploy-plugin/usage.html) for more information.
-
-### Maven users
-
-Add this dependency to your project's POM:
-
-```xml
-<dependency>
-    <groupId>io.swagger</groupId>
-    <artifactId>swagger-java-client</artifactId>
-    <version>1.0.0</version>
-    <scope>compile</scope>
-</dependency>
-```
-
-### Gradle users
-
-Add this dependency to your project's build file:
-
-```groovy
-compile "io.swagger:swagger-java-client:1.0.0"
-```
-
-### Others
-
-At first generate the JAR by executing:
-
-    mvn package
-
-Then manually install the following JARs:
-
-* target/swagger-java-client-1.0.0.jar
-* target/lib/*.jar
-
 ## Getting Started
-
-Please follow the [installation](#installation) instruction and execute the following Java code:
+## Initialize client
 
 ```java
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("tcs_api_key");
 
-import net.telestream.cloud.tts.*;
-import net.telestream.cloud.tts.auth.*;
-import net.telestream.cloud.tts.*;
-import net.telestream.cloud.tts.TtsApi;
+String projectId = "project_id";
+```
 
-import java.io.File;
-import java.util.*;
+### Create project
 
-public class TtsApiExample {
+```java
+Project project = new Project();
+project.setName("Example project name");
+project.setDescription("Example project description");
+project.setLanguage("en-US");
 
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        
-        // Configure API key authorization: apiKey
-        ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-        apiKey.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //apiKey.setApiKeyPrefix("Token");
+try {
+    Project createdProject = apiInstance.createProject(project);
+    System.out.println(createdProject);
+} catch (ApiException e) {
+    e.printStackTrace();
+}
+```
 
-        TtsApi apiInstance = new TtsApi();
-        String projectID = "projectID_example"; // String | ID of the Project
-        try {
-            CorporaCollection result = apiInstance.corpora(projectID);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling TtsApi#corpora");
-            e.printStackTrace();
-        }
-    }
+
+### Create job from source URL
+
+```java
+Job jobPayload = new Job();
+jobPayload.setSourceUrl("http://url/to/video.mp4");
+
+try {
+    Job createdJob = apiInstance.createJob(projectId, jobPayload);
+    System.out.println(createdJob);
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 
+```
+
+### Create job from file
+
+```java
+Uploader uploader = new Uploader(apiInstance, projectId, "/path/to/video/demo.mp4");
+uploader.setup();
+uploader.start();
+
+String mediaId = uploader.getMediaId();
+
+if (mediaId != null) {
+    try {
+        Job createdJob = apiInstance.job(projectId, mediaId);
+        System.out.println(createdJob);
+    } catch (ApiException e) {
+        e.printStackTrace();
+    }
+
+}
 ```
 
 ## Documentation for API Endpoints

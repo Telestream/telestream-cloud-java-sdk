@@ -5,9 +5,14 @@
     <artifactId>telestream-cloud-tts-sdk</artifactId>
     <packaging>jar</packaging>
     <name>telestream-cloud-tts-sdk</name>
-    <version>3.1.0</version>
-    <url>https://github.com/Telestream/telestream-cloud-java-sdk/telestream-cloud-tts-sdk</url>
-    <description>Telestream Cloud TTS SDK</description>
+    <version>2.0.0</version>
+    <url>https://github.com/Telestream/telestream-cloud-java-sdk</url>
+    <description>Telestream Cloud Timed Text Speech SDK</description>
+    <scm>
+        <connection>scm:git:git@github.com:Telestream/telestream-cloud-java-sdk.git</connection>
+        <developerConnection>scm:git:git@github.com:Telestream/telestream-cloud-java-sdk.git</developerConnection>
+        <url>https://github.com/Telestream/telestream-cloud-java-sdk</url>
+    </scm>
 
     <licenses>
         <license>
@@ -22,7 +27,7 @@
             <name>Telestream Cloud</name>
             <email>cloudsupport@telestream.net</email>
             <organization>Telestream</organization>
-            <organizationUrl>http://cloud.telestream.net</organizationUrl>
+            <organizationUrl>https://cloud.telestream.net</organizationUrl>
         </developer>
     </developers>
 
@@ -185,7 +190,7 @@
 				  </execution>
 				</executions>
 			</plugin>
-</plugins>
+		</plugins>
     </build>
 
     <profiles>
