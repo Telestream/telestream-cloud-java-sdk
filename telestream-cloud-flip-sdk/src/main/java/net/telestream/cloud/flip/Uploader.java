@@ -51,6 +51,10 @@ public class Uploader {
         this(apiClient, factoryId, filePath, profiles, extraFiles, 5, false);
     }
 
+    public Uploader(FlipApi apiClient, String factoryId, String filePath) {
+        this(apiClient, factoryId, filePath, null, null);
+    }
+
     public Uploader(FlipApi apiClient) {
       this.apiClient = apiClient;
     }
@@ -109,6 +113,10 @@ public class Uploader {
         return status;
     }
     public String getVideoId() {
+        return broker.getVideoId();
+    }
+
+    public String getMediaId() {
         return broker.getVideoId();
     }
 

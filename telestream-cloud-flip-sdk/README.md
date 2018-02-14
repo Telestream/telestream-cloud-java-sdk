@@ -1,100 +1,71 @@
-# swagger-java-client
+# Telestream Cloud Java SDK
+This library provides a low-level interface to the REST API of Telestream Cloud, the online video encoding service.
 
 ## Requirements
 
 Building the API client library requires [Maven](https://maven.apache.org/) to be installed.
 
-## Installation
-
-To install the API client library to your local Maven repository, simply execute:
-
-```shell
-mvn install
-```
-
-To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
-
-```shell
-mvn deploy
-```
-
-Refer to the [official documentation](https://maven.apache.org/plugins/maven-deploy-plugin/usage.html) for more information.
-
-### Maven users
-
-Add this dependency to your project's POM:
-
-```xml
-<dependency>
-    <groupId>io.swagger</groupId>
-    <artifactId>swagger-java-client</artifactId>
-    <version>1.0.0</version>
-    <scope>compile</scope>
-</dependency>
-```
-
-### Gradle users
-
-Add this dependency to your project's build file:
-
-```groovy
-compile "io.swagger:swagger-java-client:1.0.0"
-```
-
-### Others
-
-At first generate the JAR by executing:
-
-    mvn package
-
-Then manually install the following JARs:
-
-* target/swagger-java-client-1.0.0.jar
-* target/lib/*.jar
-
 ## Getting Started
-
-Please follow the [installation](#installation) instruction and execute the following Java code:
-
 ```java
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("tcs_api_key");
 
-import net.telestream.cloud.flip.*;
-import net.telestream.cloud.flip.auth.*;
-import net.telestream.cloud.flip.*;
-import net.telestream.cloud.flip.FlipApi;
+FlipApi apiInstance = new FlipApi();
 
-import java.io.File;
-import java.util.*;
+factoryId = "factoryId";
 
-public class FlipApiExample {
 
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        
-        // Configure API key authorization: api_key
-        ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
-        api_key.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //api_key.setApiKeyPrefix("Token");
+// Upload video
+HashMap<String, ArrayList<String>> extraFiles = new HashMap<String, ArrayList<String>>();
+ArrayList<String> subtitles = new ArrayList<String>();
+subtitles.add("path/to/subtitles.srt");
+extraFiles.put("subtitles", subtitles);
 
-        FlipApi apiInstance = new FlipApi();
-        String id = "id_example"; // String | Id of an Encoding.
-        String factoryId = "factoryId_example"; // String | Id of a Factory.
-        try {
-            CanceledResponse result = apiInstance.cancelEncoding(id, factoryId);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling FlipApi#cancelEncoding");
-            e.printStackTrace();
-        }
-    }
+Uploader uploader = new Uploader(apiInstance, factoryId, "path/to/movie.mp4", "h264", extraFiles);
+uploader.setup();
+uploader.start();
+
+
+// POST videos
+CreateVideoBody createVideoBody = new CreateVideoBody();
+createVideoBody.setSourceUrl("sourceurl.test/video.mp4");
+createVideoBody.setProfiles("h264");
+
+List<String> subtitles = new ArrayList<>();
+subtitles.add("sourceurl.test/subtitles.srt");
+createVideoBody.setSubtitleFiles(subtitles);
+
+try {
+    Video video = apiInstance.createVideo(factoryId, createVideoBody);
+    System.out.println(video);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FlipApi#createVideo");
+    e.printStackTrace();
 }
 
+
+// POST profiles
+ProfileBody createProfileBody = new ProfileBody();
+createProfileBody.setPresetName(ProfileBody.PresetNameEnum.H264_BASELINE);
+createProfileBody.setAudioBitrate(100);
+createProfileBody.setAudioCodec("ogg");
+
+excludeAdvancedServices = true;
+expand = true;
+
+try {
+   Profile createdProfile = apiInstance.createProfile(factoryId, createProfileBody, excludeAdvancedServices, expand);
+   System.out.println(createdProfile);
+} catch (ApiException e) {
+   System.err.println("Exception when calling FlipApi#createProfile");
+   e.printStackTrace();
+}
 ```
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.cloud.telestream.net/api/flip/3.1*
+All URIs are relative to *https://api.cloud.telestream.net/flip/3.1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
