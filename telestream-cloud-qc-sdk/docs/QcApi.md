@@ -4,24 +4,24 @@ All URIs are relative to *https://api.cloud.telestream.net/qc/v1.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancelJob**](QcApi.md#cancelJob) | **PUT** /projects/{project}/jobs/{job}/cancel.json | 
-[**createJob**](QcApi.md#createJob) | **POST** /projects/{project}/jobs.json | Create a new job
+[**cancelJob**](QcApi.md#cancelJob) | **PUT** /projects/{project_id}/jobs/{job_id}/cancel.json | 
+[**createJob**](QcApi.md#createJob) | **POST** /projects/{project_id}/jobs.json | Create a new job
 [**createProject**](QcApi.md#createProject) | **POST** /projects.json | Create a new project
-[**getJob**](QcApi.md#getJob) | **GET** /projects/{project}/jobs/{job}.json | Get QC job
-[**getProject**](QcApi.md#getProject) | **GET** /projects/{project}.json | Get project by Id
-[**listJobs**](QcApi.md#listJobs) | **GET** /projects/{project}/jobs.json | Get jobs form projects
+[**getJob**](QcApi.md#getJob) | **GET** /projects/{project_id}/jobs/{job_id}.json | Get QC job
+[**getProject**](QcApi.md#getProject) | **GET** /projects/{project_id}.json | Get project by Id
+[**listJobs**](QcApi.md#listJobs) | **GET** /projects/{project_id}/jobs.json | Get jobs form projects
 [**listProjects**](QcApi.md#listProjects) | **GET** /projects.json | List all projects for an account
-[**modifyProject**](QcApi.md#modifyProject) | **PUT** /projects/{project}.json | Modify project
-[**proxy**](QcApi.md#proxy) | **GET** /projects/{project}/jobs/{job}/proxy.json | 
-[**removeJob**](QcApi.md#removeJob) | **DELETE** /projects/{project}/jobs/{job}.json | 
-[**removeProject**](QcApi.md#removeProject) | **DELETE** /projects/{project}.json | 
-[**signedUrls**](QcApi.md#signedUrls) | **GET** /projects/{project}/jobs/{job}/signed-urls.json | 
-[**uploadVideo**](QcApi.md#uploadVideo) | **POST** /projects/{project}/upload.json | Creates an upload session
+[**modifyProject**](QcApi.md#modifyProject) | **PUT** /projects/{project_id}.json | Modify project
+[**proxy**](QcApi.md#proxy) | **GET** /projects/{project_id}/jobs/{job_id}/proxy.json | 
+[**removeJob**](QcApi.md#removeJob) | **DELETE** /projects/{project_id}/jobs/{job_id}.json | 
+[**removeProject**](QcApi.md#removeProject) | **DELETE** /projects/{project_id}.json | 
+[**signedUrls**](QcApi.md#signedUrls) | **GET** /projects/{project_id}/jobs/{job_id}/signed-urls.json | 
+[**uploadVideo**](QcApi.md#uploadVideo) | **POST** /projects/{project_id}/upload.json | Creates an upload session
 
 
 <a name="cancelJob"></a>
 # **cancelJob**
-> cancelJob(project, job)
+> cancelJob(projectId, jobId)
 
 
 
@@ -43,10 +43,10 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | A unique identifier of a Project.
-String job = "job_example"; // String | A unique identifier of a Job.
+String projectId = "projectId_example"; // String | A unique identifier of a Project.
+String jobId = "jobId_example"; // String | A unique identifier of a Job.
 try {
-    apiInstance.cancelJob(project, job);
+    apiInstance.cancelJob(projectId, jobId);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#cancelJob");
     e.printStackTrace();
@@ -57,8 +57,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**| A unique identifier of a Project. |
- **job** | **String**| A unique identifier of a Job. |
+ **projectId** | **String**| A unique identifier of a Project. |
+ **jobId** | **String**| A unique identifier of a Job. |
 
 ### Return type
 
@@ -75,7 +75,7 @@ null (empty response body)
 
 <a name="createJob"></a>
 # **createJob**
-> Job createJob(project, data)
+> Job createJob(projectId, data)
 
 Create a new job
 
@@ -97,10 +97,10 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | A unique identifier of a Project.
+String projectId = "projectId_example"; // String | A unique identifier of a Project.
 JobData data = new JobData(); // JobData | 
 try {
-    Job result = apiInstance.createJob(project, data);
+    Job result = apiInstance.createJob(projectId, data);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#createJob");
@@ -112,7 +112,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**| A unique identifier of a Project. |
+ **projectId** | **String**| A unique identifier of a Project. |
  **data** | [**JobData**](JobData.md)|  |
 
 ### Return type
@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
 
 <a name="getJob"></a>
 # **getJob**
-> Job getJob(project, job)
+> Job getJob(projectId, jobId)
 
 Get QC job
 
@@ -205,10 +205,10 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | A unique identifier of a Project.
-String job = "job_example"; // String | A unique identifier of a Job.
+String projectId = "projectId_example"; // String | A unique identifier of a Project.
+String jobId = "jobId_example"; // String | A unique identifier of a Job.
 try {
-    Job result = apiInstance.getJob(project, job);
+    Job result = apiInstance.getJob(projectId, jobId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#getJob");
@@ -220,8 +220,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**| A unique identifier of a Project. |
- **job** | **String**| A unique identifier of a Job. |
+ **projectId** | **String**| A unique identifier of a Project. |
+ **jobId** | **String**| A unique identifier of a Job. |
 
 ### Return type
 
@@ -238,7 +238,7 @@ Name | Type | Description  | Notes
 
 <a name="getProject"></a>
 # **getProject**
-> Project getProject(project)
+> Project getProject(projectId)
 
 Get project by Id
 
@@ -260,9 +260,9 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | A unique identifier of a Project.
+String projectId = "projectId_example"; // String | A unique identifier of a Project.
 try {
-    Project result = apiInstance.getProject(project);
+    Project result = apiInstance.getProject(projectId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#getProject");
@@ -274,7 +274,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**| A unique identifier of a Project. |
+ **projectId** | **String**| A unique identifier of a Project. |
 
 ### Return type
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 <a name="listJobs"></a>
 # **listJobs**
-> JobsCollection listJobs(project, expand, status, perPage, page)
+> JobsCollection listJobs(projectId, expand, status, perPage, page)
 
 Get jobs form projects
 
@@ -313,13 +313,13 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | A unique identifier of a Project.
+String projectId = "projectId_example"; // String | A unique identifier of a Project.
 Boolean expand = true; // Boolean | Expand details of job
 String status = "status_example"; // String | Filter jobs by status
 Integer perPage = 30; // Integer | Limit number of listed jobs
 Integer page = 56; // Integer | Index of jobs page to be listed
 try {
-    JobsCollection result = apiInstance.listJobs(project, expand, status, perPage, page);
+    JobsCollection result = apiInstance.listJobs(projectId, expand, status, perPage, page);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#listJobs");
@@ -331,7 +331,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**| A unique identifier of a Project. |
+ **projectId** | **String**| A unique identifier of a Project. |
  **expand** | **Boolean**| Expand details of job | [optional]
  **status** | **String**| Filter jobs by status | [optional]
  **perPage** | **Integer**| Limit number of listed jobs | [optional] [default to 30]
@@ -401,7 +401,7 @@ This endpoint does not need any parameter.
 
 <a name="modifyProject"></a>
 # **modifyProject**
-> Project modifyProject(project, data)
+> Project modifyProject(projectId, data)
 
 Modify project
 
@@ -423,10 +423,10 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | 
+String projectId = "projectId_example"; // String | 
 Data1 data = new Data1(); // Data1 | 
 try {
-    Project result = apiInstance.modifyProject(project, data);
+    Project result = apiInstance.modifyProject(projectId, data);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#modifyProject");
@@ -438,7 +438,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**|  |
+ **projectId** | **String**|  |
  **data** | [**Data1**](Data1.md)|  | [optional]
 
 ### Return type
@@ -456,7 +456,7 @@ Name | Type | Description  | Notes
 
 <a name="proxy"></a>
 # **proxy**
-> Proxy proxy(project, job)
+> Proxy proxy(projectId, jobId)
 
 
 
@@ -478,10 +478,10 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | A unique identifier of a Project.
-String job = "job_example"; // String | A unique identifier of a Job.
+String projectId = "projectId_example"; // String | A unique identifier of a Project.
+String jobId = "jobId_example"; // String | A unique identifier of a Job.
 try {
-    Proxy result = apiInstance.proxy(project, job);
+    Proxy result = apiInstance.proxy(projectId, jobId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#proxy");
@@ -493,8 +493,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**| A unique identifier of a Project. |
- **job** | **String**| A unique identifier of a Job. |
+ **projectId** | **String**| A unique identifier of a Project. |
+ **jobId** | **String**| A unique identifier of a Job. |
 
 ### Return type
 
@@ -511,7 +511,7 @@ Name | Type | Description  | Notes
 
 <a name="removeJob"></a>
 # **removeJob**
-> removeJob(project, job)
+> removeJob(projectId, jobId)
 
 
 
@@ -533,10 +533,10 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | A unique identifier of a Project.
-String job = "job_example"; // String | A unique identifier of a Job.
+String projectId = "projectId_example"; // String | A unique identifier of a Project.
+String jobId = "jobId_example"; // String | A unique identifier of a Job.
 try {
-    apiInstance.removeJob(project, job);
+    apiInstance.removeJob(projectId, jobId);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#removeJob");
     e.printStackTrace();
@@ -547,8 +547,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**| A unique identifier of a Project. |
- **job** | **String**| A unique identifier of a Job. |
+ **projectId** | **String**| A unique identifier of a Project. |
+ **jobId** | **String**| A unique identifier of a Job. |
 
 ### Return type
 
@@ -565,7 +565,7 @@ null (empty response body)
 
 <a name="removeProject"></a>
 # **removeProject**
-> removeProject(project)
+> removeProject(projectId)
 
 
 
@@ -587,9 +587,9 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | 
+String projectId = "projectId_example"; // String | 
 try {
-    apiInstance.removeProject(project);
+    apiInstance.removeProject(projectId);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#removeProject");
     e.printStackTrace();
@@ -600,7 +600,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**|  |
+ **projectId** | **String**|  |
 
 ### Return type
 
@@ -617,7 +617,7 @@ null (empty response body)
 
 <a name="signedUrls"></a>
 # **signedUrls**
-> Map&lt;String, String&gt; signedUrls(project, job)
+> Map&lt;String, String&gt; signedUrls(projectId, jobId)
 
 
 
@@ -639,10 +639,10 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | A unique identifier of a Project.
-String job = "job_example"; // String | A unique identifier of a Job.
+String projectId = "projectId_example"; // String | A unique identifier of a Project.
+String jobId = "jobId_example"; // String | A unique identifier of a Job.
 try {
-    Map<String, String> result = apiInstance.signedUrls(project, job);
+    Map<String, String> result = apiInstance.signedUrls(projectId, jobId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#signedUrls");
@@ -654,12 +654,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**| A unique identifier of a Project. |
- **job** | **String**| A unique identifier of a Job. |
+ **projectId** | **String**| A unique identifier of a Project. |
+ **jobId** | **String**| A unique identifier of a Job. |
 
 ### Return type
 
-[**Map&lt;String, String&gt;**](Map.md)
+**Map&lt;String, String&gt;**
 
 ### Authorization
 
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 
 <a name="uploadVideo"></a>
 # **uploadVideo**
-> UploadSession uploadVideo(project, videoUploadBody)
+> UploadSession uploadVideo(projectId, videoUploadBody)
 
 Creates an upload session
 
@@ -694,10 +694,10 @@ apiKey.setApiKey("YOUR API KEY");
 //apiKey.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
-String project = "project_example"; // String | A unique identifier of a Project.
+String projectId = "projectId_example"; // String | A unique identifier of a Project.
 VideoUploadBody videoUploadBody = new VideoUploadBody(); // VideoUploadBody | 
 try {
-    UploadSession result = apiInstance.uploadVideo(project, videoUploadBody);
+    UploadSession result = apiInstance.uploadVideo(projectId, videoUploadBody);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling QcApi#uploadVideo");
@@ -709,7 +709,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project** | **String**| A unique identifier of a Project. |
+ **projectId** | **String**| A unique identifier of a Project. |
  **videoUploadBody** | [**VideoUploadBody**](VideoUploadBody.md)|  |
 
 ### Return type

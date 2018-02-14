@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**options** | **String** |  |  [optional]
+**options** | [**Options**](Options.md) |  |  [optional]
 **url** | **String** |  |  [optional]
 
 

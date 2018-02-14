@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **name** | **String** | Human-readable identifier of a Project. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | Project status. |  [optional]
 **template** | **String** | Name of QC template. |  [optional]
-**options** | **String** | JSON with specific options |  [optional]
+**options** | **Map&lt;String, Object&gt;** | JSON with specific options |  [optional]
 
 
 <a name="StatusEnum"></a>
