@@ -1,7 +1,6 @@
 package net.telestream.cloud.objects;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Created by maciejwitowski on 1/18/16.
@@ -18,6 +17,7 @@ public class Video extends Model {
     private final String sourceUrl;
     private final Integer width;
     private final Integer height;
+
     private final Integer audioChannels;
     private final Integer videoBitrate;
     private final String originalFilename;

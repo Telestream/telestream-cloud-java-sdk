@@ -83,6 +83,10 @@ public class TelestreamCloud {
         return EncodingService.forFactory(credentials, factoryId).all();
     }
 
+    public List<Encoding> getEncodings(String factoryID, String videoID) {
+        return EncodingService.forFactoryVideo(credentials, factoryID, videoID).all();
+    }
+
     public Encoding getEncoding(String factoryId, String encodingId) {
         return EncodingService.forFactory(credentials, factoryId).find(encodingId);
     }
