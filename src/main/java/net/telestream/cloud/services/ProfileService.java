@@ -1,12 +1,13 @@
 package net.telestream.cloud.services;
 
+import com.google.gson.reflect.TypeToken;
 import net.telestream.cloud.TelestreamCloudCredentials;
 import net.telestream.cloud.TelestreamCloudRequest;
-import com.google.gson.reflect.TypeToken;
 import net.telestream.cloud.objects.Profile;
 import net.telestream.cloud.utils.GsonHelper;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,22 @@ public class ProfileService extends ApiService<Profile> {
         ProfileService profileService = new ProfileService(credentials);
         profileService.factoryId = factoryId;
         return profileService;
+    }
+
+    @Override
+    public List<Profile> all() {
+        int perPage = 100;
+        List<Profile> allProfiles = new ArrayList<Profile>();
+
+        List<Profile> profiles;
+        int page = 1;
+        do {
+            profiles = all(page, perPage);
+            allProfiles.addAll(profiles);
+            page++;
+        } while(profiles.size() == perPage);
+
+        return allProfiles;
     }
 
     @Override

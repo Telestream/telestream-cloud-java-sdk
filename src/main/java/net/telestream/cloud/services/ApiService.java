@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import net.telestream.cloud.utils.GsonHelper;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,23 @@ public abstract class ApiService<T> {
     public List<T> all() {
         TelestreamCloudRequest.Builder requestBuilder = new TelestreamCloudRequest.Builder(credentials)
                 .get()
+                .apiPath(path());
+
+        // Subclasses of ApiService can add additional request properties, eg. factoryId
+        setAdditionalAllRequestParams(requestBuilder);
+        String response = requestBuilder.build().send();
+
+        return gson.fromJson(response, collectionType());
+    }
+
+    public List<T> all(int page, int perPage) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", page);
+        params.put("per_page", perPage);
+
+        TelestreamCloudRequest.Builder requestBuilder = new TelestreamCloudRequest.Builder(credentials)
+                .get()
+                .data(params)
                 .apiPath(path());
 
         // Subclasses of ApiService can add additional request properties, eg. factoryId
