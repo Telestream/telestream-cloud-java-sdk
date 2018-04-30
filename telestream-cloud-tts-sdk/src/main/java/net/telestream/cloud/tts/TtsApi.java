@@ -843,19 +843,19 @@ public class TtsApi {
     /**
      * Build call for deleteJob
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call deleteJobCall(String projectID, String jobId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call deleteJobCall(String projectID, String jobID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/projects/{projectID}/jobs/{id}"
+        String localVarPath = "/projects/{projectID}/jobs/{jobID}"
             .replaceAll("\\{" + "projectID" + "\\}", apiClient.escapeString(projectID.toString()))
-            .replaceAll("\\{" + "job_id" + "\\}", apiClient.escapeString(jobId.toString()));
+            .replaceAll("\\{" + "jobID" + "\\}", apiClient.escapeString(jobID.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -893,20 +893,20 @@ public class TtsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call deleteJobValidateBeforeCall(String projectID, String jobId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call deleteJobValidateBeforeCall(String projectID, String jobID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'projectID' is set
         if (projectID == null) {
             throw new ApiException("Missing the required parameter 'projectID' when calling deleteJob(Async)");
         }
         
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException("Missing the required parameter 'jobId' when calling deleteJob(Async)");
+        // verify the required parameter 'jobID' is set
+        if (jobID == null) {
+            throw new ApiException("Missing the required parameter 'jobID' when calling deleteJob(Async)");
         }
         
 
-        com.squareup.okhttp.Call call = deleteJobCall(projectID, jobId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = deleteJobCall(projectID, jobID, progressListener, progressRequestListener);
         return call;
 
     }
@@ -915,23 +915,23 @@ public class TtsApi {
      * Deletes the Job
      * Deletes the Job
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public void deleteJob(String projectID, String jobId) throws ApiException {
-        deleteJobWithHttpInfo(projectID, jobId);
+    public void deleteJob(String projectID, String jobID) throws ApiException {
+        deleteJobWithHttpInfo(projectID, jobID);
     }
 
     /**
      * Deletes the Job
      * Deletes the Job
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Void> deleteJobWithHttpInfo(String projectID, String jobId) throws ApiException {
-        com.squareup.okhttp.Call call = deleteJobValidateBeforeCall(projectID, jobId, null, null);
+    public ApiResponse<Void> deleteJobWithHttpInfo(String projectID, String jobID) throws ApiException {
+        com.squareup.okhttp.Call call = deleteJobValidateBeforeCall(projectID, jobID, null, null);
         return apiClient.execute(call);
     }
 
@@ -939,12 +939,12 @@ public class TtsApi {
      * Deletes the Job (asynchronously)
      * Deletes the Job
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call deleteJobAsync(String projectID, String jobId, final ApiCallback<Void> callback) throws ApiException {
+    public com.squareup.okhttp.Call deleteJobAsync(String projectID, String jobID, final ApiCallback<Void> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -965,7 +965,7 @@ public class TtsApi {
             };
         }
 
-        com.squareup.okhttp.Call call = deleteJobValidateBeforeCall(projectID, jobId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = deleteJobValidateBeforeCall(projectID, jobID, progressListener, progressRequestListener);
         apiClient.executeAsync(call, callback);
         return call;
     }
@@ -1081,19 +1081,19 @@ public class TtsApi {
     /**
      * Build call for job
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call jobCall(String projectID, String jobId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call jobCall(String projectID, String jobID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/projects/{projectID}/jobs/{id}"
+        String localVarPath = "/projects/{projectID}/jobs/{jobID}"
             .replaceAll("\\{" + "projectID" + "\\}", apiClient.escapeString(projectID.toString()))
-            .replaceAll("\\{" + "job_id" + "\\}", apiClient.escapeString(jobId.toString()));
+            .replaceAll("\\{" + "jobID" + "\\}", apiClient.escapeString(jobID.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -1131,20 +1131,20 @@ public class TtsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call jobValidateBeforeCall(String projectID, String jobId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call jobValidateBeforeCall(String projectID, String jobID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'projectID' is set
         if (projectID == null) {
             throw new ApiException("Missing the required parameter 'projectID' when calling job(Async)");
         }
         
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException("Missing the required parameter 'jobId' when calling job(Async)");
+        // verify the required parameter 'jobID' is set
+        if (jobID == null) {
+            throw new ApiException("Missing the required parameter 'jobID' when calling job(Async)");
         }
         
 
-        com.squareup.okhttp.Call call = jobCall(projectID, jobId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = jobCall(projectID, jobID, progressListener, progressRequestListener);
         return call;
 
     }
@@ -1153,12 +1153,12 @@ public class TtsApi {
      * Returns the Job
      * Returns the Job
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @return Job
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Job job(String projectID, String jobId) throws ApiException {
-        ApiResponse<Job> resp = jobWithHttpInfo(projectID, jobId);
+    public Job job(String projectID, String jobID) throws ApiException {
+        ApiResponse<Job> resp = jobWithHttpInfo(projectID, jobID);
         return resp.getData();
     }
 
@@ -1166,12 +1166,12 @@ public class TtsApi {
      * Returns the Job
      * Returns the Job
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @return ApiResponse&lt;Job&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Job> jobWithHttpInfo(String projectID, String jobId) throws ApiException {
-        com.squareup.okhttp.Call call = jobValidateBeforeCall(projectID, jobId, null, null);
+    public ApiResponse<Job> jobWithHttpInfo(String projectID, String jobID) throws ApiException {
+        com.squareup.okhttp.Call call = jobValidateBeforeCall(projectID, jobID, null, null);
         Type localVarReturnType = new TypeToken<Job>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -1180,12 +1180,12 @@ public class TtsApi {
      * Returns the Job (asynchronously)
      * Returns the Job
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call jobAsync(String projectID, String jobId, final ApiCallback<Job> callback) throws ApiException {
+    public com.squareup.okhttp.Call jobAsync(String projectID, String jobID, final ApiCallback<Job> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1206,7 +1206,7 @@ public class TtsApi {
             };
         }
 
-        com.squareup.okhttp.Call call = jobValidateBeforeCall(projectID, jobId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = jobValidateBeforeCall(projectID, jobID, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Job>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
@@ -1214,19 +1214,19 @@ public class TtsApi {
     /**
      * Build call for jobResult
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call jobResultCall(String projectID, String jobId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call jobResultCall(String projectID, String jobID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/projects/{projectID}/jobs/{id}/result"
+        String localVarPath = "/projects/{projectID}/jobs/{jobID}/result"
             .replaceAll("\\{" + "projectID" + "\\}", apiClient.escapeString(projectID.toString()))
-            .replaceAll("\\{" + "job_id" + "\\}", apiClient.escapeString(jobId.toString()));
+            .replaceAll("\\{" + "jobID" + "\\}", apiClient.escapeString(jobID.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -1264,20 +1264,20 @@ public class TtsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call jobResultValidateBeforeCall(String projectID, String jobId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call jobResultValidateBeforeCall(String projectID, String jobID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'projectID' is set
         if (projectID == null) {
             throw new ApiException("Missing the required parameter 'projectID' when calling jobResult(Async)");
         }
         
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException("Missing the required parameter 'jobId' when calling jobResult(Async)");
+        // verify the required parameter 'jobID' is set
+        if (jobID == null) {
+            throw new ApiException("Missing the required parameter 'jobID' when calling jobResult(Async)");
         }
         
 
-        com.squareup.okhttp.Call call = jobResultCall(projectID, jobId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = jobResultCall(projectID, jobID, progressListener, progressRequestListener);
         return call;
 
     }
@@ -1286,12 +1286,12 @@ public class TtsApi {
      * Returns the Job Result
      * Returns the Job Result
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @return JobResult
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public JobResult jobResult(String projectID, String jobId) throws ApiException {
-        ApiResponse<JobResult> resp = jobResultWithHttpInfo(projectID, jobId);
+    public JobResult jobResult(String projectID, String jobID) throws ApiException {
+        ApiResponse<JobResult> resp = jobResultWithHttpInfo(projectID, jobID);
         return resp.getData();
     }
 
@@ -1299,12 +1299,12 @@ public class TtsApi {
      * Returns the Job Result
      * Returns the Job Result
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @return ApiResponse&lt;JobResult&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<JobResult> jobResultWithHttpInfo(String projectID, String jobId) throws ApiException {
-        com.squareup.okhttp.Call call = jobResultValidateBeforeCall(projectID, jobId, null, null);
+    public ApiResponse<JobResult> jobResultWithHttpInfo(String projectID, String jobID) throws ApiException {
+        com.squareup.okhttp.Call call = jobResultValidateBeforeCall(projectID, jobID, null, null);
         Type localVarReturnType = new TypeToken<JobResult>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -1313,12 +1313,12 @@ public class TtsApi {
      * Returns the Job Result (asynchronously)
      * Returns the Job Result
      * @param projectID ID of the Project (required)
-     * @param jobId  (required)
+     * @param jobID  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call jobResultAsync(String projectID, String jobId, final ApiCallback<JobResult> callback) throws ApiException {
+    public com.squareup.okhttp.Call jobResultAsync(String projectID, String jobID, final ApiCallback<JobResult> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1339,7 +1339,7 @@ public class TtsApi {
             };
         }
 
-        com.squareup.okhttp.Call call = jobResultValidateBeforeCall(projectID, jobId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = jobResultValidateBeforeCall(projectID, jobID, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<JobResult>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

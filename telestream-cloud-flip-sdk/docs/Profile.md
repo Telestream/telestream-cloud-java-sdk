@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **bufferSizeInPackets** | **String** | todo |  [optional]
 **bumpers** | **String** |  |  [optional]
 **byteRangeRequests** | **Boolean** |  |  [optional]
+**clipEnd** | **String** | Clip ends at a specific time. |  [optional]
 **clipLength** | **String** | A clip’s duration. |  [optional]
 **clipOffset** | **String** | Clip starts at a specific offset. |  [optional]
 **closedCaptions** | [**ClosedCaptionsEnum**](#ClosedCaptionsEnum) | One of add (adds captions as a separate streams) or burn (burns captions on video stream using the first subtitle file). By default it is not set. |  [optional]
@@ -65,7 +66,7 @@ Name | Type | Description | Notes
 **outputsPathFormat** | **String** | Specify the directory where the output files should be stored. By default it is not set. More information about this [here](https://cloud.telestream.net/docs#path-format---know-how). |  [optional]
 **playlistType** | [**PlaylistTypeEnum**](#PlaylistTypeEnum) |  |  [optional]
 **pmtPid** | **String** |  |  [optional]
-**presetName** | [**PresetNameEnum**](#PresetNameEnum) | a name of a preset that a profile will use. |  [optional]
+**presetName** | **String** | a name of a preset that a profile will use. |  [optional]
 **proresFormat** | **String** |  |  [optional]
 **segmentTime** | **Integer** | Minimum value is 2, maximum is 60. |  [optional]
 **stack** | **String** |  |  [optional]
@@ -286,54 +287,6 @@ Name | Value
 ---- | -----
 IFRAME | &quot;iframe&quot;
 IFRAME_ONLY | &quot;iframe-only&quot;
-
-
-<a name="PresetNameEnum"></a>
-## Enum: PresetNameEnum
-Name | Value
----- | -----
-AAC | &quot;aac&quot;
-AVC_INTRA | &quot;avc.intra&quot;
-DASH_VARIANT | &quot;dash.variant&quot;
-DASH_VARIANT_AUDIO | &quot;dash.variant.audio&quot;
-DASH_VARIANT_WEBVTT | &quot;dash.variant.webvtt&quot;
-DASH_VARIANT_TTML | &quot;dash.variant.ttml&quot;
-DASH_VARIANT_PLAYLIST | &quot;dash.variant.playlist&quot;
-DASH_VARIANT_NVENC | &quot;dash.variant.nvenc&quot;
-DASH_MUXER | &quot;dash.muxer&quot;
-DASH_MUXER_AUDIO | &quot;dash.muxer.audio&quot;
-DNXHD | &quot;dnxhd&quot;
-H264 | &quot;h264&quot;
-H264_BASELINE | &quot;h264.baseline&quot;
-H264_NVENC_TELESTREAM_MOV | &quot;h264.nvenc.telestream.mov&quot;
-H264_NVENC | &quot;h264.nvenc&quot;
-H265 | &quot;h265&quot;
-H265_4K | &quot;h265.4K&quot;
-HLS_MUXER | &quot;hls.muxer&quot;
-HLS_MUXER_AUDIO | &quot;hls.muxer.audio&quot;
-HLS_VARIANT | &quot;hls.variant&quot;
-HLS_VARIANT_AUDIO | &quot;hls.variant.audio&quot;
-HLS_VARIANT_PLAYLIST | &quot;hls.variant.playlist&quot;
-HLS_VARIANT_NVENC | &quot;hls.variant.nvenc&quot;
-HLS_VARIANT_WEBVTT | &quot;hls.variant.webvtt&quot;
-HSS | &quot;hss&quot;
-HSS_VARIANT | &quot;hss.variant&quot;
-HSS_VARIANT_AUDIO | &quot;hss.variant.audio&quot;
-HSS_VARIANT_PLAYLIST | &quot;hss.variant.playlist&quot;
-IMX | &quot;imx&quot;
-JPEG | &quot;jpeg&quot;
-M4A | &quot;m4a&quot;
-MP3 | &quot;mp3&quot;
-MPEG2 | &quot;mpeg2&quot;
-MPEGPS | &quot;mpegps&quot;
-MPEGTS_H264 | &quot;mpegts.h264&quot;
-PNG | &quot;png&quot;
-PRORES422 | &quot;prores422&quot;
-QUICK_ONE_THUMBNAIL | &quot;quick_one_thumbnail&quot;
-THUMBNAIL | &quot;thumbnail&quot;
-WEBM_VP8 | &quot;webm.vp8&quot;
-WEBM_VP9 | &quot;webm.vp9&quot;
-XDCAM | &quot;xdcam&quot;
 
 
 <a name="TelestreamBlockSizeEnum"></a>

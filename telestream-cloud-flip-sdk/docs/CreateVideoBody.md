@@ -9,8 +9,12 @@ Name | Type | Description | Notes
 **payload** | **String** | Arbitrary string stored along the Video object. |  [optional]
 **pipeline** | **String** | String-encoded JSON describing profiles pipeline. |  [optional]
 **subtitleFiles** | **List&lt;String&gt;** | A list of urls pointing to remote subtitle files. |  [optional]
+**extraFiles** | [**Map&lt;String, List&lt;String&gt;&gt;**](List.md) |  |  [optional]
 **extraVariables** | **Map&lt;String, String&gt;** |  |  [optional]
 **pathFormat** | **String** |  |  [optional]
+**clipEnd** | **String** | Clip ends at a specific time. |  [optional]
+**clipLength** | **String** | A clip’s duration. |  [optional]
+**clipOffset** | **String** | Clip starts at a specific offset. |  [optional]
 
 
 

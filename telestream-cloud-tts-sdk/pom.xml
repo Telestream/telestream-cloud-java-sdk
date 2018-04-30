@@ -5,7 +5,7 @@
     <artifactId>telestream-cloud-tts-sdk</artifactId>
     <packaging>jar</packaging>
     <name>telestream-cloud-tts-sdk</name>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <url>https://github.com/Telestream/telestream-cloud-java-sdk</url>
     <description>Telestream Cloud Timed Text Speech SDK</description>
     <scm>

@@ -121,7 +121,7 @@ public class Job {
   private String format = null;
 
   @SerializedName("file_size")
-  private String fileSize = null;
+  private Integer fileSize = null;
 
   @SerializedName("created_at")
   private String createdAt = null;
@@ -363,7 +363,7 @@ public class Job {
     this.format = format;
   }
 
-  public Job fileSize(String fileSize) {
+  public Job fileSize(Integer fileSize) {
     this.fileSize = fileSize;
     return this;
   }
@@ -373,11 +373,11 @@ public class Job {
    * @return fileSize
   **/
   @ApiModelProperty(value = "The file size of the input file.")
-  public String getFileSize() {
+  public Integer getFileSize() {
     return fileSize;
   }
 
-  public void setFileSize(String fileSize) {
+  public void setFileSize(Integer fileSize) {
     this.fileSize = fileSize;
   }
 

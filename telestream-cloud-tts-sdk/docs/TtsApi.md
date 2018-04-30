@@ -10,10 +10,10 @@ Method | HTTP request | Description
 [**createJob**](TtsApi.md#createJob) | **POST** /projects/{projectID}/jobs | Creates a new Job
 [**createProject**](TtsApi.md#createProject) | **POST** /projects | Creates a new Project
 [**deleteCorpus**](TtsApi.md#deleteCorpus) | **DELETE** /projects/{projectID}/corpora/{name} | Creates a new Corpus
-[**deleteJob**](TtsApi.md#deleteJob) | **DELETE** /projects/{projectID}/jobs/{id} | Deletes the Job
+[**deleteJob**](TtsApi.md#deleteJob) | **DELETE** /projects/{projectID}/jobs/{jobID} | Deletes the Job
 [**deleteProject**](TtsApi.md#deleteProject) | **DELETE** /projects/{projectID} | Deletes the Project
-[**job**](TtsApi.md#job) | **GET** /projects/{projectID}/jobs/{id} | Returns the Job
-[**jobResult**](TtsApi.md#jobResult) | **GET** /projects/{projectID}/jobs/{id}/result | Returns the Job Result
+[**job**](TtsApi.md#job) | **GET** /projects/{projectID}/jobs/{jobID} | Returns the Job
+[**jobResult**](TtsApi.md#jobResult) | **GET** /projects/{projectID}/jobs/{jobID}/result | Returns the Job Result
 [**jobs**](TtsApi.md#jobs) | **GET** /projects/{projectID}/jobs | Returns a collection of Jobs
 [**project**](TtsApi.md#project) | **GET** /projects/{projectID} | Returns the Project
 [**projects**](TtsApi.md#projects) | **GET** /projects | Returns a collection of Projects
@@ -362,7 +362,7 @@ null (empty response body)
 
 <a name="deleteJob"></a>
 # **deleteJob**
-> deleteJob(projectID, jobId)
+> deleteJob(projectID, jobID)
 
 Deletes the Job
 
@@ -387,9 +387,9 @@ apiKey.setApiKey("YOUR API KEY");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
-String jobId = "jobId_example"; // String | 
+String jobID = "jobID_example"; // String | 
 try {
-    apiInstance.deleteJob(projectID, jobId);
+    apiInstance.deleteJob(projectID, jobID);
 } catch (ApiException e) {
     System.err.println("Exception when calling TtsApi#deleteJob");
     e.printStackTrace();
@@ -401,7 +401,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **projectID** | **String**| ID of the Project |
- **jobId** | **String**|  |
+ **jobID** | **String**|  |
 
 ### Return type
 
@@ -468,7 +468,7 @@ null (empty response body)
 
 <a name="job"></a>
 # **job**
-> Job job(projectID, jobId)
+> Job job(projectID, jobID)
 
 Returns the Job
 
@@ -493,9 +493,9 @@ apiKey.setApiKey("YOUR API KEY");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
-String jobId = "jobId_example"; // String | 
+String jobID = "jobID_example"; // String | 
 try {
-    Job result = apiInstance.job(projectID, jobId);
+    Job result = apiInstance.job(projectID, jobID);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TtsApi#job");
@@ -508,7 +508,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **projectID** | **String**| ID of the Project |
- **jobId** | **String**|  |
+ **jobID** | **String**|  |
 
 ### Return type
 
@@ -525,7 +525,7 @@ Name | Type | Description  | Notes
 
 <a name="jobResult"></a>
 # **jobResult**
-> JobResult jobResult(projectID, jobId)
+> JobResult jobResult(projectID, jobID)
 
 Returns the Job Result
 
@@ -550,9 +550,9 @@ apiKey.setApiKey("YOUR API KEY");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
-String jobId = "jobId_example"; // String | 
+String jobID = "jobID_example"; // String | 
 try {
-    JobResult result = apiInstance.jobResult(projectID, jobId);
+    JobResult result = apiInstance.jobResult(projectID, jobID);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TtsApi#jobResult");
@@ -565,7 +565,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **projectID** | **String**| ID of the Project |
- **jobId** | **String**|  |
+ **jobID** | **String**|  |
 
 ### Return type
 

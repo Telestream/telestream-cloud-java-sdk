@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**removeJob**](QcApi.md#removeJob) | **DELETE** /projects/{project_id}/jobs/{job_id}.json | 
 [**removeProject**](QcApi.md#removeProject) | **DELETE** /projects/{project_id}.json | 
 [**signedUrls**](QcApi.md#signedUrls) | **GET** /projects/{project_id}/jobs/{job_id}/signed-urls.json | 
+[**templates**](QcApi.md#templates) | **GET** /templates.json | List all templates
 [**uploadVideo**](QcApi.md#uploadVideo) | **POST** /projects/{project_id}/upload.json | Creates an upload session
 
 
@@ -660,6 +661,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 **Map&lt;String, String&gt;**
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="templates"></a>
+# **templates**
+> List&lt;Template&gt; templates()
+
+List all templates
+
+### Example
+```java
+// Import classes:
+//import net.telestream.cloud.qc.ApiClient;
+//import net.telestream.cloud.qc.ApiException;
+//import net.telestream.cloud.qc.Configuration;
+//import net.telestream.cloud.qc.auth.*;
+//import net.telestream.cloud.qc.QcApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: apiKey
+ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
+apiKey.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.setApiKeyPrefix("Token");
+
+QcApi apiInstance = new QcApi();
+try {
+    List<Template> result = apiInstance.templates();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling QcApi#templates");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List&lt;Template&gt;**](Template.md)
 
 ### Authorization
 

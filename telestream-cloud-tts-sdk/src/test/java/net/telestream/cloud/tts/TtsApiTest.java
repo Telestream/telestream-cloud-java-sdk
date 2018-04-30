@@ -153,8 +153,8 @@ public class TtsApiTest {
     @Test
     public void deleteJobTest() throws ApiException {
         String projectID = null;
-        String jobId = null;
-        api.deleteJob(projectID, jobId);
+        String jobID = null;
+        api.deleteJob(projectID, jobID);
 
         // TODO: test validations
     }
@@ -185,8 +185,8 @@ public class TtsApiTest {
     @Test
     public void jobTest() throws ApiException {
         String projectID = null;
-        String jobId = null;
-        Job response = api.job(projectID, jobId);
+        String jobID = null;
+        Job response = api.job(projectID, jobID);
 
         // TODO: test validations
     }
@@ -202,8 +202,8 @@ public class TtsApiTest {
     @Test
     public void jobResultTest() throws ApiException {
         String projectID = null;
-        String jobId = null;
-        JobResult response = api.jobResult(projectID, jobId);
+        String jobID = null;
+        JobResult response = api.jobResult(projectID, jobID);
 
         // TODO: test validations
     }

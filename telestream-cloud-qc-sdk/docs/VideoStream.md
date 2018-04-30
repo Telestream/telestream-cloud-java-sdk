@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**duration** | **Integer** | Video stream duration measured in seconds. |  [optional]
+**duration** | [**BigDecimal**](BigDecimal.md) | Video stream duration measured in seconds. |  [optional]
 **codec** | **String** |  |  [optional]
 **width** | **Integer** |  |  [optional]
 **height** | **Integer** |  |  [optional]
