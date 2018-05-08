@@ -34,7 +34,7 @@ public class Subscription {
   private String id = null;
 
   /**
-   * Gets or Sets type
+   * [required] Type of subscription (email, webhook) 
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
@@ -89,11 +89,6 @@ public class Subscription {
   @SerializedName("params")
   private Params params = null;
 
-  public Subscription id(String id) {
-    this.id = id;
-    return this;
-  }
-
    /**
    * [read-only] Subscription identifier 
    * @return id
@@ -103,20 +98,16 @@ public class Subscription {
     return id;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
   public Subscription type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
    /**
-   * Get type
+   * [required] Type of subscription (email, webhook) 
    * @return type
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "[required] Type of subscription (email, webhook) ")
   public TypeEnum getType() {
     return type;
   }
@@ -131,10 +122,10 @@ public class Subscription {
   }
 
    /**
-   * Get topic
+   * [required] 
    * @return topic
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "[required] ")
   public Topic getTopic() {
     return topic;
   }
@@ -149,10 +140,10 @@ public class Subscription {
   }
 
    /**
-   * Get params
+   * [required] 
    * @return params
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "[required] ")
   public Params getParams() {
     return params;
   }

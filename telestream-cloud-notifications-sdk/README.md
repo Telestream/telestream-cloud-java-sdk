@@ -29,7 +29,7 @@ Class | Method | HTTP request | Description
 ## Documentation for Authorization
 
 Authentication schemes defined for the API:
-### apiKey
+### api_key
 
 - **Type**: API key
 - **API key parameter name**: X-Api-Key

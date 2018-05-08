@@ -41,11 +41,11 @@ Returns a collection of Corpora
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -96,11 +96,11 @@ Returns the Corpus
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -153,11 +153,11 @@ Creates a new Corpus
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -185,7 +185,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -211,11 +211,11 @@ Creates a new Job
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -242,7 +242,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -268,11 +268,11 @@ Creates a new Project
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 Project project = new Project(); // Project | 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -323,11 +323,11 @@ Creates a new Corpus
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -353,7 +353,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -379,11 +379,11 @@ Deletes the Job
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -409,7 +409,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -435,11 +435,11 @@ Deletes the Project
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 try {
@@ -459,7 +459,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -485,11 +485,11 @@ Returns the Job
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -516,7 +516,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -542,11 +542,11 @@ Returns the Job Result
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -573,7 +573,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -599,11 +599,11 @@ Returns a collection of Jobs
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -632,7 +632,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -658,11 +658,11 @@ Returns the Project
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -687,7 +687,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -713,11 +713,11 @@ Returns a collection of Projects
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 try {
@@ -738,7 +738,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -764,11 +764,11 @@ Queues training
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -792,7 +792,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -818,11 +818,11 @@ Updates an existing Project
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 Project project = new Project(); // Project | 
@@ -847,7 +847,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -871,11 +871,11 @@ Creates an upload session
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 TtsApi apiInstance = new TtsApi();
 String projectID = "projectID_example"; // String | ID of the Project
@@ -902,7 +902,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 

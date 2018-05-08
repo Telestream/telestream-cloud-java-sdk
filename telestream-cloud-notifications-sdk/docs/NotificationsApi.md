@@ -28,11 +28,11 @@ Create a new subscription
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
 Subscription subscription = new Subscription(); // Subscription | 
@@ -56,7 +56,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -80,11 +80,11 @@ null (empty response body)
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
 String id = "id_example"; // String | 
@@ -108,7 +108,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -132,11 +132,11 @@ null (empty response body)
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
 try {
@@ -157,7 +157,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 

@@ -37,13 +37,13 @@ public class Params {
   private String url = null;
 
   /**
-   * #webhook  \&quot;HTTP method\&quot; 
+   * [optional] #webhook;  HTTP method; default: POST (GET, POST) 
    */
   @JsonAdapter(MethodEnum.Adapter.class)
   public enum MethodEnum {
-    GET("get"),
+    GET("GET"),
     
-    POST("post");
+    POST("POST");
 
     private String value;
 
@@ -89,6 +89,9 @@ public class Params {
   @SerializedName("retries")
   private Integer retries = null;
 
+  @SerializedName("content_type")
+  private String contentType = null;
+
   public Params addresses(List<String> addresses) {
     this.addresses = addresses;
     return this;
@@ -103,10 +106,10 @@ public class Params {
   }
 
    /**
-   * #email  E-mail address 
+   * [required] #email;  E-mail addresses 
    * @return addresses
   **/
-  @ApiModelProperty(value = "#email  E-mail address ")
+  @ApiModelProperty(value = "[required] #email;  E-mail addresses ")
   public List<String> getAddresses() {
     return addresses;
   }
@@ -121,10 +124,10 @@ public class Params {
   }
 
    /**
-   * #webhook  \&quot;Webhook URL\&quot; 
+   * [required] #webhook;  Webhook URL 
    * @return url
   **/
-  @ApiModelProperty(value = "#webhook  \"Webhook URL\" ")
+  @ApiModelProperty(value = "[required] #webhook;  Webhook URL ")
   public String getUrl() {
     return url;
   }
@@ -139,10 +142,10 @@ public class Params {
   }
 
    /**
-   * #webhook  \&quot;HTTP method\&quot; 
+   * [optional] #webhook;  HTTP method; default: POST (GET, POST) 
    * @return method
   **/
-  @ApiModelProperty(value = "#webhook  \"HTTP method\" ")
+  @ApiModelProperty(value = "[optional] #webhook;  HTTP method; default: POST (GET, POST) ")
   public MethodEnum getMethod() {
     return method;
   }
@@ -157,16 +160,34 @@ public class Params {
   }
 
    /**
-   * #webhook  \&quot;Number of attempts before forgetting the notification\&quot; 
+   * [optional] #webhook;  Number of retries before forgetting the notification; default: 0 
    * @return retries
   **/
-  @ApiModelProperty(value = "#webhook  \"Number of attempts before forgetting the notification\" ")
+  @ApiModelProperty(value = "[optional] #webhook;  Number of retries before forgetting the notification; default: 0 ")
   public Integer getRetries() {
     return retries;
   }
 
   public void setRetries(Integer retries) {
     this.retries = retries;
+  }
+
+  public Params contentType(String contentType) {
+    this.contentType = contentType;
+    return this;
+  }
+
+   /**
+   * [optional] #webhook; default: application/json (application/json, application/x-www-form-urlencoded) 
+   * @return contentType
+  **/
+  @ApiModelProperty(value = "[optional] #webhook; default: application/json (application/json, application/x-www-form-urlencoded) ")
+  public String getContentType() {
+    return contentType;
+  }
+
+  public void setContentType(String contentType) {
+    this.contentType = contentType;
   }
 
 
@@ -182,12 +203,13 @@ public class Params {
     return Objects.equals(this.addresses, params.addresses) &&
         Objects.equals(this.url, params.url) &&
         Objects.equals(this.method, params.method) &&
-        Objects.equals(this.retries, params.retries);
+        Objects.equals(this.retries, params.retries) &&
+        Objects.equals(this.contentType, params.contentType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(addresses, url, method, retries);
+    return Objects.hash(addresses, url, method, retries, contentType);
   }
 
 
@@ -200,6 +222,7 @@ public class Params {
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    method: ").append(toIndentedString(method)).append("\n");
     sb.append("    retries: ").append(toIndentedString(retries)).append("\n");
+    sb.append("    contentType: ").append(toIndentedString(contentType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

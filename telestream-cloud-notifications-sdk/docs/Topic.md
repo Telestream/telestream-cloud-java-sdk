@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account** | **String** | [read-only] Account identifier connected to subscription notification  |  [optional]
-**service** | [**ServiceEnum**](#ServiceEnum) |  |  [optional]
-**events** | [**List&lt;EventsEnum&gt;**](#List&lt;EventsEnum&gt;) | Name of the event  Quality Control - video-passed - video-error - video-warning - video-rejected - video-canceled  |  [optional]
-**project** | **String** | Project ID |  [optional]
+**service** | [**ServiceEnum**](#ServiceEnum) | [required] Name of service  |  [optional]
+**event** | [**EventEnum**](#EventEnum) | [required] Name of the event;  Quality Control (video-passed,  video-error,  video-warning,  video-rejected,  video-canceled)  |  [optional]
+**project** | **String** | [required] Project ID  |  [optional]
 
 
 <a name="ServiceEnum"></a>
@@ -17,8 +17,8 @@ Name | Value
 QC | &quot;qc&quot;
 
 
-<a name="List<EventsEnum>"></a>
-## Enum: List&lt;EventsEnum&gt;
+<a name="EventEnum"></a>
+## Enum: EventEnum
 Name | Value
 ---- | -----
 PASSED | &quot;video-passed&quot;

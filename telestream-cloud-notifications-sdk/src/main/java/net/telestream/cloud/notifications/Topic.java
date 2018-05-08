@@ -22,8 +22,6 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Topic
@@ -34,7 +32,7 @@ public class Topic {
   private String account = null;
 
   /**
-   * Gets or Sets service
+   * [required] Name of service 
    */
   @JsonAdapter(ServiceEnum.Adapter.class)
   public enum ServiceEnum {
@@ -82,10 +80,10 @@ public class Topic {
   private ServiceEnum service = null;
 
   /**
-   * Gets or Sets events
+   * [required] Name of the event;  Quality Control (video-passed,  video-error,  video-warning,  video-rejected,  video-canceled) 
    */
-  @JsonAdapter(EventsEnum.Adapter.class)
-  public enum EventsEnum {
+  @JsonAdapter(EventEnum.Adapter.class)
+  public enum EventEnum {
     PASSED("video-passed"),
     
     ERROR("video-error"),
@@ -98,7 +96,7 @@ public class Topic {
 
     private String value;
 
-    EventsEnum(String value) {
+    EventEnum(String value) {
       this.value = value;
     }
 
@@ -111,8 +109,8 @@ public class Topic {
       return String.valueOf(value);
     }
 
-    public static EventsEnum fromValue(String text) {
-      for (EventsEnum b : EventsEnum.values()) {
+    public static EventEnum fromValue(String text) {
+      for (EventEnum b : EventEnum.values()) {
         if (String.valueOf(b.value).equals(text)) {
           return b;
         }
@@ -120,30 +118,25 @@ public class Topic {
       return null;
     }
 
-    public static class Adapter extends TypeAdapter<EventsEnum> {
+    public static class Adapter extends TypeAdapter<EventEnum> {
       @Override
-      public void write(final JsonWriter jsonWriter, final EventsEnum enumeration) throws IOException {
+      public void write(final JsonWriter jsonWriter, final EventEnum enumeration) throws IOException {
         jsonWriter.value(enumeration.getValue());
       }
 
       @Override
-      public EventsEnum read(final JsonReader jsonReader) throws IOException {
+      public EventEnum read(final JsonReader jsonReader) throws IOException {
         String value = jsonReader.nextString();
-        return EventsEnum.fromValue(String.valueOf(value));
+        return EventEnum.fromValue(String.valueOf(value));
       }
     }
   }
 
-  @SerializedName("events")
-  private List<EventsEnum> events = null;
+  @SerializedName("event")
+  private EventEnum event = null;
 
   @SerializedName("project")
   private String project = null;
-
-  public Topic account(String account) {
-    this.account = account;
-    return this;
-  }
 
    /**
    * [read-only] Account identifier connected to subscription notification 
@@ -154,20 +147,16 @@ public class Topic {
     return account;
   }
 
-  public void setAccount(String account) {
-    this.account = account;
-  }
-
   public Topic service(ServiceEnum service) {
     this.service = service;
     return this;
   }
 
    /**
-   * Get service
+   * [required] Name of service 
    * @return service
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "[required] Name of service ")
   public ServiceEnum getService() {
     return service;
   }
@@ -176,30 +165,22 @@ public class Topic {
     this.service = service;
   }
 
-  public Topic events(List<EventsEnum> events) {
-    this.events = events;
-    return this;
-  }
-
-  public Topic addEventsItem(EventsEnum eventsItem) {
-    if (this.events == null) {
-      this.events = new ArrayList<EventsEnum>();
-    }
-    this.events.add(eventsItem);
+  public Topic event(EventEnum event) {
+    this.event = event;
     return this;
   }
 
    /**
-   * Name of the event  Quality Control - video-passed - video-error - video-warning - video-rejected - video-canceled 
-   * @return events
+   * [required] Name of the event;  Quality Control (video-passed,  video-error,  video-warning,  video-rejected,  video-canceled) 
+   * @return event
   **/
-  @ApiModelProperty(value = "Name of the event  Quality Control - video-passed - video-error - video-warning - video-rejected - video-canceled ")
-  public List<EventsEnum> getEvents() {
-    return events;
+  @ApiModelProperty(value = "[required] Name of the event;  Quality Control (video-passed,  video-error,  video-warning,  video-rejected,  video-canceled) ")
+  public EventEnum getEvent() {
+    return event;
   }
 
-  public void setEvents(List<EventsEnum> events) {
-    this.events = events;
+  public void setEvent(EventEnum event) {
+    this.event = event;
   }
 
   public Topic project(String project) {
@@ -208,10 +189,10 @@ public class Topic {
   }
 
    /**
-   * Project ID
+   * [required] Project ID 
    * @return project
   **/
-  @ApiModelProperty(value = "Project ID")
+  @ApiModelProperty(value = "[required] Project ID ")
   public String getProject() {
     return project;
   }
@@ -232,13 +213,13 @@ public class Topic {
     Topic topic = (Topic) o;
     return Objects.equals(this.account, topic.account) &&
         Objects.equals(this.service, topic.service) &&
-        Objects.equals(this.events, topic.events) &&
+        Objects.equals(this.event, topic.event) &&
         Objects.equals(this.project, topic.project);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(account, service, events, project);
+    return Objects.hash(account, service, event, project);
   }
 
 
@@ -249,7 +230,7 @@ public class Topic {
     
     sb.append("    account: ").append(toIndentedString(account)).append("\n");
     sb.append("    service: ").append(toIndentedString(service)).append("\n");
-    sb.append("    events: ").append(toIndentedString(events)).append("\n");
+    sb.append("    event: ").append(toIndentedString(event)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("}");
     return sb.toString();

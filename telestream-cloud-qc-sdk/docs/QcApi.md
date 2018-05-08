@@ -37,11 +37,11 @@ Method | HTTP request | Description
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | A unique identifier of a Project.
@@ -67,7 +67,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -91,11 +91,11 @@ Create a new job
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | A unique identifier of a Project.
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -146,11 +146,11 @@ Create a new project
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 Data data = new Data(); // Data | 
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -199,11 +199,11 @@ Get QC job
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | A unique identifier of a Project.
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -254,11 +254,11 @@ Get project by Id
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | A unique identifier of a Project.
@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -307,11 +307,11 @@ Get jobs form projects
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | A unique identifier of a Project.
@@ -344,7 +344,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -368,11 +368,11 @@ List all projects for an account
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 try {
@@ -393,7 +393,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -417,11 +417,11 @@ Modify project
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | 
@@ -448,7 +448,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -472,11 +472,11 @@ Name | Type | Description  | Notes
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | A unique identifier of a Project.
@@ -503,7 +503,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -527,11 +527,11 @@ Name | Type | Description  | Notes
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | A unique identifier of a Project.
@@ -557,7 +557,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -581,11 +581,11 @@ null (empty response body)
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | 
@@ -609,7 +609,7 @@ null (empty response body)
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -633,11 +633,11 @@ null (empty response body)
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | A unique identifier of a Project.
@@ -664,7 +664,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -688,11 +688,11 @@ List all templates
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 try {
@@ -713,7 +713,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -737,11 +737,11 @@ Creates an upload session
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-// Configure API key authorization: apiKey
-ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
-apiKey.setApiKey("YOUR API KEY");
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.setApiKeyPrefix("Token");
+//api_key.setApiKeyPrefix("Token");
 
 QcApi apiInstance = new QcApi();
 String projectId = "projectId_example"; // String | A unique identifier of a Project.
@@ -768,7 +768,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
