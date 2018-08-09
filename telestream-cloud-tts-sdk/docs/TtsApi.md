@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**deleteJob**](TtsApi.md#deleteJob) | **DELETE** /projects/{projectID}/jobs/{jobID} | Deletes the Job
 [**deleteProject**](TtsApi.md#deleteProject) | **DELETE** /projects/{projectID} | Deletes the Project
 [**job**](TtsApi.md#job) | **GET** /projects/{projectID}/jobs/{jobID} | Returns the Job
+[**jobOutputs**](TtsApi.md#jobOutputs) | **GET** /projects/{projectID}/jobs/{jobID}/outputs | Returns the Job Outputs
 [**jobResult**](TtsApi.md#jobResult) | **GET** /projects/{projectID}/jobs/{jobID}/result | Returns the Job Result
 [**jobs**](TtsApi.md#jobs) | **GET** /projects/{projectID}/jobs | Returns a collection of Jobs
 [**project**](TtsApi.md#project) | **GET** /projects/{projectID} | Returns the Project
@@ -513,6 +514,63 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Job**](Job.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="jobOutputs"></a>
+# **jobOutputs**
+> List&lt;JobOutput&gt; jobOutputs(projectID, jobID)
+
+Returns the Job Outputs
+
+Returns the Job Outputs
+
+### Example
+```java
+// Import classes:
+//import net.telestream.cloud.tts.ApiClient;
+//import net.telestream.cloud.tts.ApiException;
+//import net.telestream.cloud.tts.Configuration;
+//import net.telestream.cloud.tts.auth.*;
+//import net.telestream.cloud.tts.TtsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//api_key.setApiKeyPrefix("Token");
+
+TtsApi apiInstance = new TtsApi();
+String projectID = "projectID_example"; // String | ID of the Project
+String jobID = "jobID_example"; // String | 
+try {
+    List<JobOutput> result = apiInstance.jobOutputs(projectID, jobID);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TtsApi#jobOutputs");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectID** | **String**| ID of the Project |
+ **jobID** | **String**|  |
+
+### Return type
+
+[**List&lt;JobOutput&gt;**](JobOutput.md)
 
 ### Authorization
 

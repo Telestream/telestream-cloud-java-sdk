@@ -5,7 +5,7 @@
     <artifactId>telestream-cloud-notifications-sdk</artifactId>
     <packaging>jar</packaging>
     <name>telestream-cloud-notifications-sdk</name>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
     <url>https://github.com/Telestream/telestream-cloud-java-sdk</url>
     <description>Telestream Cloud Notifications SDK</description>
     <scm>

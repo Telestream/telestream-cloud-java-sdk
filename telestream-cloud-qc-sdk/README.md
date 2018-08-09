@@ -9,7 +9,7 @@ Building the API client library requires [Maven](https://maven.apache.org/) to b
 ## Getting Started
 ```java
 ApiClient defaultClient = Configuration.getDefaultApiClient();
-ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("apiKey");
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
 api_key.setApiKey("tcs_4d2fda530099e32ace0b9fa8");
 
 QcApi apiInstance = new QcApi();

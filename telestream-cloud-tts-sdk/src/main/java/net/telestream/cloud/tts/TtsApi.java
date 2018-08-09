@@ -31,6 +31,7 @@ import net.telestream.cloud.tts.CorporaCollection;
 import net.telestream.cloud.tts.Corpus;
 import net.telestream.cloud.tts.ErrorResponse;
 import net.telestream.cloud.tts.Job;
+import net.telestream.cloud.tts.JobOutput;
 import net.telestream.cloud.tts.JobResult;
 import net.telestream.cloud.tts.JobsCollection;
 import net.telestream.cloud.tts.Project;
@@ -1208,6 +1209,139 @@ public class TtsApi {
 
         com.squareup.okhttp.Call call = jobValidateBeforeCall(projectID, jobID, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Job>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for jobOutputs
+     * @param projectID ID of the Project (required)
+     * @param jobID  (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call jobOutputsCall(String projectID, String jobID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/projects/{projectID}/jobs/{jobID}/outputs"
+            .replaceAll("\\{" + "projectID" + "\\}", apiClient.escapeString(projectID.toString()))
+            .replaceAll("\\{" + "jobID" + "\\}", apiClient.escapeString(jobID.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "api_key" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call jobOutputsValidateBeforeCall(String projectID, String jobID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'projectID' is set
+        if (projectID == null) {
+            throw new ApiException("Missing the required parameter 'projectID' when calling jobOutputs(Async)");
+        }
+        
+        // verify the required parameter 'jobID' is set
+        if (jobID == null) {
+            throw new ApiException("Missing the required parameter 'jobID' when calling jobOutputs(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = jobOutputsCall(projectID, jobID, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Returns the Job Outputs
+     * Returns the Job Outputs
+     * @param projectID ID of the Project (required)
+     * @param jobID  (required)
+     * @return List&lt;JobOutput&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public List<JobOutput> jobOutputs(String projectID, String jobID) throws ApiException {
+        ApiResponse<List<JobOutput>> resp = jobOutputsWithHttpInfo(projectID, jobID);
+        return resp.getData();
+    }
+
+    /**
+     * Returns the Job Outputs
+     * Returns the Job Outputs
+     * @param projectID ID of the Project (required)
+     * @param jobID  (required)
+     * @return ApiResponse&lt;List&lt;JobOutput&gt;&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<List<JobOutput>> jobOutputsWithHttpInfo(String projectID, String jobID) throws ApiException {
+        com.squareup.okhttp.Call call = jobOutputsValidateBeforeCall(projectID, jobID, null, null);
+        Type localVarReturnType = new TypeToken<List<JobOutput>>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Returns the Job Outputs (asynchronously)
+     * Returns the Job Outputs
+     * @param projectID ID of the Project (required)
+     * @param jobID  (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call jobOutputsAsync(String projectID, String jobID, final ApiCallback<List<JobOutput>> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = jobOutputsValidateBeforeCall(projectID, jobID, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<List<JobOutput>>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

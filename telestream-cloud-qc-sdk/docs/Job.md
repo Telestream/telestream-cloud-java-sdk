@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **updatedAt** | **String** |  |  [optional]
 **errorClass** | **String** |  |  [optional]
 **errorMessage** | **String** |  |  [optional]
+**payload** | **String** |  |  [optional]
 **details** | [**JobDetails**](JobDetails.md) |  |  [optional]
 
 

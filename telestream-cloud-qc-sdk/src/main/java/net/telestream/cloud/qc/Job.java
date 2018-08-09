@@ -174,6 +174,9 @@ public class Job {
   @SerializedName("error_message")
   private String errorMessage = null;
 
+  @SerializedName("payload")
+  private String payload = null;
+
   @SerializedName("details")
   private JobDetails details = null;
 
@@ -411,6 +414,24 @@ public class Job {
     this.errorMessage = errorMessage;
   }
 
+  public Job payload(String payload) {
+    this.payload = payload;
+    return this;
+  }
+
+   /**
+   * Get payload
+   * @return payload
+  **/
+  @ApiModelProperty(value = "")
+  public String getPayload() {
+    return payload;
+  }
+
+  public void setPayload(String payload) {
+    this.payload = payload;
+  }
+
   public Job details(JobDetails details) {
     this.details = details;
     return this;
@@ -452,12 +473,13 @@ public class Job {
         Objects.equals(this.updatedAt, job.updatedAt) &&
         Objects.equals(this.errorClass, job.errorClass) &&
         Objects.equals(this.errorMessage, job.errorMessage) &&
+        Objects.equals(this.payload, job.payload) &&
         Objects.equals(this.details, job.details);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, projectId, status, state, duration, type, progress, filename, sourceUrl, createdAt, updatedAt, errorClass, errorMessage, details);
+    return Objects.hash(id, projectId, status, state, duration, type, progress, filename, sourceUrl, createdAt, updatedAt, errorClass, errorMessage, payload, details);
   }
 
 
@@ -479,6 +501,7 @@ public class Job {
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    errorClass: ").append(toIndentedString(errorClass)).append("\n");
     sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
+    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("}");
     return sb.toString();

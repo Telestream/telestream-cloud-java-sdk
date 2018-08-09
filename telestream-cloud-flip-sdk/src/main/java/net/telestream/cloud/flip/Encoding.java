@@ -71,7 +71,7 @@ public class Encoding {
   private String extname = null;
 
   @SerializedName("file_size")
-  private Integer fileSize = null;
+  private Long fileSize = null;
 
   @SerializedName("files")
   private List<String> files = null;
@@ -358,7 +358,7 @@ public class Encoding {
     this.extname = extname;
   }
 
-  public Encoding fileSize(Integer fileSize) {
+  public Encoding fileSize(Long fileSize) {
     this.fileSize = fileSize;
     return this;
   }
@@ -368,11 +368,11 @@ public class Encoding {
    * @return fileSize
   **/
   @ApiModelProperty(value = "A size of the output file.")
-  public Integer getFileSize() {
+  public Long getFileSize() {
     return fileSize;
   }
 
-  public void setFileSize(Integer fileSize) {
+  public void setFileSize(Long fileSize) {
     this.fileSize = fileSize;
   }
 

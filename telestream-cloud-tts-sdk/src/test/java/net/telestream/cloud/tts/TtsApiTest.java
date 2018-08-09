@@ -18,6 +18,7 @@ import net.telestream.cloud.tts.CorporaCollection;
 import net.telestream.cloud.tts.Corpus;
 import net.telestream.cloud.tts.ErrorResponse;
 import net.telestream.cloud.tts.Job;
+import net.telestream.cloud.tts.JobOutput;
 import net.telestream.cloud.tts.JobResult;
 import net.telestream.cloud.tts.JobsCollection;
 import net.telestream.cloud.tts.Project;
@@ -187,6 +188,23 @@ public class TtsApiTest {
         String projectID = null;
         String jobID = null;
         Job response = api.job(projectID, jobID);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Returns the Job Outputs
+     *
+     * Returns the Job Outputs
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void jobOutputsTest() throws ApiException {
+        String projectID = null;
+        String jobID = null;
+        List<JobOutput> response = api.jobOutputs(projectID, jobID);
 
         // TODO: test validations
     }

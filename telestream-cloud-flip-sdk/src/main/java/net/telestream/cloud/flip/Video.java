@@ -63,7 +63,7 @@ public class Video {
   private String extname = null;
 
   @SerializedName("file_size")
-  private Integer fileSize = null;
+  private Long fileSize = null;
 
   @SerializedName("fps")
   private BigDecimal fps = null;
@@ -299,7 +299,7 @@ public class Video {
     this.extname = extname;
   }
 
-  public Video fileSize(Integer fileSize) {
+  public Video fileSize(Long fileSize) {
     this.fileSize = fileSize;
     return this;
   }
@@ -309,11 +309,11 @@ public class Video {
    * @return fileSize
   **/
   @ApiModelProperty(value = "A size of the source file.")
-  public Integer getFileSize() {
+  public Long getFileSize() {
     return fileSize;
   }
 
-  public void setFileSize(Integer fileSize) {
+  public void setFileSize(Long fileSize) {
     this.fileSize = fileSize;
   }
 

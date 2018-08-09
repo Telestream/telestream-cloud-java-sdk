@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **errorClass** | **String** | A class of an error that has occurred during the encoding process. It is present only if the encoding status is equal to &#x60;fail&#x60;. |  [optional]
 **errorMessage** | **String** | A message that explains why the encoding process has resulted in an error. It is present only if the encoding status is equal to &#x60;fail&#x60;. |  [optional]
 **extname** | **String** | Extension of the source file. |  [optional]
-**fileSize** | **Integer** | A size of the source file. |  [optional]
+**fileSize** | **Long** | A size of the source file. |  [optional]
 **fps** | [**BigDecimal**](BigDecimal.md) | Number of frames per second. |  [optional]
 **height** | **Integer** | Height of the output video. |  [optional]
 **width** | **Integer** | Width of the output video. |  [optional]

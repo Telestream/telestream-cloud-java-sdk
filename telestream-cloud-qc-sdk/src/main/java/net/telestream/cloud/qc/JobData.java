@@ -35,6 +35,9 @@ public class JobData {
   @SerializedName("url")
   private String url = null;
 
+  @SerializedName("payload")
+  private String payload = null;
+
   public JobData options(Options options) {
     this.options = options;
     return this;
@@ -71,6 +74,24 @@ public class JobData {
     this.url = url;
   }
 
+  public JobData payload(String payload) {
+    this.payload = payload;
+    return this;
+  }
+
+   /**
+   * Payload is an arbitrary text of length 256 or shorter that you can store along the Media. It is typically used to retain an association with one of your own DB record ID.
+   * @return payload
+  **/
+  @ApiModelProperty(value = "Payload is an arbitrary text of length 256 or shorter that you can store along the Media. It is typically used to retain an association with one of your own DB record ID.")
+  public String getPayload() {
+    return payload;
+  }
+
+  public void setPayload(String payload) {
+    this.payload = payload;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -82,12 +103,13 @@ public class JobData {
     }
     JobData jobData = (JobData) o;
     return Objects.equals(this.options, jobData.options) &&
-        Objects.equals(this.url, jobData.url);
+        Objects.equals(this.url, jobData.url) &&
+        Objects.equals(this.payload, jobData.payload);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(options, url);
+    return Objects.hash(options, url, payload);
   }
 
 
@@ -98,6 +120,7 @@ public class JobData {
     
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
     sb.append("}");
     return sb.toString();
   }
