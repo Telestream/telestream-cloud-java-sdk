@@ -5,7 +5,7 @@
     <artifactId>telestream-cloud-flip-sdk</artifactId>
     <packaging>jar</packaging>
     <name>telestream-cloud-flip-sdk</name>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
     <url>https://github.com/Telestream/telestream-cloud-java-sdk</url>
     <description>Telestream Cloud Flip SDK</description>
     <scm>

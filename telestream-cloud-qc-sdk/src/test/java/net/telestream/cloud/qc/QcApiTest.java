@@ -16,6 +16,9 @@ package net.telestream.cloud.qc;
 import net.telestream.cloud.qc.ApiException;
 import net.telestream.cloud.qc.Data;
 import net.telestream.cloud.qc.Data1;
+import java.io.File;
+import net.telestream.cloud.qc.InlineResponse200;
+import net.telestream.cloud.qc.InlineResponse422;
 import net.telestream.cloud.qc.Job;
 import net.telestream.cloud.qc.JobData;
 import net.telestream.cloud.qc.JobsCollection;
@@ -120,6 +123,23 @@ public class QcApiTest {
     public void getProjectTest() throws ApiException {
         String projectId = null;
         Project response = api.getProject(projectId);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Import Vidchecker template
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void importTemplateTest() throws ApiException {
+        String name = null;
+        File file = null;
+        List<InlineResponse200> response = api.importTemplate(name, file);
 
         // TODO: test validations
     }

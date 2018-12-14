@@ -79,65 +79,8 @@ public class Profile {
   @SerializedName("advanced_fps_conversion")
   private AdvancedFpsConversionEnum advancedFpsConversion = null;
 
-  /**
-   * Specifies an aspect mode for output videos. The following options are available:   - letterbox:   - pad: Add paddings to the input image. Default is \&quot;letterbox\&quot;.
-   */
-  @JsonAdapter(AspectModeEnum.Adapter.class)
-  public enum AspectModeEnum {
-    PRESERVE("preserve"),
-    
-    CONSTRAIN("constrain"),
-    
-    LETTERBOX("letterbox"),
-    
-    PAD("pad"),
-    
-    FILL_CROP_("fill (crop)"),
-    
-    STRETCH("stretch"),
-    
-    CENTER("center");
-
-    private String value;
-
-    AspectModeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static AspectModeEnum fromValue(String text) {
-      for (AspectModeEnum b : AspectModeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<AspectModeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final AspectModeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public AspectModeEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return AspectModeEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
   @SerializedName("aspect_mode")
-  private AspectModeEnum aspectMode = null;
+  private String aspectMode = null;
 
   @SerializedName("aspect_ratio")
   private String aspectRatio = null;
@@ -361,7 +304,7 @@ public class Profile {
   private String bufferSizeInPackets = null;
 
   @SerializedName("bumpers")
-  private String bumpers = null;
+  private Object bumpers = null;
 
   @SerializedName("byte_range_requests")
   private Boolean byteRangeRequests = null;
@@ -452,55 +395,8 @@ public class Profile {
   @SerializedName("dash_profile")
   private String dashProfile = null;
 
-  /**
-   * One of &#x60;keep_fps&#x60; or &#x60;double_fps&#x60;. By default it is not set.
-   */
-  @JsonAdapter(DeinterlaceEnum.Adapter.class)
-  public enum DeinterlaceEnum {
-    KEEP_FPS("keep_fps"),
-    
-    DOUBLE_FPS("double_fps");
-
-    private String value;
-
-    DeinterlaceEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static DeinterlaceEnum fromValue(String text) {
-      for (DeinterlaceEnum b : DeinterlaceEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<DeinterlaceEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final DeinterlaceEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public DeinterlaceEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return DeinterlaceEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
   @SerializedName("deinterlace")
-  private DeinterlaceEnum deinterlace = null;
+  private String deinterlace = null;
 
   @SerializedName("deinterlace_frames")
   private String deinterlaceFrames = null;
@@ -810,7 +706,7 @@ public class Profile {
   private String imxType = null;
 
   @SerializedName("inputs")
-  private String inputs = null;
+  private Object inputs = null;
 
   @SerializedName("interlace")
   private String interlace = null;
@@ -837,7 +733,7 @@ public class Profile {
   private String name = null;
 
   @SerializedName("outputs")
-  private String outputs = null;
+  private Object outputs = null;
 
   @SerializedName("outputs_path_format")
   private String outputsPathFormat = null;
@@ -906,6 +802,9 @@ public class Profile {
 
   @SerializedName("stack")
   private String stack = null;
+
+  @SerializedName("starting_timecode")
+  private String startingTimecode = null;
 
   /**
    * Gets or Sets telestreamBlockSize
@@ -978,7 +877,7 @@ public class Profile {
   private String title = null;
 
   @SerializedName("trailers")
-  private String trailers = null;
+  private Object trailers = null;
 
   @SerializedName("transport_rate")
   private String transportRate = null;
@@ -999,7 +898,7 @@ public class Profile {
   private String variants = null;
 
   @SerializedName("video_bitrate")
-  private String videoBitrate = null;
+  private Integer videoBitrate = null;
 
   @SerializedName("video_pid")
   private String videoPid = null;
@@ -1915,21 +1814,21 @@ public class Profile {
     this.advancedFpsConversion = advancedFpsConversion;
   }
 
-  public Profile aspectMode(AspectModeEnum aspectMode) {
+  public Profile aspectMode(String aspectMode) {
     this.aspectMode = aspectMode;
     return this;
   }
 
    /**
-   * Specifies an aspect mode for output videos. The following options are available:   - letterbox:   - pad: Add paddings to the input image. Default is \&quot;letterbox\&quot;.
+   * Specifies an aspect mode for output videos. The following options are available:   - preserve   - constrain   - letterbox   - pad   - fill (crop)   - stretch   - center Default is \&quot;letterbox\&quot;.
    * @return aspectMode
   **/
-  @ApiModelProperty(value = "Specifies an aspect mode for output videos. The following options are available:   - letterbox:   - pad: Add paddings to the input image. Default is \"letterbox\".")
-  public AspectModeEnum getAspectMode() {
+  @ApiModelProperty(value = "Specifies an aspect mode for output videos. The following options are available:   - preserve   - constrain   - letterbox   - pad   - fill (crop)   - stretch   - center Default is \"letterbox\".")
+  public String getAspectMode() {
     return aspectMode;
   }
 
-  public void setAspectMode(AspectModeEnum aspectMode) {
+  public void setAspectMode(String aspectMode) {
     this.aspectMode = aspectMode;
   }
 
@@ -2221,7 +2120,7 @@ public class Profile {
     this.bufferSizeInPackets = bufferSizeInPackets;
   }
 
-  public Profile bumpers(String bumpers) {
+  public Profile bumpers(Object bumpers) {
     this.bumpers = bumpers;
     return this;
   }
@@ -2231,11 +2130,11 @@ public class Profile {
    * @return bumpers
   **/
   @ApiModelProperty(value = "")
-  public String getBumpers() {
+  public Object getBumpers() {
     return bumpers;
   }
 
-  public void setBumpers(String bumpers) {
+  public void setBumpers(Object bumpers) {
     this.bumpers = bumpers;
   }
 
@@ -2491,7 +2390,7 @@ public class Profile {
     this.dashProfile = dashProfile;
   }
 
-  public Profile deinterlace(DeinterlaceEnum deinterlace) {
+  public Profile deinterlace(String deinterlace) {
     this.deinterlace = deinterlace;
     return this;
   }
@@ -2501,11 +2400,11 @@ public class Profile {
    * @return deinterlace
   **/
   @ApiModelProperty(value = "One of `keep_fps` or `double_fps`. By default it is not set.")
-  public DeinterlaceEnum getDeinterlace() {
+  public String getDeinterlace() {
     return deinterlace;
   }
 
-  public void setDeinterlace(DeinterlaceEnum deinterlace) {
+  public void setDeinterlace(String deinterlace) {
     this.deinterlace = deinterlace;
   }
 
@@ -2779,7 +2678,7 @@ public class Profile {
     this.imxType = imxType;
   }
 
-  public Profile inputs(String inputs) {
+  public Profile inputs(Object inputs) {
     this.inputs = inputs;
     return this;
   }
@@ -2789,11 +2688,11 @@ public class Profile {
    * @return inputs
   **/
   @ApiModelProperty(value = "")
-  public String getInputs() {
+  public Object getInputs() {
     return inputs;
   }
 
-  public void setInputs(String inputs) {
+  public void setInputs(Object inputs) {
     this.inputs = inputs;
   }
 
@@ -2941,7 +2840,7 @@ public class Profile {
     this.name = name;
   }
 
-  public Profile outputs(String outputs) {
+  public Profile outputs(Object outputs) {
     this.outputs = outputs;
     return this;
   }
@@ -2951,11 +2850,11 @@ public class Profile {
    * @return outputs
   **/
   @ApiModelProperty(value = "")
-  public String getOutputs() {
+  public Object getOutputs() {
     return outputs;
   }
 
-  public void setOutputs(String outputs) {
+  public void setOutputs(Object outputs) {
     this.outputs = outputs;
   }
 
@@ -3085,6 +2984,24 @@ public class Profile {
     this.stack = stack;
   }
 
+  public Profile startingTimecode(String startingTimecode) {
+    this.startingTimecode = startingTimecode;
+    return this;
+  }
+
+   /**
+   * Get startingTimecode
+   * @return startingTimecode
+  **/
+  @ApiModelProperty(value = "")
+  public String getStartingTimecode() {
+    return startingTimecode;
+  }
+
+  public void setStartingTimecode(String startingTimecode) {
+    this.startingTimecode = startingTimecode;
+  }
+
   public Profile telestreamBlockSize(TelestreamBlockSizeEnum telestreamBlockSize) {
     this.telestreamBlockSize = telestreamBlockSize;
     return this;
@@ -3211,7 +3128,7 @@ public class Profile {
     this.title = title;
   }
 
-  public Profile trailers(String trailers) {
+  public Profile trailers(Object trailers) {
     this.trailers = trailers;
     return this;
   }
@@ -3221,11 +3138,11 @@ public class Profile {
    * @return trailers
   **/
   @ApiModelProperty(value = "")
-  public String getTrailers() {
+  public Object getTrailers() {
     return trailers;
   }
 
-  public void setTrailers(String trailers) {
+  public void setTrailers(Object trailers) {
     this.trailers = trailers;
   }
 
@@ -3337,7 +3254,7 @@ public class Profile {
     this.variants = variants;
   }
 
-  public Profile videoBitrate(String videoBitrate) {
+  public Profile videoBitrate(Integer videoBitrate) {
     this.videoBitrate = videoBitrate;
     return this;
   }
@@ -3347,11 +3264,11 @@ public class Profile {
    * @return videoBitrate
   **/
   @ApiModelProperty(example = "3000", value = "")
-  public String getVideoBitrate() {
+  public Integer getVideoBitrate() {
     return videoBitrate;
   }
 
-  public void setVideoBitrate(String videoBitrate) {
+  public void setVideoBitrate(Integer videoBitrate) {
     this.videoBitrate = videoBitrate;
   }
 
@@ -4295,6 +4212,7 @@ public class Profile {
         Objects.equals(this.proresFormat, profile.proresFormat) &&
         Objects.equals(this.segmentTime, profile.segmentTime) &&
         Objects.equals(this.stack, profile.stack) &&
+        Objects.equals(this.startingTimecode, profile.startingTimecode) &&
         Objects.equals(this.telestreamBlockSize, profile.telestreamBlockSize) &&
         Objects.equals(this.telestreamBlurScaler, profile.telestreamBlurScaler) &&
         Objects.equals(this.telestreamCostScaler, profile.telestreamCostScaler) &&
@@ -4362,7 +4280,7 @@ public class Profile {
 
   @Override
   public int hashCode() {
-    return Objects.hash(advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioMap, audioPid, audioProfile, audioSampleRate, audioStreamId, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, bumpers, byteRangeRequests, clipEnd, clipLength, clipOffset, closedCaptions, colorMetadata, createdAt, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dashProfile, deinterlace, deinterlaceFrames, description, dnxhdType, encryption, extname, fps, frameCount, frameInterval, frameOffsets, h264Level, h264Profile, h264Tune, height, id, imxType, inputs, interlace, keyframeInterval, keyframeRate, lang, maxRate, mergeAudioStreams, muteAudioTracks, name, outputs, outputsPathFormat, playlistType, pmtPid, presetName, proresFormat, segmentTime, stack, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, timeCode, title, trailers, transportRate, tsPids, updatedAt, upscale, useEditlist, variants, videoBitrate, videoPid, watermarkBottom, watermarkBumpers, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkTrailers, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream);
+    return Objects.hash(advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioMap, audioPid, audioProfile, audioSampleRate, audioStreamId, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, bumpers, byteRangeRequests, clipEnd, clipLength, clipOffset, closedCaptions, colorMetadata, createdAt, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dashProfile, deinterlace, deinterlaceFrames, description, dnxhdType, encryption, extname, fps, frameCount, frameInterval, frameOffsets, h264Level, h264Profile, h264Tune, height, id, imxType, inputs, interlace, keyframeInterval, keyframeRate, lang, maxRate, mergeAudioStreams, muteAudioTracks, name, outputs, outputsPathFormat, playlistType, pmtPid, presetName, proresFormat, segmentTime, stack, startingTimecode, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, timeCode, title, trailers, transportRate, tsPids, updatedAt, upscale, useEditlist, variants, videoBitrate, videoPid, watermarkBottom, watermarkBumpers, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkTrailers, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream);
   }
 
 
@@ -4437,6 +4355,7 @@ public class Profile {
     sb.append("    proresFormat: ").append(toIndentedString(proresFormat)).append("\n");
     sb.append("    segmentTime: ").append(toIndentedString(segmentTime)).append("\n");
     sb.append("    stack: ").append(toIndentedString(stack)).append("\n");
+    sb.append("    startingTimecode: ").append(toIndentedString(startingTimecode)).append("\n");
     sb.append("    telestreamBlockSize: ").append(toIndentedString(telestreamBlockSize)).append("\n");
     sb.append("    telestreamBlurScaler: ").append(toIndentedString(telestreamBlurScaler)).append("\n");
     sb.append("    telestreamCostScaler: ").append(toIndentedString(telestreamCostScaler)).append("\n");

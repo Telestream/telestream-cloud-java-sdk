@@ -80,6 +80,23 @@ public class FlipApiTest {
     }
     
     /**
+     * Cancel video and all encodings
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void cancelVideoTest() throws ApiException {
+        String id = null;
+        String factoryId = null;
+        CanceledResponse response = api.cancelVideo(id, factoryId);
+
+        // TODO: test validations
+    }
+    
+    /**
      * Copies a given Profile
      *
      * 
@@ -486,7 +503,8 @@ public class FlipApiTest {
     public void signedEncodingUrlTest() throws ApiException {
         String id = null;
         String factoryId = null;
-        EncodingSignedUrl response = api.signedEncodingUrl(id, factoryId);
+        Integer expires = null;
+        EncodingSignedUrl response = api.signedEncodingUrl(id, factoryId, expires);
 
         // TODO: test validations
     }

@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import net.telestream.cloud.tts.ExtraFile;
+import net.telestream.cloud.tts.Job;
 
 /**
  * VideoUploadBody
@@ -45,6 +46,9 @@ public class VideoUploadBody {
 
   @SerializedName("extra_files")
   private List<ExtraFile> extraFiles = null;
+
+  @SerializedName("job")
+  private Job job = null;
 
   public VideoUploadBody fileSize(Long fileSize) {
     this.fileSize = fileSize;
@@ -144,6 +148,24 @@ public class VideoUploadBody {
     this.extraFiles = extraFiles;
   }
 
+  public VideoUploadBody job(Job job) {
+    this.job = job;
+    return this;
+  }
+
+   /**
+   * Get job
+   * @return job
+  **/
+  @ApiModelProperty(value = "")
+  public Job getJob() {
+    return job;
+  }
+
+  public void setJob(Job job) {
+    this.job = job;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,12 +180,13 @@ public class VideoUploadBody {
         Objects.equals(this.fileName, videoUploadBody.fileName) &&
         Objects.equals(this.profiles, videoUploadBody.profiles) &&
         Objects.equals(this.multiChunk, videoUploadBody.multiChunk) &&
-        Objects.equals(this.extraFiles, videoUploadBody.extraFiles);
+        Objects.equals(this.extraFiles, videoUploadBody.extraFiles) &&
+        Objects.equals(this.job, videoUploadBody.job);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileSize, fileName, profiles, multiChunk, extraFiles);
+    return Objects.hash(fileSize, fileName, profiles, multiChunk, extraFiles, job);
   }
 
 
@@ -177,6 +200,7 @@ public class VideoUploadBody {
     sb.append("    profiles: ").append(toIndentedString(profiles)).append("\n");
     sb.append("    multiChunk: ").append(toIndentedString(multiChunk)).append("\n");
     sb.append("    extraFiles: ").append(toIndentedString(extraFiles)).append("\n");
+    sb.append("    job: ").append(toIndentedString(job)).append("\n");
     sb.append("}");
     return sb.toString();
   }

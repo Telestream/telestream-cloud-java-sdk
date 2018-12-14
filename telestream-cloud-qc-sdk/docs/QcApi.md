@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**createProject**](QcApi.md#createProject) | **POST** /projects.json | Create a new project
 [**getJob**](QcApi.md#getJob) | **GET** /projects/{project_id}/jobs/{job_id}.json | Get QC job
 [**getProject**](QcApi.md#getProject) | **GET** /projects/{project_id}.json | Get project by Id
+[**importTemplate**](QcApi.md#importTemplate) | **POST** /projects/import.json | Import Vidchecker template
 [**listJobs**](QcApi.md#listJobs) | **GET** /projects/{project_id}/jobs.json | Get jobs form projects
 [**listProjects**](QcApi.md#listProjects) | **GET** /projects.json | List all projects for an account
 [**modifyProject**](QcApi.md#modifyProject) | **PUT** /projects/{project_id}.json | Modify project
@@ -288,6 +289,61 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="importTemplate"></a>
+# **importTemplate**
+> List&lt;InlineResponse200&gt; importTemplate(name, file)
+
+Import Vidchecker template
+
+### Example
+```java
+// Import classes:
+//import net.telestream.cloud.qc.ApiClient;
+//import net.telestream.cloud.qc.ApiException;
+//import net.telestream.cloud.qc.Configuration;
+//import net.telestream.cloud.qc.auth.*;
+//import net.telestream.cloud.qc.QcApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//api_key.setApiKeyPrefix("Token");
+
+QcApi apiInstance = new QcApi();
+String name = "name_example"; // String | 
+File file = new File("/path/to/file.txt"); // File | 
+try {
+    List<InlineResponse200> result = apiInstance.importTemplate(name, file);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling QcApi#importTemplate");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **name** | **String**|  | [optional]
+ **file** | **File**|  | [optional]
+
+### Return type
+
+[**List&lt;InlineResponse200&gt;**](InlineResponse200.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: text/xml
  - **Accept**: application/json
 
 <a name="listJobs"></a>

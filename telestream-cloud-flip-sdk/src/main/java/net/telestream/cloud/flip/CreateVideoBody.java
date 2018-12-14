@@ -65,6 +65,9 @@ public class CreateVideoBody {
   @SerializedName("clip_offset")
   private String clipOffset = null;
 
+  @SerializedName("starting_timecode")
+  private String startingTimecode = null;
+
   public CreateVideoBody sourceUrl(String sourceUrl) {
     this.sourceUrl = sourceUrl;
     return this;
@@ -287,6 +290,24 @@ public class CreateVideoBody {
     this.clipOffset = clipOffset;
   }
 
+  public CreateVideoBody startingTimecode(String startingTimecode) {
+    this.startingTimecode = startingTimecode;
+    return this;
+  }
+
+   /**
+   * Get startingTimecode
+   * @return startingTimecode
+  **/
+  @ApiModelProperty(value = "")
+  public String getStartingTimecode() {
+    return startingTimecode;
+  }
+
+  public void setStartingTimecode(String startingTimecode) {
+    this.startingTimecode = startingTimecode;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -307,12 +328,13 @@ public class CreateVideoBody {
         Objects.equals(this.pathFormat, createVideoBody.pathFormat) &&
         Objects.equals(this.clipEnd, createVideoBody.clipEnd) &&
         Objects.equals(this.clipLength, createVideoBody.clipLength) &&
-        Objects.equals(this.clipOffset, createVideoBody.clipOffset);
+        Objects.equals(this.clipOffset, createVideoBody.clipOffset) &&
+        Objects.equals(this.startingTimecode, createVideoBody.startingTimecode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sourceUrl, profiles, payload, pipeline, subtitleFiles, extraFiles, extraVariables, pathFormat, clipEnd, clipLength, clipOffset);
+    return Objects.hash(sourceUrl, profiles, payload, pipeline, subtitleFiles, extraFiles, extraVariables, pathFormat, clipEnd, clipLength, clipOffset, startingTimecode);
   }
 
 
@@ -332,6 +354,7 @@ public class CreateVideoBody {
     sb.append("    clipEnd: ").append(toIndentedString(clipEnd)).append("\n");
     sb.append("    clipLength: ").append(toIndentedString(clipLength)).append("\n");
     sb.append("    clipOffset: ").append(toIndentedString(clipOffset)).append("\n");
+    sb.append("    startingTimecode: ").append(toIndentedString(startingTimecode)).append("\n");
     sb.append("}");
     return sb.toString();
   }

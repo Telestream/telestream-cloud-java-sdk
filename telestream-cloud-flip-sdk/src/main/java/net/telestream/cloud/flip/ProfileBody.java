@@ -821,6 +821,9 @@ public class ProfileBody {
   @SerializedName("size")
   private String size = null;
 
+  @SerializedName("starting_timecode")
+  private String startingTimecode = null;
+
   @SerializedName("tar")
   private Boolean tar = null;
 
@@ -894,7 +897,7 @@ public class ProfileBody {
   private String audioStreamId = null;
 
   @SerializedName("bumpers")
-  private String bumpers = null;
+  private Object bumpers = null;
 
   /**
    * Determines a preset that is used by encoders.
@@ -1063,7 +1066,7 @@ public class ProfileBody {
   private String telestreamSubpelMode = null;
 
   @SerializedName("trailers")
-  private String trailers = null;
+  private Object trailers = null;
 
   @SerializedName("vantage_group_id")
   private String vantageGroupId = null;
@@ -2718,6 +2721,24 @@ public class ProfileBody {
     this.size = size;
   }
 
+  public ProfileBody startingTimecode(String startingTimecode) {
+    this.startingTimecode = startingTimecode;
+    return this;
+  }
+
+   /**
+   * Get startingTimecode
+   * @return startingTimecode
+  **/
+  @ApiModelProperty(value = "")
+  public String getStartingTimecode() {
+    return startingTimecode;
+  }
+
+  public void setStartingTimecode(String startingTimecode) {
+    this.startingTimecode = startingTimecode;
+  }
+
   public ProfileBody tar(Boolean tar) {
     this.tar = tar;
     return this;
@@ -3150,7 +3171,7 @@ public class ProfileBody {
     this.audioStreamId = audioStreamId;
   }
 
-  public ProfileBody bumpers(String bumpers) {
+  public ProfileBody bumpers(Object bumpers) {
     this.bumpers = bumpers;
     return this;
   }
@@ -3160,11 +3181,11 @@ public class ProfileBody {
    * @return bumpers
   **/
   @ApiModelProperty(value = "")
-  public String getBumpers() {
+  public Object getBumpers() {
     return bumpers;
   }
 
-  public void setBumpers(String bumpers) {
+  public void setBumpers(Object bumpers) {
     this.bumpers = bumpers;
   }
 
@@ -3492,7 +3513,7 @@ public class ProfileBody {
     this.telestreamSubpelMode = telestreamSubpelMode;
   }
 
-  public ProfileBody trailers(String trailers) {
+  public ProfileBody trailers(Object trailers) {
     this.trailers = trailers;
     return this;
   }
@@ -3502,11 +3523,11 @@ public class ProfileBody {
    * @return trailers
   **/
   @ApiModelProperty(value = "")
-  public String getTrailers() {
+  public Object getTrailers() {
     return trailers;
   }
 
-  public void setTrailers(String trailers) {
+  public void setTrailers(Object trailers) {
     this.trailers = trailers;
   }
 
@@ -4286,6 +4307,7 @@ public class ProfileBody {
         Objects.equals(this.proresFormat, profileBody.proresFormat) &&
         Objects.equals(this.segmentTime, profileBody.segmentTime) &&
         Objects.equals(this.size, profileBody.size) &&
+        Objects.equals(this.startingTimecode, profileBody.startingTimecode) &&
         Objects.equals(this.tar, profileBody.tar) &&
         Objects.equals(this.transportRate, profileBody.transportRate) &&
         Objects.equals(this.tsPids, profileBody.tsPids) &&
@@ -4374,7 +4396,7 @@ public class ProfileBody {
 
   @Override
   public int hashCode() {
-    return Objects.hash(presetName, advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioPid, audioProfile, audioSampleRate, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, clipLength, clipOffset, closedCaptions, dashProfile, deinterlace, deinterlaceFrames, dnxhdType, encryption, extname, fps, frameOffsets, frameInterval, frameCount, h264Level, h264Profile, h264Tune, height, imxType, interlace, keyframeInterval, keyframeRate, maxRate, mergeAudioStreams, name, outputsPathFormat, pmtPid, proresFormat, segmentTime, size, tar, transportRate, tsPids, upscale, variants, videoBitrate, videoPid, watermarkBottom, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, muteAudioTracks, byteRangeRequests, lang, useEditlist, audioMap, audioStreamId, bumpers, codecPreset, colorMetadata, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dynamicRecipe, playlistType, presetVersion, segmentDelimiter, swsFlags, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, trailers, vantageGroupId, watermarkBumpers, watermarkTrailers, workorderCriteria, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream, title, timeCode);
+    return Objects.hash(presetName, advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioPid, audioProfile, audioSampleRate, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, clipLength, clipOffset, closedCaptions, dashProfile, deinterlace, deinterlaceFrames, dnxhdType, encryption, extname, fps, frameOffsets, frameInterval, frameCount, h264Level, h264Profile, h264Tune, height, imxType, interlace, keyframeInterval, keyframeRate, maxRate, mergeAudioStreams, name, outputsPathFormat, pmtPid, proresFormat, segmentTime, size, startingTimecode, tar, transportRate, tsPids, upscale, variants, videoBitrate, videoPid, watermarkBottom, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, muteAudioTracks, byteRangeRequests, lang, useEditlist, audioMap, audioStreamId, bumpers, codecPreset, colorMetadata, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dynamicRecipe, playlistType, presetVersion, segmentDelimiter, swsFlags, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, trailers, vantageGroupId, watermarkBumpers, watermarkTrailers, workorderCriteria, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream, title, timeCode);
   }
 
 
@@ -4429,6 +4451,7 @@ public class ProfileBody {
     sb.append("    proresFormat: ").append(toIndentedString(proresFormat)).append("\n");
     sb.append("    segmentTime: ").append(toIndentedString(segmentTime)).append("\n");
     sb.append("    size: ").append(toIndentedString(size)).append("\n");
+    sb.append("    startingTimecode: ").append(toIndentedString(startingTimecode)).append("\n");
     sb.append("    tar: ").append(toIndentedString(tar)).append("\n");
     sb.append("    transportRate: ").append(toIndentedString(transportRate)).append("\n");
     sb.append("    tsPids: ").append(toIndentedString(tsPids)).append("\n");

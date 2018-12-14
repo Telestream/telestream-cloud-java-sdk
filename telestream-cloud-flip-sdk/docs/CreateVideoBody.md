@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **clipEnd** | **String** | Clip ends at a specific time. |  [optional]
 **clipLength** | **String** | A clip’s duration. |  [optional]
 **clipOffset** | **String** | Clip starts at a specific offset. |  [optional]
+**startingTimecode** | **String** |  |  [optional]
 
 
 

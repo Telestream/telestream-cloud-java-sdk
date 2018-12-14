@@ -5,6 +5,7 @@ All URIs are relative to *https://api.cloud.telestream.net/flip/3.1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancelEncoding**](FlipApi.md#cancelEncoding) | **POST** /encodings/{id}/cancel.json | Cancels an Encoding.
+[**cancelVideo**](FlipApi.md#cancelVideo) | **POST** /videos/{id}/cancel.json | Cancel video and all encodings
 [**copyProfile**](FlipApi.md#copyProfile) | **POST** /profiles/{id}/copy.json | Copies a given Profile
 [**createEncoding**](FlipApi.md#createEncoding) | **POST** /encodings.json | Creates an Encoding
 [**createFactory**](FlipApi.md#createFactory) | **POST** /factories.json | Creates a new factory
@@ -83,6 +84,61 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Id of an Encoding. |
+ **factoryId** | **String**| Id of a Factory. |
+
+### Return type
+
+[**CanceledResponse**](CanceledResponse.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="cancelVideo"></a>
+# **cancelVideo**
+> CanceledResponse cancelVideo(id, factoryId)
+
+Cancel video and all encodings
+
+### Example
+```java
+// Import classes:
+//import net.telestream.cloud.flip.ApiClient;
+//import net.telestream.cloud.flip.ApiException;
+//import net.telestream.cloud.flip.Configuration;
+//import net.telestream.cloud.flip.auth.*;
+//import net.telestream.cloud.flip.FlipApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: api_key
+ApiKeyAuth api_key = (ApiKeyAuth) defaultClient.getAuthentication("api_key");
+api_key.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//api_key.setApiKeyPrefix("Token");
+
+FlipApi apiInstance = new FlipApi();
+String id = "id_example"; // String | Id of a Video.
+String factoryId = "factoryId_example"; // String | Id of a Factory.
+try {
+    CanceledResponse result = apiInstance.cancelVideo(id, factoryId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FlipApi#cancelVideo");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Id of a Video. |
  **factoryId** | **String**| Id of a Factory. |
 
 ### Return type
@@ -1356,7 +1412,7 @@ Name | Type | Description  | Notes
 
 <a name="signedEncodingUrl"></a>
 # **signedEncodingUrl**
-> EncodingSignedUrl signedEncodingUrl(id, factoryId)
+> EncodingSignedUrl signedEncodingUrl(id, factoryId, expires)
 
 Returns a signed url pointing to an Encoding.
 
@@ -1380,8 +1436,9 @@ api_key.setApiKey("YOUR API KEY");
 FlipApi apiInstance = new FlipApi();
 String id = "id_example"; // String | Id of an Encoding.
 String factoryId = "factoryId_example"; // String | Id of a Factory.
+Integer expires = 56; // Integer | Duration in seconds for validity period.
 try {
-    EncodingSignedUrl result = apiInstance.signedEncodingUrl(id, factoryId);
+    EncodingSignedUrl result = apiInstance.signedEncodingUrl(id, factoryId, expires);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FlipApi#signedEncodingUrl");
@@ -1395,6 +1452,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Id of an Encoding. |
  **factoryId** | **String**| Id of a Factory. |
+ **expires** | **Integer**| Duration in seconds for validity period. | [optional]
 
 ### Return type
 

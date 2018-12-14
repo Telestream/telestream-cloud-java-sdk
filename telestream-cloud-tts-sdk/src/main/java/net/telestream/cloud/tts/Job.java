@@ -121,7 +121,10 @@ public class Job {
   private String format = null;
 
   @SerializedName("file_size")
-  private Integer fileSize = null;
+  private Long fileSize = null;
+
+  @SerializedName("custom_words")
+  private String customWords = null;
 
   @SerializedName("created_at")
   private String createdAt = null;
@@ -363,7 +366,7 @@ public class Job {
     this.format = format;
   }
 
-  public Job fileSize(Integer fileSize) {
+  public Job fileSize(Long fileSize) {
     this.fileSize = fileSize;
     return this;
   }
@@ -373,12 +376,30 @@ public class Job {
    * @return fileSize
   **/
   @ApiModelProperty(value = "The file size of the input file.")
-  public Integer getFileSize() {
+  public Long getFileSize() {
     return fileSize;
   }
 
-  public void setFileSize(Integer fileSize) {
+  public void setFileSize(Long fileSize) {
     this.fileSize = fileSize;
+  }
+
+  public Job customWords(String customWords) {
+    this.customWords = customWords;
+    return this;
+  }
+
+   /**
+   * Words used for model training, separated by space.
+   * @return customWords
+  **/
+  @ApiModelProperty(value = "Words used for model training, separated by space.")
+  public String getCustomWords() {
+    return customWords;
+  }
+
+  public void setCustomWords(String customWords) {
+    this.customWords = customWords;
   }
 
   public Job createdAt(String createdAt) {
@@ -441,13 +462,14 @@ public class Job {
         Objects.equals(this.sampleRate, job.sampleRate) &&
         Objects.equals(this.format, job.format) &&
         Objects.equals(this.fileSize, job.fileSize) &&
+        Objects.equals(this.customWords, job.customWords) &&
         Objects.equals(this.createdAt, job.createdAt) &&
         Objects.equals(this.updatedAt, job.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, originalFilename, projectId, sourceUrl, status, error, progress, confidence, duration, bitrate, sampleRate, format, fileSize, createdAt, updatedAt);
+    return Objects.hash(id, name, originalFilename, projectId, sourceUrl, status, error, progress, confidence, duration, bitrate, sampleRate, format, fileSize, customWords, createdAt, updatedAt);
   }
 
 
@@ -470,6 +492,7 @@ public class Job {
     sb.append("    sampleRate: ").append(toIndentedString(sampleRate)).append("\n");
     sb.append("    format: ").append(toIndentedString(format)).append("\n");
     sb.append("    fileSize: ").append(toIndentedString(fileSize)).append("\n");
+    sb.append("    customWords: ").append(toIndentedString(customWords)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");

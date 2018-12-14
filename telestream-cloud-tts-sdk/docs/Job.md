@@ -17,7 +17,8 @@ Name | Type | Description | Notes
 **bitrate** | **Integer** | The bitrate of the input audio. |  [optional]
 **sampleRate** | **Integer** | The sample rate of the input audio. |  [optional]
 **format** | **String** | The format of the input audio. |  [optional]
-**fileSize** | **Integer** | The file size of the input file. |  [optional]
+**fileSize** | **Long** | The file size of the input file. |  [optional]
+**customWords** | **String** | Words used for model training, separated by space. |  [optional]
 **createdAt** | **String** | A date and time when the job was created |  [optional]
 **updatedAt** | **String** | A date and time when the job was updated |  [optional]
 

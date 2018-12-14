@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **advancedFpsConversion** | [**AdvancedFpsConversionEnum**](#AdvancedFpsConversionEnum) | todo |  [optional]
-**aspectMode** | [**AspectModeEnum**](#AspectModeEnum) | Specifies an aspect mode for output videos. The following options are available:   - letterbox:   - pad: Add paddings to the input image. Default is \&quot;letterbox\&quot;. |  [optional]
+**aspectMode** | **String** | Specifies an aspect mode for output videos. The following options are available:   - preserve   - constrain   - letterbox   - pad   - fill (crop)   - stretch   - center Default is \&quot;letterbox\&quot;. |  [optional]
 **aspectRatio** | **String** | A display aspect ratio. By default it is not set. |  [optional]
 **audioBitrate** | **Integer** | audio bitrate (in bits/s) |  [optional]
 **audioChannels** | **Integer** | A number of audio channels. By default it is not set. |  [optional]
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **avcintraClass** | [**AvcintraClassEnum**](#AvcintraClassEnum) | A class of the AVC-Intra video coding. |  [optional]
 **bufferSize** | **String** | Determines the size of the PulseAudio buffer. by default it is not set. |  [optional]
 **bufferSizeInPackets** | **String** | todo |  [optional]
-**bumpers** | **String** |  |  [optional]
+**bumpers** | **Object** |  |  [optional]
 **byteRangeRequests** | **Boolean** |  |  [optional]
 **clipEnd** | **String** | Clip ends at a specific time. |  [optional]
 **clipLength** | **String** | A clip’s duration. |  [optional]
@@ -37,7 +37,7 @@ Name | Type | Description | Notes
 **cropInputTop** | **String** | Distance (in pixels) from the top edge of the screen from which you want your crop to be done. |  [optional]
 **cropInputWidth** | **String** | Height of the cropped image in pixels. |  [optional]
 **dashProfile** | **String** |  |  [optional]
-**deinterlace** | [**DeinterlaceEnum**](#DeinterlaceEnum) | One of &#x60;keep_fps&#x60; or &#x60;double_fps&#x60;. By default it is not set. |  [optional]
+**deinterlace** | **String** | One of &#x60;keep_fps&#x60; or &#x60;double_fps&#x60;. By default it is not set. |  [optional]
 **deinterlaceFrames** | **String** |  |  [optional]
 **description** | **String** | Description of the profile. |  [optional]
 **dnxhdType** | [**DnxhdTypeEnum**](#DnxhdTypeEnum) |  |  [optional]
@@ -53,7 +53,7 @@ Name | Type | Description | Notes
 **height** | **String** | Height in pixels. |  [optional]
 **id** | **String** |  |  [optional]
 **imxType** | **String** |  |  [optional]
-**inputs** | **String** |  |  [optional]
+**inputs** | **Object** |  |  [optional]
 **interlace** | **String** |  |  [optional]
 **keyframeInterval** | **String** | Adds a key frame every N frames. Default is 250, adds a key frame every 250 frames. |  [optional]
 **keyframeRate** | **String** | todo |  [optional]
@@ -62,7 +62,7 @@ Name | Type | Description | Notes
 **mergeAudioStreams** | **String** |  |  [optional]
 **muteAudioTracks** | **Boolean** | Remove audio from input video file. By default it is set to &#x60;false&#x60;. |  [optional]
 **name** | **String** | A unique machine-readable name that will identify the profile. Helpful later on for filtering encodings by profile. |  [optional]
-**outputs** | **String** |  |  [optional]
+**outputs** | **Object** |  |  [optional]
 **outputsPathFormat** | **String** | Specify the directory where the output files should be stored. By default it is not set. More information about this [here](https://cloud.telestream.net/docs#path-format---know-how). |  [optional]
 **playlistType** | [**PlaylistTypeEnum**](#PlaylistTypeEnum) |  |  [optional]
 **pmtPid** | **String** |  |  [optional]
@@ -70,6 +70,7 @@ Name | Type | Description | Notes
 **proresFormat** | **String** |  |  [optional]
 **segmentTime** | **Integer** | Minimum value is 2, maximum is 60. |  [optional]
 **stack** | **String** |  |  [optional]
+**startingTimecode** | **String** |  |  [optional]
 **telestreamBlockSize** | [**TelestreamBlockSizeEnum**](#TelestreamBlockSizeEnum) |  |  [optional]
 **telestreamBlurScaler** | [**BigDecimal**](BigDecimal.md) | Minimum value is 0, maximum is 4. |  [optional]
 **telestreamCostScaler** | [**BigDecimal**](BigDecimal.md) | Minimum value is 0, maximum is 4. |  [optional]
@@ -77,14 +78,14 @@ Name | Type | Description | Notes
 **telestreamSubpelMode** | **Boolean** |  |  [optional]
 **timeCode** | **String** | If set, timestamps will be added to your videos. By default this is not set. |  [optional]
 **title** | **String** | Human-readable name. |  [optional]
-**trailers** | **String** |  |  [optional]
+**trailers** | **Object** |  |  [optional]
 **transportRate** | **String** |  |  [optional]
 **tsPids** | **String** |  |  [optional]
 **updatedAt** | **String** |  |  [optional]
 **upscale** | **Boolean** | Upscale the video resolution to match your profile. Default is &#x60;true&#x60;. |  [optional]
 **useEditlist** | **Boolean** |  |  [optional]
 **variants** | **String** | Pattern utilised to match HLS.Variant presets by name. Default is hls.*. |  [optional]
-**videoBitrate** | **String** |  |  [optional]
+**videoBitrate** | **Integer** |  |  [optional]
 **videoPid** | **String** |  |  [optional]
 **watermarkBottom** | **String** | Distance from the bottom of the video frame in pixels or percentage of video frame height. Works like CSS. Default is &#x60;0&#x60;. |  [optional]
 **watermarkBumpers** | **Boolean** |  |  [optional]
@@ -143,19 +144,6 @@ TELESTREAM | &quot;telestream&quot;
 TACHYON | &quot;tachyon&quot;
 
 
-<a name="AspectModeEnum"></a>
-## Enum: AspectModeEnum
-Name | Value
----- | -----
-PRESERVE | &quot;preserve&quot;
-CONSTRAIN | &quot;constrain&quot;
-LETTERBOX | &quot;letterbox&quot;
-PAD | &quot;pad&quot;
-FILL_CROP_ | &quot;fill (crop)&quot;
-STRETCH | &quot;stretch&quot;
-CENTER | &quot;center&quot;
-
-
 <a name="AudioChannelsLayoutEnum"></a>
 ## Enum: AudioChannelsLayoutEnum
 Name | Value
@@ -202,14 +190,6 @@ Name | Value
 ---- | -----
 ADD | &quot;add&quot;
 BURN | &quot;burn&quot;
-
-
-<a name="DeinterlaceEnum"></a>
-## Enum: DeinterlaceEnum
-Name | Value
----- | -----
-KEEP_FPS | &quot;keep_fps&quot;
-DOUBLE_FPS | &quot;double_fps&quot;
 
 
 <a name="DnxhdTypeEnum"></a>

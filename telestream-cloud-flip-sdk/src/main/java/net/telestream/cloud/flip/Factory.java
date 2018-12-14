@@ -109,7 +109,7 @@ public class Factory {
   private Boolean inputBucketWatch = null;
 
   @SerializedName("input_bucket_files_map")
-  private String inputBucketFilesMap = null;
+  private Object inputBucketFilesMap = null;
 
   @SerializedName("input_bucket_sync_every_n_min")
   private String inputBucketSyncEveryNMin = null;
@@ -327,7 +327,7 @@ public class Factory {
     this.inputBucketWatch = inputBucketWatch;
   }
 
-  public Factory inputBucketFilesMap(String inputBucketFilesMap) {
+  public Factory inputBucketFilesMap(Object inputBucketFilesMap) {
     this.inputBucketFilesMap = inputBucketFilesMap;
     return this;
   }
@@ -337,11 +337,11 @@ public class Factory {
    * @return inputBucketFilesMap
   **/
   @ApiModelProperty(value = "")
-  public String getInputBucketFilesMap() {
+  public Object getInputBucketFilesMap() {
     return inputBucketFilesMap;
   }
 
-  public void setInputBucketFilesMap(String inputBucketFilesMap) {
+  public void setInputBucketFilesMap(Object inputBucketFilesMap) {
     this.inputBucketFilesMap = inputBucketFilesMap;
   }
 

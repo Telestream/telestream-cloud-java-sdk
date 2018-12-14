@@ -96,7 +96,7 @@ public class Video {
   private String updatedAt = null;
 
   @SerializedName("video_bitrate")
-  private String videoBitrate = null;
+  private Integer videoBitrate = null;
 
   @SerializedName("video_codec")
   private String videoCodec = null;
@@ -497,7 +497,7 @@ public class Video {
     this.updatedAt = updatedAt;
   }
 
-  public Video videoBitrate(String videoBitrate) {
+  public Video videoBitrate(Integer videoBitrate) {
     this.videoBitrate = videoBitrate;
     return this;
   }
@@ -507,11 +507,11 @@ public class Video {
    * @return videoBitrate
   **/
   @ApiModelProperty(value = "video bitrate (in bits/s)")
-  public String getVideoBitrate() {
+  public Integer getVideoBitrate() {
     return videoBitrate;
   }
 
-  public void setVideoBitrate(String videoBitrate) {
+  public void setVideoBitrate(Integer videoBitrate) {
     this.videoBitrate = videoBitrate;
   }
 

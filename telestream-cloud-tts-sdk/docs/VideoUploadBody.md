@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **profiles** | **String** |  |  [optional]
 **multiChunk** | **Boolean** |  |  [optional]
 **extraFiles** | [**List&lt;ExtraFile&gt;**](ExtraFile.md) | A list of names of additional files that will be uploaded. |  [optional]
+**job** | [**Job**](Job.md) |  |  [optional]
 
 
 

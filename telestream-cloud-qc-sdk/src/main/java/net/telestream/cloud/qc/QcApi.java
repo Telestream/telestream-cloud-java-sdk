@@ -29,6 +29,9 @@ import java.io.IOException;
 
 import net.telestream.cloud.qc.Data;
 import net.telestream.cloud.qc.Data1;
+import java.io.File;
+import net.telestream.cloud.qc.InlineResponse200;
+import net.telestream.cloud.qc.InlineResponse422;
 import net.telestream.cloud.qc.Job;
 import net.telestream.cloud.qc.JobData;
 import net.telestream.cloud.qc.JobsCollection;
@@ -694,6 +697,131 @@ public class QcApi {
 
         com.squareup.okhttp.Call call = getProjectValidateBeforeCall(projectId, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Project>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for importTemplate
+     * @param name  (optional)
+     * @param file  (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call importTemplateCall(String name, File file, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/projects/import.json";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (name != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("name", name));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        if (file != null)
+        localVarFormParams.put("file", file);
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "text/xml"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "api_key" };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call importTemplateValidateBeforeCall(String name, File file, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+
+        com.squareup.okhttp.Call call = importTemplateCall(name, file, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Import Vidchecker template
+     * 
+     * @param name  (optional)
+     * @param file  (optional)
+     * @return List&lt;InlineResponse200&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public List<InlineResponse200> importTemplate(String name, File file) throws ApiException {
+        ApiResponse<List<InlineResponse200>> resp = importTemplateWithHttpInfo(name, file);
+        return resp.getData();
+    }
+
+    /**
+     * Import Vidchecker template
+     * 
+     * @param name  (optional)
+     * @param file  (optional)
+     * @return ApiResponse&lt;List&lt;InlineResponse200&gt;&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<List<InlineResponse200>> importTemplateWithHttpInfo(String name, File file) throws ApiException {
+        com.squareup.okhttp.Call call = importTemplateValidateBeforeCall(name, file, null, null);
+        Type localVarReturnType = new TypeToken<List<InlineResponse200>>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Import Vidchecker template (asynchronously)
+     * 
+     * @param name  (optional)
+     * @param file  (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call importTemplateAsync(String name, File file, final ApiCallback<List<InlineResponse200>> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = importTemplateValidateBeforeCall(name, file, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<List<InlineResponse200>>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

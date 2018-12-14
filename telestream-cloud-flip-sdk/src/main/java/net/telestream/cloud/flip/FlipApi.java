@@ -219,6 +219,140 @@ public class FlipApi {
         return call;
     }
     /**
+     * Build call for cancelVideo
+     * @param id Id of a Video. (required)
+     * @param factoryId Id of a Factory. (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call cancelVideoCall(String id, String factoryId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/videos/{id}/cancel.json"
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (factoryId != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("factory_id", factoryId));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "api_key" };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call cancelVideoValidateBeforeCall(String id, String factoryId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling cancelVideo(Async)");
+        }
+        
+        // verify the required parameter 'factoryId' is set
+        if (factoryId == null) {
+            throw new ApiException("Missing the required parameter 'factoryId' when calling cancelVideo(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = cancelVideoCall(id, factoryId, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Cancel video and all encodings
+     * 
+     * @param id Id of a Video. (required)
+     * @param factoryId Id of a Factory. (required)
+     * @return CanceledResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public CanceledResponse cancelVideo(String id, String factoryId) throws ApiException {
+        ApiResponse<CanceledResponse> resp = cancelVideoWithHttpInfo(id, factoryId);
+        return resp.getData();
+    }
+
+    /**
+     * Cancel video and all encodings
+     * 
+     * @param id Id of a Video. (required)
+     * @param factoryId Id of a Factory. (required)
+     * @return ApiResponse&lt;CanceledResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<CanceledResponse> cancelVideoWithHttpInfo(String id, String factoryId) throws ApiException {
+        com.squareup.okhttp.Call call = cancelVideoValidateBeforeCall(id, factoryId, null, null);
+        Type localVarReturnType = new TypeToken<CanceledResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Cancel video and all encodings (asynchronously)
+     * 
+     * @param id Id of a Video. (required)
+     * @param factoryId Id of a Factory. (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call cancelVideoAsync(String id, String factoryId, final ApiCallback<CanceledResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = cancelVideoValidateBeforeCall(id, factoryId, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<CanceledResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for copyProfile
      * @param id Id of a Profile. (required)
      * @param factoryId Id of a Factory. (required)
@@ -3243,12 +3377,13 @@ public class FlipApi {
      * Build call for signedEncodingUrl
      * @param id Id of an Encoding. (required)
      * @param factoryId Id of a Factory. (required)
+     * @param expires Duration in seconds for validity period. (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call signedEncodingUrlCall(String id, String factoryId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call signedEncodingUrlCall(String id, String factoryId, Integer expires, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -3259,6 +3394,8 @@ public class FlipApi {
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         if (factoryId != null)
         localVarQueryParams.addAll(apiClient.parameterToPair("factory_id", factoryId));
+        if (expires != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("expires", expires));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -3293,7 +3430,7 @@ public class FlipApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call signedEncodingUrlValidateBeforeCall(String id, String factoryId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call signedEncodingUrlValidateBeforeCall(String id, String factoryId, Integer expires, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -3306,7 +3443,7 @@ public class FlipApi {
         }
         
 
-        com.squareup.okhttp.Call call = signedEncodingUrlCall(id, factoryId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = signedEncodingUrlCall(id, factoryId, expires, progressListener, progressRequestListener);
         return call;
 
     }
@@ -3316,11 +3453,12 @@ public class FlipApi {
      * 
      * @param id Id of an Encoding. (required)
      * @param factoryId Id of a Factory. (required)
+     * @param expires Duration in seconds for validity period. (optional)
      * @return EncodingSignedUrl
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public EncodingSignedUrl signedEncodingUrl(String id, String factoryId) throws ApiException {
-        ApiResponse<EncodingSignedUrl> resp = signedEncodingUrlWithHttpInfo(id, factoryId);
+    public EncodingSignedUrl signedEncodingUrl(String id, String factoryId, Integer expires) throws ApiException {
+        ApiResponse<EncodingSignedUrl> resp = signedEncodingUrlWithHttpInfo(id, factoryId, expires);
         return resp.getData();
     }
 
@@ -3329,11 +3467,12 @@ public class FlipApi {
      * 
      * @param id Id of an Encoding. (required)
      * @param factoryId Id of a Factory. (required)
+     * @param expires Duration in seconds for validity period. (optional)
      * @return ApiResponse&lt;EncodingSignedUrl&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<EncodingSignedUrl> signedEncodingUrlWithHttpInfo(String id, String factoryId) throws ApiException {
-        com.squareup.okhttp.Call call = signedEncodingUrlValidateBeforeCall(id, factoryId, null, null);
+    public ApiResponse<EncodingSignedUrl> signedEncodingUrlWithHttpInfo(String id, String factoryId, Integer expires) throws ApiException {
+        com.squareup.okhttp.Call call = signedEncodingUrlValidateBeforeCall(id, factoryId, expires, null, null);
         Type localVarReturnType = new TypeToken<EncodingSignedUrl>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -3343,11 +3482,12 @@ public class FlipApi {
      * 
      * @param id Id of an Encoding. (required)
      * @param factoryId Id of a Factory. (required)
+     * @param expires Duration in seconds for validity period. (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call signedEncodingUrlAsync(String id, String factoryId, final ApiCallback<EncodingSignedUrl> callback) throws ApiException {
+    public com.squareup.okhttp.Call signedEncodingUrlAsync(String id, String factoryId, Integer expires, final ApiCallback<EncodingSignedUrl> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -3368,7 +3508,7 @@ public class FlipApi {
             };
         }
 
-        com.squareup.okhttp.Call call = signedEncodingUrlValidateBeforeCall(id, factoryId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = signedEncodingUrlValidateBeforeCall(id, factoryId, expires, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<EncodingSignedUrl>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

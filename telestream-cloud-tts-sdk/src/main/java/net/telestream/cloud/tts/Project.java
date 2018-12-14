@@ -22,6 +22,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Project
@@ -105,6 +107,9 @@ public class Project {
 
   @SerializedName("custom_words")
   private String customWords = null;
+
+  @SerializedName("capabilities")
+  private List<String> capabilities = null;
 
   @SerializedName("created_at")
   private String createdAt = null;
@@ -274,6 +279,32 @@ public class Project {
     this.customWords = customWords;
   }
 
+  public Project capabilities(List<String> capabilities) {
+    this.capabilities = capabilities;
+    return this;
+  }
+
+  public Project addCapabilitiesItem(String capabilitiesItem) {
+    if (this.capabilities == null) {
+      this.capabilities = new ArrayList<String>();
+    }
+    this.capabilities.add(capabilitiesItem);
+    return this;
+  }
+
+   /**
+   * Get capabilities
+   * @return capabilities
+  **/
+  @ApiModelProperty(value = "")
+  public List<String> getCapabilities() {
+    return capabilities;
+  }
+
+  public void setCapabilities(List<String> capabilities) {
+    this.capabilities = capabilities;
+  }
+
   public Project createdAt(String createdAt) {
     this.createdAt = createdAt;
     return this;
@@ -329,13 +360,14 @@ public class Project {
         Objects.equals(this.profanityFilter, project.profanityFilter) &&
         Objects.equals(this.generateProxy, project.generateProxy) &&
         Objects.equals(this.customWords, project.customWords) &&
+        Objects.equals(this.capabilities, project.capabilities) &&
         Objects.equals(this.createdAt, project.createdAt) &&
         Objects.equals(this.updatedAt, project.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, status, language, sampleRate, profanityFilter, generateProxy, customWords, createdAt, updatedAt);
+    return Objects.hash(id, name, description, status, language, sampleRate, profanityFilter, generateProxy, customWords, capabilities, createdAt, updatedAt);
   }
 
 
@@ -353,6 +385,7 @@ public class Project {
     sb.append("    profanityFilter: ").append(toIndentedString(profanityFilter)).append("\n");
     sb.append("    generateProxy: ").append(toIndentedString(generateProxy)).append("\n");
     sb.append("    customWords: ").append(toIndentedString(customWords)).append("\n");
+    sb.append("    capabilities: ").append(toIndentedString(capabilities)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");

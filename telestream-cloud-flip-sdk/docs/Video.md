@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **sourceUrl** | **String** | An URL pointing to the source file. |  [optional]
 **status** | **String** | Determines at what stage of importing process the Video is at the moment. |  [optional]
 **updatedAt** | **String** | A date and time when a Video has been updated last time. |  [optional]
-**videoBitrate** | **String** | video bitrate (in bits/s) |  [optional]
+**videoBitrate** | **Integer** | video bitrate (in bits/s) |  [optional]
 **videoCodec** | **String** | A codec that has been used to encode the input file&#39;s video streams. |  [optional]
 
 
