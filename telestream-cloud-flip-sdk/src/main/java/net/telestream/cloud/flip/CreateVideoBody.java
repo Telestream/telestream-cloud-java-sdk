@@ -242,10 +242,10 @@ public class CreateVideoBody {
   }
 
    /**
-   * Clip ends at a specific time.
+   * Clip ends at a specific time (timecode).
    * @return clipEnd
   **/
-  @ApiModelProperty(example = "00:32:16", value = "Clip ends at a specific time.")
+  @ApiModelProperty(example = "00:00:06:00@25", value = "Clip ends at a specific time (timecode).")
   public String getClipEnd() {
     return clipEnd;
   }

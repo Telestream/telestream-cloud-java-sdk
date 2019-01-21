@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **extraFiles** | [**Map&lt;String, List&lt;String&gt;&gt;**](List.md) |  |  [optional]
 **extraVariables** | **Map&lt;String, String&gt;** |  |  [optional]
 **pathFormat** | **String** |  |  [optional]
-**clipEnd** | **String** | Clip ends at a specific time. |  [optional]
+**clipEnd** | **String** | Clip ends at a specific time (timecode). |  [optional]
 **clipLength** | **String** | A clip’s duration. |  [optional]
 **clipOffset** | **String** | Clip starts at a specific offset. |  [optional]
 **startingTimecode** | **String** |  |  [optional]

@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **bufferSizeInPackets** | **String** | todo |  [optional]
 **clipLength** | **String** | Sets the clip’s duration. |  [optional]
 **clipOffset** | **String** | Clip starts at a specific offset. |  [optional]
+**clipEnd** | **String** | Clip ends at a specific time (timecode). |  [optional]
 **closedCaptions** | [**ClosedCaptionsEnum**](#ClosedCaptionsEnum) | One of add (adds captions as a separate streams) or burn (burns captions on video stream using the first subtitle file). By default it is not set. |  [optional]
 **dashProfile** | **String** |  |  [optional]
 **deinterlace** | [**DeinterlaceEnum**](#DeinterlaceEnum) | One of &#x60;keep_fps&#x60; or &#x60;double_fps&#x60;. By default it is not set. |  [optional]

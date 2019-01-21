@@ -459,6 +459,9 @@ public class ProfileBody {
   @SerializedName("clip_offset")
   private String clipOffset = null;
 
+  @SerializedName("clip_end")
+  private String clipEnd = null;
+
   /**
    * One of add (adds captions as a separate streams) or burn (burns captions on video stream using the first subtitle file). By default it is not set.
    */
@@ -2233,6 +2236,24 @@ public class ProfileBody {
 
   public void setClipOffset(String clipOffset) {
     this.clipOffset = clipOffset;
+  }
+
+  public ProfileBody clipEnd(String clipEnd) {
+    this.clipEnd = clipEnd;
+    return this;
+  }
+
+   /**
+   * Clip ends at a specific time (timecode).
+   * @return clipEnd
+  **/
+  @ApiModelProperty(example = "00:00:06:00@25", value = "Clip ends at a specific time (timecode).")
+  public String getClipEnd() {
+    return clipEnd;
+  }
+
+  public void setClipEnd(String clipEnd) {
+    this.clipEnd = clipEnd;
   }
 
   public ProfileBody closedCaptions(ClosedCaptionsEnum closedCaptions) {
@@ -4280,6 +4301,7 @@ public class ProfileBody {
         Objects.equals(this.bufferSizeInPackets, profileBody.bufferSizeInPackets) &&
         Objects.equals(this.clipLength, profileBody.clipLength) &&
         Objects.equals(this.clipOffset, profileBody.clipOffset) &&
+        Objects.equals(this.clipEnd, profileBody.clipEnd) &&
         Objects.equals(this.closedCaptions, profileBody.closedCaptions) &&
         Objects.equals(this.dashProfile, profileBody.dashProfile) &&
         Objects.equals(this.deinterlace, profileBody.deinterlace) &&
@@ -4396,7 +4418,7 @@ public class ProfileBody {
 
   @Override
   public int hashCode() {
-    return Objects.hash(presetName, advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioPid, audioProfile, audioSampleRate, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, clipLength, clipOffset, closedCaptions, dashProfile, deinterlace, deinterlaceFrames, dnxhdType, encryption, extname, fps, frameOffsets, frameInterval, frameCount, h264Level, h264Profile, h264Tune, height, imxType, interlace, keyframeInterval, keyframeRate, maxRate, mergeAudioStreams, name, outputsPathFormat, pmtPid, proresFormat, segmentTime, size, startingTimecode, tar, transportRate, tsPids, upscale, variants, videoBitrate, videoPid, watermarkBottom, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, muteAudioTracks, byteRangeRequests, lang, useEditlist, audioMap, audioStreamId, bumpers, codecPreset, colorMetadata, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dynamicRecipe, playlistType, presetVersion, segmentDelimiter, swsFlags, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, trailers, vantageGroupId, watermarkBumpers, watermarkTrailers, workorderCriteria, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream, title, timeCode);
+    return Objects.hash(presetName, advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioPid, audioProfile, audioSampleRate, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, clipLength, clipOffset, clipEnd, closedCaptions, dashProfile, deinterlace, deinterlaceFrames, dnxhdType, encryption, extname, fps, frameOffsets, frameInterval, frameCount, h264Level, h264Profile, h264Tune, height, imxType, interlace, keyframeInterval, keyframeRate, maxRate, mergeAudioStreams, name, outputsPathFormat, pmtPid, proresFormat, segmentTime, size, startingTimecode, tar, transportRate, tsPids, upscale, variants, videoBitrate, videoPid, watermarkBottom, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, muteAudioTracks, byteRangeRequests, lang, useEditlist, audioMap, audioStreamId, bumpers, codecPreset, colorMetadata, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dynamicRecipe, playlistType, presetVersion, segmentDelimiter, swsFlags, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, trailers, vantageGroupId, watermarkBumpers, watermarkTrailers, workorderCriteria, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream, title, timeCode);
   }
 
 
@@ -4424,6 +4446,7 @@ public class ProfileBody {
     sb.append("    bufferSizeInPackets: ").append(toIndentedString(bufferSizeInPackets)).append("\n");
     sb.append("    clipLength: ").append(toIndentedString(clipLength)).append("\n");
     sb.append("    clipOffset: ").append(toIndentedString(clipOffset)).append("\n");
+    sb.append("    clipEnd: ").append(toIndentedString(clipEnd)).append("\n");
     sb.append("    closedCaptions: ").append(toIndentedString(closedCaptions)).append("\n");
     sb.append("    dashProfile: ").append(toIndentedString(dashProfile)).append("\n");
     sb.append("    deinterlace: ").append(toIndentedString(deinterlace)).append("\n");
