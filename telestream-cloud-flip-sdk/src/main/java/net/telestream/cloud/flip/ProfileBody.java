@@ -462,6 +462,9 @@ public class ProfileBody {
   @SerializedName("clip_end")
   private String clipEnd = null;
 
+  @SerializedName("pixel_format")
+  private String pixelFormat = null;
+
   /**
    * One of add (adds captions as a separate streams) or burn (burns captions on video stream using the first subtitle file). By default it is not set.
    */
@@ -1079,9 +1082,6 @@ public class ProfileBody {
 
   @SerializedName("watermark_trailers")
   private String watermarkTrailers = null;
-
-  @SerializedName("workorder_criteria")
-  private Object workorderCriteria = null;
 
   @SerializedName("tachyon_allow_remove_pulldown")
   private Boolean tachyonAllowRemovePulldown = null;
@@ -2254,6 +2254,24 @@ public class ProfileBody {
 
   public void setClipEnd(String clipEnd) {
     this.clipEnd = clipEnd;
+  }
+
+  public ProfileBody pixelFormat(String pixelFormat) {
+    this.pixelFormat = pixelFormat;
+    return this;
+  }
+
+   /**
+   * Get pixelFormat
+   * @return pixelFormat
+  **/
+  @ApiModelProperty(example = "yuv420p", value = "")
+  public String getPixelFormat() {
+    return pixelFormat;
+  }
+
+  public void setPixelFormat(String pixelFormat) {
+    this.pixelFormat = pixelFormat;
   }
 
   public ProfileBody closedCaptions(ClosedCaptionsEnum closedCaptions) {
@@ -3606,24 +3624,6 @@ public class ProfileBody {
     this.watermarkTrailers = watermarkTrailers;
   }
 
-  public ProfileBody workorderCriteria(Object workorderCriteria) {
-    this.workorderCriteria = workorderCriteria;
-    return this;
-  }
-
-   /**
-   * Get workorderCriteria
-   * @return workorderCriteria
-  **/
-  @ApiModelProperty(value = "")
-  public Object getWorkorderCriteria() {
-    return workorderCriteria;
-  }
-
-  public void setWorkorderCriteria(Object workorderCriteria) {
-    this.workorderCriteria = workorderCriteria;
-  }
-
   public ProfileBody tachyonAllowRemovePulldown(Boolean tachyonAllowRemovePulldown) {
     this.tachyonAllowRemovePulldown = tachyonAllowRemovePulldown;
     return this;
@@ -4302,6 +4302,7 @@ public class ProfileBody {
         Objects.equals(this.clipLength, profileBody.clipLength) &&
         Objects.equals(this.clipOffset, profileBody.clipOffset) &&
         Objects.equals(this.clipEnd, profileBody.clipEnd) &&
+        Objects.equals(this.pixelFormat, profileBody.pixelFormat) &&
         Objects.equals(this.closedCaptions, profileBody.closedCaptions) &&
         Objects.equals(this.dashProfile, profileBody.dashProfile) &&
         Objects.equals(this.deinterlace, profileBody.deinterlace) &&
@@ -4377,7 +4378,6 @@ public class ProfileBody {
         Objects.equals(this.vantageGroupId, profileBody.vantageGroupId) &&
         Objects.equals(this.watermarkBumpers, profileBody.watermarkBumpers) &&
         Objects.equals(this.watermarkTrailers, profileBody.watermarkTrailers) &&
-        Objects.equals(this.workorderCriteria, profileBody.workorderCriteria) &&
         Objects.equals(this.tachyonAllowRemovePulldown, profileBody.tachyonAllowRemovePulldown) &&
         Objects.equals(this.tachyonEnablePostPulldownFilter, profileBody.tachyonEnablePostPulldownFilter) &&
         Objects.equals(this.tachyonMediaHintIsCartoon, profileBody.tachyonMediaHintIsCartoon) &&
@@ -4418,7 +4418,7 @@ public class ProfileBody {
 
   @Override
   public int hashCode() {
-    return Objects.hash(presetName, advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioPid, audioProfile, audioSampleRate, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, clipLength, clipOffset, clipEnd, closedCaptions, dashProfile, deinterlace, deinterlaceFrames, dnxhdType, encryption, extname, fps, frameOffsets, frameInterval, frameCount, h264Level, h264Profile, h264Tune, height, imxType, interlace, keyframeInterval, keyframeRate, maxRate, mergeAudioStreams, name, outputsPathFormat, pmtPid, proresFormat, segmentTime, size, startingTimecode, tar, transportRate, tsPids, upscale, variants, videoBitrate, videoPid, watermarkBottom, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, muteAudioTracks, byteRangeRequests, lang, useEditlist, audioMap, audioStreamId, bumpers, codecPreset, colorMetadata, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dynamicRecipe, playlistType, presetVersion, segmentDelimiter, swsFlags, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, trailers, vantageGroupId, watermarkBumpers, watermarkTrailers, workorderCriteria, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream, title, timeCode);
+    return Objects.hash(presetName, advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioPid, audioProfile, audioSampleRate, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, clipLength, clipOffset, clipEnd, pixelFormat, closedCaptions, dashProfile, deinterlace, deinterlaceFrames, dnxhdType, encryption, extname, fps, frameOffsets, frameInterval, frameCount, h264Level, h264Profile, h264Tune, height, imxType, interlace, keyframeInterval, keyframeRate, maxRate, mergeAudioStreams, name, outputsPathFormat, pmtPid, proresFormat, segmentTime, size, startingTimecode, tar, transportRate, tsPids, upscale, variants, videoBitrate, videoPid, watermarkBottom, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, muteAudioTracks, byteRangeRequests, lang, useEditlist, audioMap, audioStreamId, bumpers, codecPreset, colorMetadata, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dynamicRecipe, playlistType, presetVersion, segmentDelimiter, swsFlags, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, trailers, vantageGroupId, watermarkBumpers, watermarkTrailers, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream, title, timeCode);
   }
 
 
@@ -4447,6 +4447,7 @@ public class ProfileBody {
     sb.append("    clipLength: ").append(toIndentedString(clipLength)).append("\n");
     sb.append("    clipOffset: ").append(toIndentedString(clipOffset)).append("\n");
     sb.append("    clipEnd: ").append(toIndentedString(clipEnd)).append("\n");
+    sb.append("    pixelFormat: ").append(toIndentedString(pixelFormat)).append("\n");
     sb.append("    closedCaptions: ").append(toIndentedString(closedCaptions)).append("\n");
     sb.append("    dashProfile: ").append(toIndentedString(dashProfile)).append("\n");
     sb.append("    deinterlace: ").append(toIndentedString(deinterlace)).append("\n");
@@ -4522,7 +4523,6 @@ public class ProfileBody {
     sb.append("    vantageGroupId: ").append(toIndentedString(vantageGroupId)).append("\n");
     sb.append("    watermarkBumpers: ").append(toIndentedString(watermarkBumpers)).append("\n");
     sb.append("    watermarkTrailers: ").append(toIndentedString(watermarkTrailers)).append("\n");
-    sb.append("    workorderCriteria: ").append(toIndentedString(workorderCriteria)).append("\n");
     sb.append("    tachyonAllowRemovePulldown: ").append(toIndentedString(tachyonAllowRemovePulldown)).append("\n");
     sb.append("    tachyonEnablePostPulldownFilter: ").append(toIndentedString(tachyonEnablePostPulldownFilter)).append("\n");
     sb.append("    tachyonMediaHintIsCartoon: ").append(toIndentedString(tachyonMediaHintIsCartoon)).append("\n");

@@ -312,6 +312,9 @@ public class Profile {
   @SerializedName("clip_end")
   private String clipEnd = null;
 
+  @SerializedName("pixel_format")
+  private String pixelFormat = null;
+
   @SerializedName("clip_length")
   private String clipLength = null;
 
@@ -2172,6 +2175,24 @@ public class Profile {
 
   public void setClipEnd(String clipEnd) {
     this.clipEnd = clipEnd;
+  }
+
+  public Profile pixelFormat(String pixelFormat) {
+    this.pixelFormat = pixelFormat;
+    return this;
+  }
+
+   /**
+   * Get pixelFormat
+   * @return pixelFormat
+  **/
+  @ApiModelProperty(example = "yuv420p", value = "")
+  public String getPixelFormat() {
+    return pixelFormat;
+  }
+
+  public void setPixelFormat(String pixelFormat) {
+    this.pixelFormat = pixelFormat;
   }
 
   public Profile clipLength(String clipLength) {
@@ -4167,6 +4188,7 @@ public class Profile {
         Objects.equals(this.bumpers, profile.bumpers) &&
         Objects.equals(this.byteRangeRequests, profile.byteRangeRequests) &&
         Objects.equals(this.clipEnd, profile.clipEnd) &&
+        Objects.equals(this.pixelFormat, profile.pixelFormat) &&
         Objects.equals(this.clipLength, profile.clipLength) &&
         Objects.equals(this.clipOffset, profile.clipOffset) &&
         Objects.equals(this.closedCaptions, profile.closedCaptions) &&
@@ -4280,7 +4302,7 @@ public class Profile {
 
   @Override
   public int hashCode() {
-    return Objects.hash(advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioMap, audioPid, audioProfile, audioSampleRate, audioStreamId, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, bumpers, byteRangeRequests, clipEnd, clipLength, clipOffset, closedCaptions, colorMetadata, createdAt, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dashProfile, deinterlace, deinterlaceFrames, description, dnxhdType, encryption, extname, fps, frameCount, frameInterval, frameOffsets, h264Level, h264Profile, h264Tune, height, id, imxType, inputs, interlace, keyframeInterval, keyframeRate, lang, maxRate, mergeAudioStreams, muteAudioTracks, name, outputs, outputsPathFormat, playlistType, pmtPid, presetName, proresFormat, segmentTime, stack, startingTimecode, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, timeCode, title, trailers, transportRate, tsPids, updatedAt, upscale, useEditlist, variants, videoBitrate, videoPid, watermarkBottom, watermarkBumpers, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkTrailers, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream);
+    return Objects.hash(advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioMap, audioPid, audioProfile, audioSampleRate, audioStreamId, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, bumpers, byteRangeRequests, clipEnd, pixelFormat, clipLength, clipOffset, closedCaptions, colorMetadata, createdAt, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dashProfile, deinterlace, deinterlaceFrames, description, dnxhdType, encryption, extname, fps, frameCount, frameInterval, frameOffsets, h264Level, h264Profile, h264Tune, height, id, imxType, inputs, interlace, keyframeInterval, keyframeRate, lang, maxRate, mergeAudioStreams, muteAudioTracks, name, outputs, outputsPathFormat, playlistType, pmtPid, presetName, proresFormat, segmentTime, stack, startingTimecode, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, timeCode, title, trailers, transportRate, tsPids, updatedAt, upscale, useEditlist, variants, videoBitrate, videoPid, watermarkBottom, watermarkBumpers, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkTrailers, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream);
   }
 
 
@@ -4310,6 +4332,7 @@ public class Profile {
     sb.append("    bumpers: ").append(toIndentedString(bumpers)).append("\n");
     sb.append("    byteRangeRequests: ").append(toIndentedString(byteRangeRequests)).append("\n");
     sb.append("    clipEnd: ").append(toIndentedString(clipEnd)).append("\n");
+    sb.append("    pixelFormat: ").append(toIndentedString(pixelFormat)).append("\n");
     sb.append("    clipLength: ").append(toIndentedString(clipLength)).append("\n");
     sb.append("    clipOffset: ").append(toIndentedString(clipOffset)).append("\n");
     sb.append("    closedCaptions: ").append(toIndentedString(closedCaptions)).append("\n");

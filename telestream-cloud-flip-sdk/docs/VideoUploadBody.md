@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **clipLength** | **String** | Length of the uploaded video. Should be formatted as follows: HH:MM:SS |  [optional]
 **clipOffset** | **String** | Clip starts at a specific offset. |  [optional]
 **multiChunk** | **Boolean** |  |  [optional]
+**storeId** | **String** | An individual store_id for this video processing. If provided will replace store_id from cloud factory but must match underlying cloud provider and region. |  [optional]
 
 
 

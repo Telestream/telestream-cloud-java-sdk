@@ -84,6 +84,9 @@ public class VideoUploadBody {
   @SerializedName("multi_chunk")
   private Boolean multiChunk = true;
 
+  @SerializedName("store_id")
+  private String storeId = null;
+
   public VideoUploadBody fileSize(Long fileSize) {
     this.fileSize = fileSize;
     return this;
@@ -406,6 +409,24 @@ public class VideoUploadBody {
     this.multiChunk = multiChunk;
   }
 
+  public VideoUploadBody storeId(String storeId) {
+    this.storeId = storeId;
+    return this;
+  }
+
+   /**
+   * An individual store_id for this video processing. If provided will replace store_id from cloud factory but must match underlying cloud provider and region.
+   * @return storeId
+  **/
+  @ApiModelProperty(value = "An individual store_id for this video processing. If provided will replace store_id from cloud factory but must match underlying cloud provider and region.")
+  public String getStoreId() {
+    return storeId;
+  }
+
+  public void setStoreId(String storeId) {
+    this.storeId = storeId;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -432,12 +453,13 @@ public class VideoUploadBody {
         Objects.equals(this.watermarkHeight, videoUploadBody.watermarkHeight) &&
         Objects.equals(this.clipLength, videoUploadBody.clipLength) &&
         Objects.equals(this.clipOffset, videoUploadBody.clipOffset) &&
-        Objects.equals(this.multiChunk, videoUploadBody.multiChunk);
+        Objects.equals(this.multiChunk, videoUploadBody.multiChunk) &&
+        Objects.equals(this.storeId, videoUploadBody.storeId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileSize, fileName, extraFiles, profiles, pathFormat, payload, extraVariables, watermarkUrl, watermarkLeft, watermarkTop, watermarkRight, watermarkBottom, watermarkWidth, watermarkHeight, clipLength, clipOffset, multiChunk);
+    return Objects.hash(fileSize, fileName, extraFiles, profiles, pathFormat, payload, extraVariables, watermarkUrl, watermarkLeft, watermarkTop, watermarkRight, watermarkBottom, watermarkWidth, watermarkHeight, clipLength, clipOffset, multiChunk, storeId);
   }
 
 
@@ -463,6 +485,7 @@ public class VideoUploadBody {
     sb.append("    clipLength: ").append(toIndentedString(clipLength)).append("\n");
     sb.append("    clipOffset: ").append(toIndentedString(clipOffset)).append("\n");
     sb.append("    multiChunk: ").append(toIndentedString(multiChunk)).append("\n");
+    sb.append("    storeId: ").append(toIndentedString(storeId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

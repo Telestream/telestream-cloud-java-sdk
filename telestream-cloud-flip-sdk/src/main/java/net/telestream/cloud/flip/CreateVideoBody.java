@@ -68,6 +68,9 @@ public class CreateVideoBody {
   @SerializedName("starting_timecode")
   private String startingTimecode = null;
 
+  @SerializedName("store_id")
+  private String storeId = null;
+
   public CreateVideoBody sourceUrl(String sourceUrl) {
     this.sourceUrl = sourceUrl;
     return this;
@@ -308,6 +311,24 @@ public class CreateVideoBody {
     this.startingTimecode = startingTimecode;
   }
 
+  public CreateVideoBody storeId(String storeId) {
+    this.storeId = storeId;
+    return this;
+  }
+
+   /**
+   * An individual store_id for this video processing. If provided will replace store_id from cloud factory but must match underlying cloud provider and region.
+   * @return storeId
+  **/
+  @ApiModelProperty(value = "An individual store_id for this video processing. If provided will replace store_id from cloud factory but must match underlying cloud provider and region.")
+  public String getStoreId() {
+    return storeId;
+  }
+
+  public void setStoreId(String storeId) {
+    this.storeId = storeId;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -329,12 +350,13 @@ public class CreateVideoBody {
         Objects.equals(this.clipEnd, createVideoBody.clipEnd) &&
         Objects.equals(this.clipLength, createVideoBody.clipLength) &&
         Objects.equals(this.clipOffset, createVideoBody.clipOffset) &&
-        Objects.equals(this.startingTimecode, createVideoBody.startingTimecode);
+        Objects.equals(this.startingTimecode, createVideoBody.startingTimecode) &&
+        Objects.equals(this.storeId, createVideoBody.storeId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sourceUrl, profiles, payload, pipeline, subtitleFiles, extraFiles, extraVariables, pathFormat, clipEnd, clipLength, clipOffset, startingTimecode);
+    return Objects.hash(sourceUrl, profiles, payload, pipeline, subtitleFiles, extraFiles, extraVariables, pathFormat, clipEnd, clipLength, clipOffset, startingTimecode, storeId);
   }
 
 
@@ -355,6 +377,7 @@ public class CreateVideoBody {
     sb.append("    clipLength: ").append(toIndentedString(clipLength)).append("\n");
     sb.append("    clipOffset: ").append(toIndentedString(clipOffset)).append("\n");
     sb.append("    startingTimecode: ").append(toIndentedString(startingTimecode)).append("\n");
+    sb.append("    storeId: ").append(toIndentedString(storeId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

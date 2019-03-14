@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **bumpers** | **Object** |  |  [optional]
 **byteRangeRequests** | **Boolean** |  |  [optional]
 **clipEnd** | **String** | Clip ends at a specific time (timecode). |  [optional]
+**pixelFormat** | **String** |  |  [optional]
 **clipLength** | **String** | A clip’s duration. |  [optional]
 **clipOffset** | **String** | Clip starts at a specific offset. |  [optional]
 **closedCaptions** | [**ClosedCaptionsEnum**](#ClosedCaptionsEnum) | One of add (adds captions as a separate streams) or burn (burns captions on video stream using the first subtitle file). By default it is not set. |  [optional]
