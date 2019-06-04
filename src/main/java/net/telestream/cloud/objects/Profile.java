@@ -25,6 +25,7 @@ public class Profile extends Model {
     private Integer audioBitrate;
     private Boolean timeCode;
     private Integer keyframeInterval;
+    private String stack;
 
     public String getId() {
         return id;
