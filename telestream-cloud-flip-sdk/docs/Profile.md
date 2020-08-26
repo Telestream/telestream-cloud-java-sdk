@@ -70,6 +70,7 @@ Name | Type | Description | Notes
 **presetName** | **String** | a name of a preset that a profile will use. |  [optional]
 **proresFormat** | **String** |  |  [optional]
 **segmentTime** | **Integer** | Minimum value is 2, maximum is 60. |  [optional]
+**seekDecoded** | **Boolean** | Decode frames before seeking |  [optional]
 **stack** | **String** |  |  [optional]
 **startingTimecode** | **String** |  |  [optional]
 **telestreamBlockSize** | [**TelestreamBlockSizeEnum**](#TelestreamBlockSizeEnum) |  |  [optional]

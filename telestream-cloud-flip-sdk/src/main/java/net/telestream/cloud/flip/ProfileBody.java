@@ -824,6 +824,9 @@ public class ProfileBody {
   @SerializedName("segment_time")
   private String segmentTime = null;
 
+  @SerializedName("seek_decoded")
+  private Boolean seekDecoded = null;
+
   @SerializedName("size")
   private String size = null;
 
@@ -2742,6 +2745,24 @@ public class ProfileBody {
     this.segmentTime = segmentTime;
   }
 
+  public ProfileBody seekDecoded(Boolean seekDecoded) {
+    this.seekDecoded = seekDecoded;
+    return this;
+  }
+
+   /**
+   * Decode frames before seeking
+   * @return seekDecoded
+  **/
+  @ApiModelProperty(value = "Decode frames before seeking")
+  public Boolean isSeekDecoded() {
+    return seekDecoded;
+  }
+
+  public void setSeekDecoded(Boolean seekDecoded) {
+    this.seekDecoded = seekDecoded;
+  }
+
   public ProfileBody size(String size) {
     this.size = size;
     return this;
@@ -4329,6 +4350,7 @@ public class ProfileBody {
         Objects.equals(this.pmtPid, profileBody.pmtPid) &&
         Objects.equals(this.proresFormat, profileBody.proresFormat) &&
         Objects.equals(this.segmentTime, profileBody.segmentTime) &&
+        Objects.equals(this.seekDecoded, profileBody.seekDecoded) &&
         Objects.equals(this.size, profileBody.size) &&
         Objects.equals(this.startingTimecode, profileBody.startingTimecode) &&
         Objects.equals(this.tar, profileBody.tar) &&
@@ -4418,7 +4440,7 @@ public class ProfileBody {
 
   @Override
   public int hashCode() {
-    return Objects.hash(presetName, advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioPid, audioProfile, audioSampleRate, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, clipLength, clipOffset, clipEnd, pixelFormat, closedCaptions, dashProfile, deinterlace, deinterlaceFrames, dnxhdType, encryption, extname, fps, frameOffsets, frameInterval, frameCount, h264Level, h264Profile, h264Tune, height, imxType, interlace, keyframeInterval, keyframeRate, maxRate, mergeAudioStreams, name, outputsPathFormat, pmtPid, proresFormat, segmentTime, size, startingTimecode, tar, transportRate, tsPids, upscale, variants, videoBitrate, videoPid, watermarkBottom, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, muteAudioTracks, byteRangeRequests, lang, useEditlist, audioMap, audioStreamId, bumpers, codecPreset, colorMetadata, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dynamicRecipe, playlistType, presetVersion, segmentDelimiter, swsFlags, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, trailers, vantageGroupId, watermarkBumpers, watermarkTrailers, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream, title, timeCode);
+    return Objects.hash(presetName, advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioPid, audioProfile, audioSampleRate, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, clipLength, clipOffset, clipEnd, pixelFormat, closedCaptions, dashProfile, deinterlace, deinterlaceFrames, dnxhdType, encryption, extname, fps, frameOffsets, frameInterval, frameCount, h264Level, h264Profile, h264Tune, height, imxType, interlace, keyframeInterval, keyframeRate, maxRate, mergeAudioStreams, name, outputsPathFormat, pmtPid, proresFormat, segmentTime, seekDecoded, size, startingTimecode, tar, transportRate, tsPids, upscale, variants, videoBitrate, videoPid, watermarkBottom, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, muteAudioTracks, byteRangeRequests, lang, useEditlist, audioMap, audioStreamId, bumpers, codecPreset, colorMetadata, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dynamicRecipe, playlistType, presetVersion, segmentDelimiter, swsFlags, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, trailers, vantageGroupId, watermarkBumpers, watermarkTrailers, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream, title, timeCode);
   }
 
 
@@ -4474,6 +4496,7 @@ public class ProfileBody {
     sb.append("    pmtPid: ").append(toIndentedString(pmtPid)).append("\n");
     sb.append("    proresFormat: ").append(toIndentedString(proresFormat)).append("\n");
     sb.append("    segmentTime: ").append(toIndentedString(segmentTime)).append("\n");
+    sb.append("    seekDecoded: ").append(toIndentedString(seekDecoded)).append("\n");
     sb.append("    size: ").append(toIndentedString(size)).append("\n");
     sb.append("    startingTimecode: ").append(toIndentedString(startingTimecode)).append("\n");
     sb.append("    tar: ").append(toIndentedString(tar)).append("\n");

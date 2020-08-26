@@ -59,6 +59,9 @@ public class CreateVideoBody {
   @SerializedName("clip_end")
   private String clipEnd = null;
 
+  @SerializedName("pixel_format")
+  private String pixelFormat = null;
+
   @SerializedName("clip_length")
   private String clipLength = null;
 
@@ -257,6 +260,24 @@ public class CreateVideoBody {
     this.clipEnd = clipEnd;
   }
 
+  public CreateVideoBody pixelFormat(String pixelFormat) {
+    this.pixelFormat = pixelFormat;
+    return this;
+  }
+
+   /**
+   * Get pixelFormat
+   * @return pixelFormat
+  **/
+  @ApiModelProperty(example = "yuv420p", value = "")
+  public String getPixelFormat() {
+    return pixelFormat;
+  }
+
+  public void setPixelFormat(String pixelFormat) {
+    this.pixelFormat = pixelFormat;
+  }
+
   public CreateVideoBody clipLength(String clipLength) {
     this.clipLength = clipLength;
     return this;
@@ -348,6 +369,7 @@ public class CreateVideoBody {
         Objects.equals(this.extraVariables, createVideoBody.extraVariables) &&
         Objects.equals(this.pathFormat, createVideoBody.pathFormat) &&
         Objects.equals(this.clipEnd, createVideoBody.clipEnd) &&
+        Objects.equals(this.pixelFormat, createVideoBody.pixelFormat) &&
         Objects.equals(this.clipLength, createVideoBody.clipLength) &&
         Objects.equals(this.clipOffset, createVideoBody.clipOffset) &&
         Objects.equals(this.startingTimecode, createVideoBody.startingTimecode) &&
@@ -356,7 +378,7 @@ public class CreateVideoBody {
 
   @Override
   public int hashCode() {
-    return Objects.hash(sourceUrl, profiles, payload, pipeline, subtitleFiles, extraFiles, extraVariables, pathFormat, clipEnd, clipLength, clipOffset, startingTimecode, storeId);
+    return Objects.hash(sourceUrl, profiles, payload, pipeline, subtitleFiles, extraFiles, extraVariables, pathFormat, clipEnd, pixelFormat, clipLength, clipOffset, startingTimecode, storeId);
   }
 
 
@@ -374,6 +396,7 @@ public class CreateVideoBody {
     sb.append("    extraVariables: ").append(toIndentedString(extraVariables)).append("\n");
     sb.append("    pathFormat: ").append(toIndentedString(pathFormat)).append("\n");
     sb.append("    clipEnd: ").append(toIndentedString(clipEnd)).append("\n");
+    sb.append("    pixelFormat: ").append(toIndentedString(pixelFormat)).append("\n");
     sb.append("    clipLength: ").append(toIndentedString(clipLength)).append("\n");
     sb.append("    clipOffset: ").append(toIndentedString(clipOffset)).append("\n");
     sb.append("    startingTimecode: ").append(toIndentedString(startingTimecode)).append("\n");

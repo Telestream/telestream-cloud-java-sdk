@@ -51,6 +51,7 @@ Name | Type | Description | Notes
 **pmtPid** | **String** |  |  [optional]
 **proresFormat** | **String** |  |  [optional]
 **segmentTime** | **String** |  |  [optional]
+**seekDecoded** | **Boolean** | Decode frames before seeking |  [optional]
 **size** | **String** |  |  [optional]
 **startingTimecode** | **String** |  |  [optional]
 **tar** | **Boolean** |  |  [optional]

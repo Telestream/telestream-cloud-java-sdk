@@ -803,6 +803,9 @@ public class Profile {
   @SerializedName("segment_time")
   private Integer segmentTime = null;
 
+  @SerializedName("seek_decoded")
+  private Boolean seekDecoded = null;
+
   @SerializedName("stack")
   private String stack = null;
 
@@ -2987,6 +2990,24 @@ public class Profile {
     this.segmentTime = segmentTime;
   }
 
+  public Profile seekDecoded(Boolean seekDecoded) {
+    this.seekDecoded = seekDecoded;
+    return this;
+  }
+
+   /**
+   * Decode frames before seeking
+   * @return seekDecoded
+  **/
+  @ApiModelProperty(value = "Decode frames before seeking")
+  public Boolean isSeekDecoded() {
+    return seekDecoded;
+  }
+
+  public void setSeekDecoded(Boolean seekDecoded) {
+    this.seekDecoded = seekDecoded;
+  }
+
   public Profile stack(String stack) {
     this.stack = stack;
     return this;
@@ -4233,6 +4254,7 @@ public class Profile {
         Objects.equals(this.presetName, profile.presetName) &&
         Objects.equals(this.proresFormat, profile.proresFormat) &&
         Objects.equals(this.segmentTime, profile.segmentTime) &&
+        Objects.equals(this.seekDecoded, profile.seekDecoded) &&
         Objects.equals(this.stack, profile.stack) &&
         Objects.equals(this.startingTimecode, profile.startingTimecode) &&
         Objects.equals(this.telestreamBlockSize, profile.telestreamBlockSize) &&
@@ -4302,7 +4324,7 @@ public class Profile {
 
   @Override
   public int hashCode() {
-    return Objects.hash(advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioMap, audioPid, audioProfile, audioSampleRate, audioStreamId, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, bumpers, byteRangeRequests, clipEnd, pixelFormat, clipLength, clipOffset, closedCaptions, colorMetadata, createdAt, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dashProfile, deinterlace, deinterlaceFrames, description, dnxhdType, encryption, extname, fps, frameCount, frameInterval, frameOffsets, h264Level, h264Profile, h264Tune, height, id, imxType, inputs, interlace, keyframeInterval, keyframeRate, lang, maxRate, mergeAudioStreams, muteAudioTracks, name, outputs, outputsPathFormat, playlistType, pmtPid, presetName, proresFormat, segmentTime, stack, startingTimecode, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, timeCode, title, trailers, transportRate, tsPids, updatedAt, upscale, useEditlist, variants, videoBitrate, videoPid, watermarkBottom, watermarkBumpers, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkTrailers, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream);
+    return Objects.hash(advancedFpsConversion, aspectMode, aspectRatio, audioBitrate, audioChannels, audioChannelsLayout, audioChannelsPerTrack, audioCodec, audioFormat, audioMap, audioPid, audioProfile, audioSampleRate, audioStreamId, audioStreams, avcintraClass, bufferSize, bufferSizeInPackets, bumpers, byteRangeRequests, clipEnd, pixelFormat, clipLength, clipOffset, closedCaptions, colorMetadata, createdAt, cropInputBottom, cropInputHeight, cropInputLeft, cropInputRight, cropInputTop, cropInputWidth, dashProfile, deinterlace, deinterlaceFrames, description, dnxhdType, encryption, extname, fps, frameCount, frameInterval, frameOffsets, h264Level, h264Profile, h264Tune, height, id, imxType, inputs, interlace, keyframeInterval, keyframeRate, lang, maxRate, mergeAudioStreams, muteAudioTracks, name, outputs, outputsPathFormat, playlistType, pmtPid, presetName, proresFormat, segmentTime, seekDecoded, stack, startingTimecode, telestreamBlockSize, telestreamBlurScaler, telestreamCostScaler, telestreamSearchLengthScaler, telestreamSubpelMode, timeCode, title, trailers, transportRate, tsPids, updatedAt, upscale, useEditlist, variants, videoBitrate, videoPid, watermarkBottom, watermarkBumpers, watermarkHeight, watermarkLeft, watermarkRight, watermarkTop, watermarkTrailers, watermarkUrl, watermarkWidth, width, x264Options, x265Options, xdcamFormat, tachyonAllowRemovePulldown, tachyonEnablePostPulldownFilter, tachyonMediaHintIsCartoon, tachyonMediaHintHasChromaNoise, tachyonMoreSensitiveRemovePulldown, tachyonAllowAddStandardPd, tachyonAllowAdd22pd, tachyonAllowAdd44pd, tachyonAllowAdd46pd, tachyonAllowAddEuroPd, tachyonAllowAddAdaptivePd, tachyonMotionAmount, tachyonFallbackSize, tachyonMblockSize, tachyonCutDetectionSensitivity, eac3EvolutionEnable, eac3BitstreamMode, eac3NinetyDegreePhaseShift, eac3ThreeDecibelAttenuation, eac3EnableLfeLowPassFilter, eac3AnalogToDigitalConverterType, eac3StereoDownmixPreference, eac3LtRtCenterMixLevel, eac3LtRtSurroundMixLevel, eac3LoRoCenterMixLevel, eac3LoRoSurroundMixLevel, eac3SurroundExMode, eac3DrcLineModeProfile, eac3DrcRfModeProfile, eac3DialogNormalization, eac3RoomType, eac3MixingLevel, eac3CopyrightProtected, eac3OriginalBitstream);
   }
 
 
@@ -4377,6 +4399,7 @@ public class Profile {
     sb.append("    presetName: ").append(toIndentedString(presetName)).append("\n");
     sb.append("    proresFormat: ").append(toIndentedString(proresFormat)).append("\n");
     sb.append("    segmentTime: ").append(toIndentedString(segmentTime)).append("\n");
+    sb.append("    seekDecoded: ").append(toIndentedString(seekDecoded)).append("\n");
     sb.append("    stack: ").append(toIndentedString(stack)).append("\n");
     sb.append("    startingTimecode: ").append(toIndentedString(startingTimecode)).append("\n");
     sb.append("    telestreamBlockSize: ").append(toIndentedString(telestreamBlockSize)).append("\n");

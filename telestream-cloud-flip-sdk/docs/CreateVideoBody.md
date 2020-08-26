@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **extraVariables** | **Map&lt;String, String&gt;** |  |  [optional]
 **pathFormat** | **String** |  |  [optional]
 **clipEnd** | **String** | Clip ends at a specific time (timecode). |  [optional]
+**pixelFormat** | **String** |  |  [optional]
 **clipLength** | **String** | A clip’s duration. |  [optional]
 **clipOffset** | **String** | Clip starts at a specific offset. |  [optional]
 **startingTimecode** | **String** |  |  [optional]
