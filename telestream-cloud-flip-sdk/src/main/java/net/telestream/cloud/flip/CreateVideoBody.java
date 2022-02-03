@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.telestream.cloud.flip.VideoExtraFile;
 
 /**
  * CreateVideoBody
@@ -48,7 +49,7 @@ public class CreateVideoBody {
   private List<String> subtitleFiles = null;
 
   @SerializedName("extra_files")
-  private Map<String, List<String>> extraFiles = null;
+  private List<VideoExtraFile> extraFiles = null;
 
   @SerializedName("extra_variables")
   private Map<String, String> extraVariables = null;
@@ -73,6 +74,9 @@ public class CreateVideoBody {
 
   @SerializedName("store_id")
   private String storeId = null;
+
+  @SerializedName("input_path")
+  private String inputPath = null;
 
   public CreateVideoBody sourceUrl(String sourceUrl) {
     this.sourceUrl = sourceUrl;
@@ -172,16 +176,16 @@ public class CreateVideoBody {
     this.subtitleFiles = subtitleFiles;
   }
 
-  public CreateVideoBody extraFiles(Map<String, List<String>> extraFiles) {
+  public CreateVideoBody extraFiles(List<VideoExtraFile> extraFiles) {
     this.extraFiles = extraFiles;
     return this;
   }
 
-  public CreateVideoBody putExtraFilesItem(String key, List<String> extraFilesItem) {
+  public CreateVideoBody addExtraFilesItem(VideoExtraFile extraFilesItem) {
     if (this.extraFiles == null) {
-      this.extraFiles = new HashMap<String, List<String>>();
+      this.extraFiles = new ArrayList<VideoExtraFile>();
     }
-    this.extraFiles.put(key, extraFilesItem);
+    this.extraFiles.add(extraFilesItem);
     return this;
   }
 
@@ -190,11 +194,11 @@ public class CreateVideoBody {
    * @return extraFiles
   **/
   @ApiModelProperty(value = "")
-  public Map<String, List<String>> getExtraFiles() {
+  public List<VideoExtraFile> getExtraFiles() {
     return extraFiles;
   }
 
-  public void setExtraFiles(Map<String, List<String>> extraFiles) {
+  public void setExtraFiles(List<VideoExtraFile> extraFiles) {
     this.extraFiles = extraFiles;
   }
 
@@ -350,6 +354,24 @@ public class CreateVideoBody {
     this.storeId = storeId;
   }
 
+  public CreateVideoBody inputPath(String inputPath) {
+    this.inputPath = inputPath;
+    return this;
+  }
+
+   /**
+   * Get inputPath
+   * @return inputPath
+  **/
+  @ApiModelProperty(value = "")
+  public String getInputPath() {
+    return inputPath;
+  }
+
+  public void setInputPath(String inputPath) {
+    this.inputPath = inputPath;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -373,12 +395,13 @@ public class CreateVideoBody {
         Objects.equals(this.clipLength, createVideoBody.clipLength) &&
         Objects.equals(this.clipOffset, createVideoBody.clipOffset) &&
         Objects.equals(this.startingTimecode, createVideoBody.startingTimecode) &&
-        Objects.equals(this.storeId, createVideoBody.storeId);
+        Objects.equals(this.storeId, createVideoBody.storeId) &&
+        Objects.equals(this.inputPath, createVideoBody.inputPath);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sourceUrl, profiles, payload, pipeline, subtitleFiles, extraFiles, extraVariables, pathFormat, clipEnd, pixelFormat, clipLength, clipOffset, startingTimecode, storeId);
+    return Objects.hash(sourceUrl, profiles, payload, pipeline, subtitleFiles, extraFiles, extraVariables, pathFormat, clipEnd, pixelFormat, clipLength, clipOffset, startingTimecode, storeId, inputPath);
   }
 
 
@@ -401,6 +424,7 @@ public class CreateVideoBody {
     sb.append("    clipOffset: ").append(toIndentedString(clipOffset)).append("\n");
     sb.append("    startingTimecode: ").append(toIndentedString(startingTimecode)).append("\n");
     sb.append("    storeId: ").append(toIndentedString(storeId)).append("\n");
+    sb.append("    inputPath: ").append(toIndentedString(inputPath)).append("\n");
     sb.append("}");
     return sb.toString();
   }

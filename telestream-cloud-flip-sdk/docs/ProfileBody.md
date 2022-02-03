@@ -121,7 +121,7 @@ Name | Type | Description | Notes
 **eac3NinetyDegreePhaseShift** | **Boolean** | Applies a 90-degree phase shift to the surround channels; necessary if the output file is being decoded by a Dolby Surround Pro Logic or Pro Logic II decoder. |  [optional]
 **eac3ThreeDecibelAttenuation** | **Boolean** | Attenuates the surround channels by 3 dB before encoding. |  [optional]
 **eac3EnableLfeLowPassFilter** | **Boolean** | Applies a 120 Hz eighth order lowpass filter to the LFE input prior to encoding. |  [optional]
-**eac3AnalogToDigitalConverterType** | **String** | Allows audio that has passed through an A/D conversion stage to be marked as such. |  [optional]
+**eac3AnalogToDigitalConverterType** | [**Eac3AnalogToDigitalConverterTypeEnum**](#Eac3AnalogToDigitalConverterTypeEnum) | Allows audio that has passed through an A/D conversion stage to be marked as such. |  [optional]
 **eac3StereoDownmixPreference** | [**Eac3StereoDownmixPreferenceEnum**](#Eac3StereoDownmixPreferenceEnum) |  |  [optional]
 **eac3LtRtCenterMixLevel** | [**Eac3LtRtCenterMixLevelEnum**](#Eac3LtRtCenterMixLevelEnum) | Indicates the level shift applied to the center channel when adding to the left and right outputs during a downmix to a Lt/Rt output. |  [optional]
 **eac3LtRtSurroundMixLevel** | [**Eac3LtRtSurroundMixLevelEnum**](#Eac3LtRtSurroundMixLevelEnum) | Indicates the level shift applied to the surround channel when adding to the left and right outputs during a downmix to a Lt/Rt output. |  [optional]
@@ -383,6 +383,14 @@ M4 | &quot;m4&quot;
 M5 | &quot;m5&quot;
 M6 | &quot;m6&quot;
 M7 | &quot;m7&quot;
+
+
+<a name="Eac3AnalogToDigitalConverterTypeEnum"></a>
+## Enum: Eac3AnalogToDigitalConverterTypeEnum
+Name | Value
+---- | -----
+STANDARD | &quot;standard&quot;
+HDCD | &quot;hdcd&quot;
 
 
 <a name="Eac3StereoDownmixPreferenceEnum"></a>

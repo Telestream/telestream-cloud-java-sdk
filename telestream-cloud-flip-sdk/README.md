@@ -142,6 +142,7 @@ Class | Method | HTTP request | Description
  - [UpdateEncodingBody](docs/UpdateEncodingBody.md)
  - [UploadSession](docs/UploadSession.md)
  - [Video](docs/Video.md)
+ - [VideoExtraFile](docs/VideoExtraFile.md)
  - [VideoMetadata](docs/VideoMetadata.md)
  - [VideoUploadBody](docs/VideoUploadBody.md)
 

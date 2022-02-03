@@ -1368,8 +1368,55 @@ public class ProfileBody {
   @SerializedName("eac3_enable_lfe_low_pass_filter")
   private Boolean eac3EnableLfeLowPassFilter = null;
 
+  /**
+   * Allows audio that has passed through an A/D conversion stage to be marked as such.
+   */
+  @JsonAdapter(Eac3AnalogToDigitalConverterTypeEnum.Adapter.class)
+  public enum Eac3AnalogToDigitalConverterTypeEnum {
+    STANDARD("standard"),
+    
+    HDCD("hdcd");
+
+    private String value;
+
+    Eac3AnalogToDigitalConverterTypeEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static Eac3AnalogToDigitalConverterTypeEnum fromValue(String text) {
+      for (Eac3AnalogToDigitalConverterTypeEnum b : Eac3AnalogToDigitalConverterTypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<Eac3AnalogToDigitalConverterTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final Eac3AnalogToDigitalConverterTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public Eac3AnalogToDigitalConverterTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return Eac3AnalogToDigitalConverterTypeEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
   @SerializedName("eac3_analog_to_digital_converter_type")
-  private String eac3AnalogToDigitalConverterType = null;
+  private Eac3AnalogToDigitalConverterTypeEnum eac3AnalogToDigitalConverterType = null;
 
   /**
    * Gets or Sets eac3StereoDownmixPreference
@@ -4005,7 +4052,7 @@ public class ProfileBody {
     this.eac3EnableLfeLowPassFilter = eac3EnableLfeLowPassFilter;
   }
 
-  public ProfileBody eac3AnalogToDigitalConverterType(String eac3AnalogToDigitalConverterType) {
+  public ProfileBody eac3AnalogToDigitalConverterType(Eac3AnalogToDigitalConverterTypeEnum eac3AnalogToDigitalConverterType) {
     this.eac3AnalogToDigitalConverterType = eac3AnalogToDigitalConverterType;
     return this;
   }
@@ -4015,11 +4062,11 @@ public class ProfileBody {
    * @return eac3AnalogToDigitalConverterType
   **/
   @ApiModelProperty(value = "Allows audio that has passed through an A/D conversion stage to be marked as such.")
-  public String getEac3AnalogToDigitalConverterType() {
+  public Eac3AnalogToDigitalConverterTypeEnum getEac3AnalogToDigitalConverterType() {
     return eac3AnalogToDigitalConverterType;
   }
 
-  public void setEac3AnalogToDigitalConverterType(String eac3AnalogToDigitalConverterType) {
+  public void setEac3AnalogToDigitalConverterType(Eac3AnalogToDigitalConverterTypeEnum eac3AnalogToDigitalConverterType) {
     this.eac3AnalogToDigitalConverterType = eac3AnalogToDigitalConverterType;
   }
 
